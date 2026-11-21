@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Baloch Ping | پینگ کمتر، بازی بهتر</title>
+  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping - دانلود آخرین نسخه اندروید، اشتراک اختصاصی و آرشیو نسخه‌ها." />
+  <meta name="theme-color" content="#05070D" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #05070D;
+      --surface: #0D121E;
+      --surface-2: #12192A;
+      --stroke: rgba(255, 255, 255, 0.08);
+      --primary: #1677FF;
+      --cyan: #00E5FF;
+      --green: #10E870;
+      --text: #F4F7FF;
+      --muted: #8E9AB2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Vazirmatn", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(600px 420px at 50% -60px, rgba(22, 119, 255, 0.28), transparent 70%),
+        radial-gradient(450px 350px at 90% 25%, rgba(0, 229, 255, 0.12), transparent 70%),
+        radial-gradient(400px 350px at 10% 75%, rgba(22, 119, 255, 0.10), transparent 70%);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5, 7, 13, 0.72);
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 66px;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--cyan), var(--primary));
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 22px rgba(22, 119, 255, 0.45);
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 0.4px;
+      direction: ltr;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 22px;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .version-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.28);
+      padding: 5px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 44px 0 28px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #CBE2FF;
+      background: rgba(22, 119, 255, 0.14);
+      border: 1px solid rgba(22, 119, 255, 0.36);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 8.5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .grad-text {
+      background: linear-gradient(95deg, var(--cyan), #4DA3FF, var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      max-width: 420px;
+      margin: 0 auto 32px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-radius: 18px;
+      background: linear-gradient(90deg, var(--cyan), var(--primary));
+      color: #04101E;
+      font-weight: 900;
+      font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 0 12px 34px rgba(22, 119, 255, 0.40);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(0, 229, 255, 0.42);
+    }
+
+    .hero-sub-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .link-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #BFD7FF;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 10px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .link-ghost:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .release-card {
+      background: linear-gradient(180deg, rgba(18, 25, 42, 0.92), rgba(11, 15, 26, 0.94));
+      border: 1px solid rgba(22, 119, 255, 0.30);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: right;
+      max-width: 560px;
+      margin: 0 auto;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .release-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .release-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-chip {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--green);
+      background: rgba(16, 232, 112, 0.12);
+      border: 1px solid rgba(16, 232, 112, 0.32);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .release-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .meta-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .meta-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .meta-val {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text);
+      direction: ltr;
+    }
+
+    .abi-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .abi-btn {
+      flex: 1 1 130px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: rgba(22, 119, 255, 0.10);
+      border: 1px solid rgba(22, 119, 255, 0.26);
+      color: #DCEBFF;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .abi-btn:hover {
+      background: rgba(22, 119, 255, 0.22);
+      border-color: var(--cyan);
+    }
+
+    section { padding: 38px 0; }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      font-size: 1.55rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      padding: 18px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(22, 119, 255, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(22, 119, 255, 0.14);
+      border: 1px solid rgba(22, 119, 255, 0.30);
+      color: var(--cyan);
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+
+    .plan-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: 22px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plan-card.popular {
+      background: linear-gradient(180deg, rgba(22, 119, 255, 0.16), rgba(13, 18, 30, 0.96));
+      border-color: rgba(0, 229, 255, 0.50);
+      box-shadow: 0 12px 34px rgba(22, 119, 255, 0.18);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -11px;
+      left: 16px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 11px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--cyan), var(--primary));
+      color: #04101E;
+    }
+
+    .plan-badge.discount {
+      background: #10203A;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 229, 255, 0.45);
+    }
+
+    .plan-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .plan-title { font-size: 1.15rem; font-weight: 900; }
+    .plan-price { font-size: 1.05rem; font-weight: 900; color: var(--cyan); }
+    .plan-sub { font-size: 0.83rem; color: var(--muted); }
+
+    .plan-btn {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      border-radius: 14px;
+      background: rgba(22, 119, 255, 0.16);
+      border: 1px solid rgba(22, 119, 255, 0.42);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .plan-card.popular .plan-btn {
+      background: linear-gradient(90deg, var(--cyan), var(--primary));
+      color: #04101E;
+      border: none;
+    }
+
+    .plan-btn:hover { opacity: 0.92; }
+
+    .archive-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .archive-item {
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .archive-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .archive-ver {
+      font-weight: 900;
+      font-size: 0.98rem;
+      color: var(--cyan);
+      direction: ltr;
+    }
+
+    .archive-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .archive-notes {
+      font-size: 0.82rem;
+      color: #B8C4DC;
+      margin-bottom: 12px;
+      white-space: pre-line;
+    }
+
+    footer {
+      border-top: 1px solid var(--stroke);
+      padding: 28px 0 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #CBE2FF;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (min-width: 720px) {
+      .nav-links { display: flex; }
+      .hero { padding: 64px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2L4 14h7l-1 8 10-12h-7l0-8z" fill="#04101E"/>
+          </svg>
+        </div>
+        <span class="brand-name">BALOCH PING</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features">امکانات</a>
+        <a href="#vip">اشتراک VIP</a>
+        <a href="#releases">آرشیو نسخه‌ها</a>
+        <a id="nav-support" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener">پشتیبانی</a>
+      </nav>
+
+      <span id="top-version" class="version-pill">نسخه رسمی</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="dot-live"></span>
+        <span>وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping</span>
+      </div>
+
+      <h1>پینگ <span class="grad-text">کمتر،</span><br />بازی <span class="grad-text">بهتر.</span></h1>
+      <p class="hero-sub">
+        یک لمس، اتصال پایدار و رجیستر دقیق تیر در بازی‌های آنلاین موبایل — بدون لگ و با نمایش واقعی وضعیت شبکه.
+      </p>
+
+      <div class="hero-actions">
+        <a id="main-download-btn" href="#releases" class="btn-primary">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span id="main-download-label">دانلود برای اندروید</span>
+        </a>
+
+        <div class="hero-sub-links">
+          <a href="#vip" class="link-ghost">👑 خرید اشتراک VIP</a>
+          <a id="hero-support-link" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener" class="link-ghost">✈️ پشتیبانی تلگرام</a>
+        </div>
+      </div>
+
+      <div class="release-card">
+        <div class="release-top">
+          <div class="release-title">
+            <span class="dot-live"></span>
+            <span>آخرین نسخه منتشرشده</span>
+          </div>
+          <span class="status-chip">دانلود مستقیم</span>
+        </div>
+
+        <div class="release-meta">
+          <div class="meta-box">
+            <div class="meta-label">نسخه</div>
+            <div id="card-ver" class="meta-val">...</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">حجم فایل</div>
+            <div id="card-size" class="meta-val">...</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-label">سیستم‌عامل</div>
+            <div class="meta-val">Android 8+</div>
+          </div>
+        </div>
+
+        <div id="latest-abis" class="abi-list"></div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <h2>چرا Baloch Ping؟</h2>
+        <p>طراحی‌شده اختصاصی برای گیمرهای پابجی، کالاف دیوتی موبایل و ای‌فوتبال</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>پینگ واقعی و پایدار</h3>
+          <p>تست مستقیم از هسته برنامه بدون فشار اضافه روی اینترنت حین بازی و بدون آمار نمایشی.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>انتخاب هوشمند سرور</h3>
+          <p>پیدا کردن و اتصال خودکار به کم‌پینگ‌ترین سرور تنها با یک کلیک از طریق Auto Select.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>تم‌های رنگی پویا</h3>
+          <p>رابط کاربری گیمینگ با امکان تغییر رنگ کامل محیط برنامه مطابق سلیقه شما.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>آی‌پی ثابت و تحویل آنی</h3>
+          <p>سرورهای اختصاصی VIP با آپدیت خودکار و پشتیبانی مستقیم در تلگرام.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="vip">
+      <div class="section-head">
+        <h2 id="vip-title">اشتراک اختصاصی VIP</h2>
+        <p id="vip-subtitle">اتصال پایدار به سرورهای اختصاصی با کمترین پینگ در بازی‌های آنلاین</p>
+      </div>
+      <div id="plans-grid" class="plans-grid"></div>
+    </section>
+
+    <section id="releases">
+      <div class="section-head">
+        <h2>آرشیو نسخه‌ها</h2>
+        <p>دانلود مستقیم و بدون نیاز به فیلترشکن تمام فایل‌های رسمی</p>
+      </div>
+      <div id="archive-list" class="archive-list">
+        <div class="archive-item" style="text-align:center;color:var(--muted);">در حال دریافت لیست نسخه‌ها...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#features">امکانات</a>
+        <a href="#vip">اشتراک‌ها</a>
+        <a href="#releases">دانلود نسخه‌ها</a>
+        <a id="footer-support" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener">پشتیبانی تلگرام</a>
+      </div>
+      <p id="footer-note">تحویل آنی از طریق پشتیبانی • تضمین کیفیت و پایداری سرورها</p>
+      <p style="margin-top:6px;opacity:0.65;">© Baloch Ping — تمامی حقوق محفوظ است</p>
+    </div>
+  </footer>
+
+  <script>
+    const FALLBACK_SUPPORT = "https://t.me/DNS_GAMINGX";
+    const FALLBACK_VIP = {
+      hero_title: "اشتراک اختصاصی VIP",
+      hero_subtitle: "اتصال پایدار به سرورهای اختصاصی با کمترین پینگ در بازی‌های آنلاین",
+      support_url: FALLBACK_SUPPORT,
+      footer_note: "تحویل آنی از طریق پشتیبانی • تضمین کیفیت و پایداری سرورها",
+      plans: [
+        { title: "۵ گیگابایت", subtitle: "مناسب تست و استفاده روزمره", price: "۵۰ هزار تومان" },
+        { title: "۱۰ گیگابایت", subtitle: "مناسب گیمرهای حرفه‌ای", price: "۱۰۰ هزار تومان", badge: "پرطرفدار", is_popular: true },
+        { title: "۲۰ گیگابایت", subtitle: "حجم بالا با قیمت اقتصادی", price: "۱۹۰ هزار تومان", badge: "۱۰ هزار تومان تخفیف", is_discount_badge: true }
+      ]
+    };
+
+    const esc = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+    const isSafeUrl = (u) => typeof u === "string" && /^(https?:\/\/|tg:\/\/)/i.test(u.trim());
+    const proxyUrl = (url) => "/download?url=" + encodeURIComponent(url);
+    const fmtSize = (bytes) => bytes ? (bytes / (1024 * 1024)).toFixed(1) + " MB" : "—";
+    const fmtDate = (iso) => {
+      if (!iso) return "";
+      try { return new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(iso)); }
+      catch { return iso.slice(0, 10); }
+    };
+
+    function abiLabel(name) {
+      const n = name.toLowerCase();
+      if (n.includes("universal")) return "نسخه کامل (Universal)";
+      if (n.includes("arm64")) return "گوشی‌های جدید (arm64)";
+      if (n.includes("armeabi")) return "گوشی‌های قدیمی‌تر (arm32)";
+      if (n.includes("x86_64")) return "شبیه‌ساز (x86_64)";
+      return name;
+    }
+
+    function pickBestAsset(assets) {
+      if (!assets || !assets.length) return null;
+      return assets.find((a) => a.name.toLowerCase().includes("universal"))
+        || assets.find((a) => a.name.toLowerCase().includes("arm64"))
+        || assets[0];
+    }
+
+    function buildBuyUrl(baseUrl, plan) {
+      const target = isSafeUrl(baseUrl) ? baseUrl.trim() : FALLBACK_SUPPORT;
+      if (!target.toLowerCase().includes("t.me/") || target.toLowerCase().includes("text=")) return target;
+      const msg = `سلام، قصد خرید بسته ${plan.title} (${plan.price}) بلوچ پینگ رو دارم.`;
+      return target + (target.includes("?") ? "&" : "?") + "text=" + encodeURIComponent(msg);
+    }
+
+    function renderVip(vipData) {
+      const cfg = (vipData && Array.isArray(vipData.plans) && vipData.plans.length) ? vipData : FALLBACK_VIP;
+      const support = isSafeUrl(cfg.support_url) && !cfg.support_url.includes("YOUR_ID") ? cfg.support_url : FALLBACK_SUPPORT;
+
+      document.getElementById("nav-support").href = support;
+      document.getElementById("hero-support-link").href = support;
+      document.getElementById("footer-support").href = support;
+      if (cfg.hero_title) document.getElementById("vip-title").textContent = cfg.hero_title;
+      if (cfg.hero_subtitle) document.getElementById("vip-subtitle").textContent = cfg.hero_subtitle;
+      if (cfg.footer_note) document.getElementById("footer-note").textContent = cfg.footer_note;
+
+      const grid = document.getElementById("plans-grid");
+      grid.innerHTML = cfg.plans.map((p) => {
+        const isPop = !!p.is_popular;
+        const isDisc = p.is_discount_badge !== undefined ? !!p.is_discount_badge : (!!p.badge && !isPop);
+        const buyHref = buildBuyUrl(p.buy_url || support, p);
+        return `
+          <div class="plan-card ${isPop ? "popular" : ""}">
+            ${p.badge ? `<span class="plan-badge ${isDisc ? "discount" : ""}">${esc(p.badge)}</span>` : ""}
+            <div class="plan-head">
+              <div class="plan-title">${esc(p.title)}</div>
+              <div class="plan-price">${esc(p.price)}</div>
+            </div>
+            ${p.subtitle ? `<div class="plan-sub">${esc(p.subtitle)}</div>` : ""}
+            <a class="plan-btn" href="${esc(buyHref)}" target="_blank" rel="noopener">خرید بسته ${esc(p.title)} ←</a>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderReleases(releases) {
+      const archive = document.getElementById("archive-list");
+      const latestAbis = document.getElementById("latest-abis");
+
+      if (!releases || !releases.length) {
+        document.getElementById("card-ver").textContent = "به زودی";
+        document.getElementById("card-size").textContent = "—";
+        archive.innerHTML = `<div class="archive-item" style="text-align:center;color:var(--muted);">هنوز نسخه‌ای در ریلیزها منتشر نشده است. به محض انتشار، خودکار اینجا نمایش داده می‌شود.</div>`;
+        return;
+      }
+
+      const latest = releases[0];
+      const best = pickBestAsset(latest.assets);
+      const verText = latest.tag || latest.name;
+
+      document.getElementById("top-version").textContent = "نسخه " + verText;
+      document.getElementById("card-ver").textContent = verText;
+      document.getElementById("card-size").textContent = best ? fmtSize(best.size) : "—";
+
+      if (best) {
+        const btn = document.getElementById("main-download-btn");
+        btn.href = proxyUrl(best.url);
+        document.getElementById("main-download-label").textContent = `دانلود برای اندروید (${verText})`;
+      }
+
+      latestAbis.innerHTML = (latest.assets || []).map((a) => `
+        <a class="abi-btn" href="${esc(proxyUrl(a.url))}">
+          <span>${esc(abiLabel(a.name))}</span>
+          <span style="opacity:0.75;direction:ltr;">${esc(fmtSize(a.size))}</span>
+        </a>
+      `).join("");
+
+      archive.innerHTML = releases.map((r) => `
+        <div class="archive-item">
+          <div class="archive-head">
+            <span class="archive-ver">${esc(r.name || r.tag)}</span>
+            <span class="archive-date">${esc(fmtDate(r.published_at))}</span>
+          </div>
+          ${r.body ? `<div class="archive-notes">${esc(r.body)}</div>` : ""}
+          <div class="abi-list">
+            ${(r.assets || []).map((a) => `
+              <a class="abi-btn" href="${esc(proxyUrl(a.url))}">
+                <span>⬇ ${esc(abiLabel(a.name))}</span>
+                <span style="opacity:0.75;direction:ltr;">${esc(fmtSize(a.size))}</span>
+              </a>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    (async () => {
+      try {
+        const res = await fetch("/api");
+        const data = await res.json();
+        renderVip(data.vip);
+        renderReleases(data.releases);
+      } catch {
+        renderVip(null);
+        renderReleases([]);
+      }
+    })();
+  </script>
+</body>
+</html>
