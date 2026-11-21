@@ -4,25 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Baloch Ping | پینگ کمتر، بازی بهتر</title>
-  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping - دانلود آخرین نسخه اندروید، اشتراک اختصاصی و آرشیو نسخه‌ها." />
-  <meta name="theme-color" content="#05070D" />
+  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping - دانلود مستقیم آخرین نسخه اندروید و اشتراک اختصاصی گیمینگ." />
+  <meta name="theme-color" content="#04060C" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
   <style>
     :root {
-      --bg: #05070D;
-      --surface: #0D121E;
-      --surface-2: #12192A;
-      --stroke: rgba(255, 255, 255, 0.08);
+      --bg: #04060C;
+      --panel: #0A0F1C;
+      --panel-2: #0F172A;
+      --stroke: rgba(56, 189, 248, 0.16);
+      --stroke-strong: rgba(0, 229, 255, 0.45);
       --primary: #1677FF;
       --cyan: #00E5FF;
       --green: #10E870;
-      --text: #F4F7FF;
-      --muted: #8E9AB2;
+      --text: #F4F8FF;
+      --muted: #8B9BB8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     body {
       font-family: "Vazirmatn", system-ui, -apple-system, sans-serif;
       background: var(--bg);
@@ -32,39 +34,44 @@
       line-height: 1.7;
     }
 
-    .bg-glow {
+    /* Cyber Grid & Ambient Neon Glow */
+    .bg-layer {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: -1;
       background:
-        radial-gradient(600px 420px at 50% -60px, rgba(22, 119, 255, 0.28), transparent 70%),
-        radial-gradient(450px 350px at 90% 25%, rgba(0, 229, 255, 0.12), transparent 70%),
-        radial-gradient(400px 350px at 10% 75%, rgba(22, 119, 255, 0.10), transparent 70%);
+        radial-gradient(620px 420px at 50% -80px, rgba(22, 119, 255, 0.30), transparent 72%),
+        radial-gradient(460px 340px at 92% 22%, rgba(0, 229, 255, 0.14), transparent 70%),
+        radial-gradient(440px 340px at 8% 78%, rgba(22, 119, 255, 0.12), transparent 70%),
+        linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+      background-size: auto, auto, auto, 34px 34px, 34px 34px;
     }
 
     .container {
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 18px;
+      padding: 0 16px;
     }
 
+    /* Header */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      background: rgba(5, 7, 13, 0.72);
-      border-bottom: 1px solid var(--stroke);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(4, 6, 12, 0.80);
+      border-bottom: 1px solid rgba(0, 229, 255, 0.14);
     }
 
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 66px;
+      height: 64px;
       gap: 12px;
     }
 
@@ -79,63 +86,112 @@
     .brand-icon {
       width: 38px;
       height: 38px;
-      border-radius: 12px;
+      border-radius: 10px;
       background: linear-gradient(135deg, var(--cyan), var(--primary));
       display: grid;
       place-items: center;
-      box-shadow: 0 0 22px rgba(22, 119, 255, 0.45);
+      box-shadow: 0 0 22px rgba(22, 119, 255, 0.50);
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
       flex-shrink: 0;
     }
 
     .brand-name {
       font-weight: 900;
-      font-size: 1.05rem;
-      letter-spacing: 0.4px;
+      font-size: 1.04rem;
+      letter-spacing: 0.8px;
       direction: ltr;
     }
 
     .nav-links {
       display: none;
       align-items: center;
-      gap: 22px;
+      gap: 24px;
     }
+
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.88rem;
+      font-weight: 700;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+
+    .nav-links a:hover { color: var(--cyan); }
 
     .version-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: 0.78rem;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--cyan);
       background: rgba(0, 229, 255, 0.08);
-      border: 1px solid rgba(0, 229, 255, 0.28);
+      border: 1px solid rgba(0, 229, 255, 0.32);
       padding: 5px 12px;
-      border-radius: 999px;
+      border-radius: 8px;
       white-space: nowrap;
+      direction: ltr;
     }
 
+    /* Gaming HUD Panel Base */
+    .hud-panel {
+      position: relative;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(7, 11, 22, 0.96));
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 18px 46px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .hud-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 16%;
+      right: 16%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--primary), transparent);
+      opacity: 0.85;
+    }
+
+    .hud-corners::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 16px;
+      background:
+        linear-gradient(to right, var(--cyan) 2px, transparent 2px) 0 0 / 14px 14px no-repeat,
+        linear-gradient(to bottom, var(--cyan) 2px, transparent 2px) 0 0 / 14px 14px no-repeat,
+        linear-gradient(to left, var(--cyan) 2px, transparent 2px) 100% 0 / 14px 14px no-repeat,
+        linear-gradient(to bottom, var(--cyan) 2px, transparent 2px) 100% 0 / 14px 14px no-repeat,
+        linear-gradient(to right, var(--primary) 2px, transparent 2px) 0 100% / 14px 14px no-repeat,
+        linear-gradient(to top, var(--primary) 2px, transparent 2px) 0 100% / 14px 14px no-repeat,
+        linear-gradient(to left, var(--primary) 2px, transparent 2px) 100% 100% / 14px 14px no-repeat,
+        linear-gradient(to top, var(--primary) 2px, transparent 2px) 100% 100% / 14px 14px no-repeat;
+      opacity: 0.55;
+    }
+
+    /* Hero */
     .hero {
       text-align: center;
-      padding: 44px 0 28px;
+      padding: 40px 0 24px;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: #CBE2FF;
+      color: #D2E8FF;
       background: rgba(22, 119, 255, 0.14);
-      border: 1px solid rgba(22, 119, 255, 0.36);
+      border: 1px solid rgba(0, 229, 255, 0.30);
       padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 20px;
+      border-radius: 8px;
+      margin-bottom: 18px;
     }
 
     .dot-live {
@@ -143,14 +199,15 @@
       height: 8px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 10px var(--green);
+      box-shadow: 0 0 12px var(--green);
+      flex-shrink: 0;
     }
 
     h1 {
-      font-size: clamp(2.2rem, 8.5vw, 3.6rem);
+      font-size: clamp(2.15rem, 8.5vw, 3.6rem);
       font-weight: 900;
       line-height: 1.25;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       letter-spacing: -0.5px;
     }
 
@@ -162,9 +219,9 @@
 
     .hero-sub {
       color: var(--muted);
-      font-size: 0.98rem;
-      max-width: 520px;
-      margin: 0 auto 28px;
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0 auto 26px;
     }
 
     .hero-actions {
@@ -172,8 +229,8 @@
       flex-direction: column;
       align-items: center;
       gap: 14px;
-      max-width: 420px;
-      margin: 0 auto 32px;
+      max-width: 430px;
+      margin: 0 auto 30px;
     }
 
     .btn-primary {
@@ -182,60 +239,69 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 16px 24px;
-      border-radius: 18px;
-      background: linear-gradient(90deg, var(--cyan), var(--primary));
-      color: #04101E;
+      padding: 15px 22px;
+      background: linear-gradient(95deg, var(--cyan), var(--primary));
+      color: #03101F;
       font-weight: 900;
-      font-size: 1.05rem;
+      font-size: 1rem;
       text-decoration: none;
-      box-shadow: 0 12px 34px rgba(22, 119, 255, 0.40);
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
-      cursor: pointer;
-      border: none;
-      font-family: inherit;
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+      box-shadow: 0 12px 36px rgba(22, 119, 255, 0.45);
+      transition: transform 0.18s ease, filter 0.18s ease;
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(0, 229, 255, 0.42);
+      filter: brightness(1.08);
+    }
+
+    .btn-ver-tag {
+      font-size: 0.82rem;
+      font-weight: 900;
+      background: rgba(3, 16, 31, 0.16);
+      padding: 2px 9px;
+      border-radius: 6px;
+      direction: ltr;
+      white-space: nowrap;
     }
 
     .hero-sub-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
     }
 
-    .link-ghost {
+    .btn-secondary {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      color: #BFD7FF;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      color: #D7EAFF;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      padding: 6px 10px;
-      border-radius: 10px;
-      transition: color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
 
-    .link-ghost:hover {
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      background: rgba(22, 119, 255, 0.16);
       color: #fff;
-      background: rgba(255, 255, 255, 0.06);
     }
 
+    .btn-secondary svg { color: var(--cyan); flex-shrink: 0; }
+
+    /* Latest Release Panel */
     .release-card {
-      background: linear-gradient(180deg, rgba(18, 25, 42, 0.92), rgba(11, 15, 26, 0.94));
-      border: 1px solid rgba(22, 119, 255, 0.30);
-      border-radius: 24px;
-      padding: 20px;
+      padding: 20px 18px;
       text-align: right;
-      max-width: 560px;
+      max-width: 580px;
       margin: 0 auto;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
     }
 
     .release-top {
@@ -243,11 +309,13 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
 
     .release-title {
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -255,13 +323,14 @@
     }
 
     .status-chip {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 800;
       color: var(--green);
-      background: rgba(16, 232, 112, 0.12);
+      background: rgba(16, 232, 112, 0.10);
       border: 1px solid rgba(16, 232, 112, 0.32);
       padding: 4px 10px;
-      border-radius: 999px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
 
     .release-meta {
@@ -272,59 +341,141 @@
     }
 
     .meta-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--stroke);
-      border-radius: 14px;
-      padding: 10px;
+      background: rgba(4, 8, 18, 0.65);
+      border: 1px solid rgba(56, 189, 248, 0.14);
+      border-radius: 10px;
+      padding: 10px 8px;
       text-align: center;
     }
 
     .meta-label {
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       color: var(--muted);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .meta-val {
-      font-size: 0.92rem;
-      font-weight: 800;
+      font-size: 0.9rem;
+      font-weight: 900;
       color: var(--text);
       direction: ltr;
+      white-space: nowrap;
+    }
+
+    .release-notes {
+      display: none;
+      background: rgba(0, 229, 255, 0.05);
+      border-right: 3px solid var(--cyan);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      font-size: 0.82rem;
+      color: #C7D7F2;
+      white-space: pre-line;
+    }
+
+    .release-notes-head {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--cyan);
+      margin-bottom: 4px;
     }
 
     .abi-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: column;
+      gap: 9px;
     }
 
     .abi-btn {
-      flex: 1 1 130px;
-      display: inline-flex;
+      width: 100%;
+      display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
-      padding: 9px 12px;
-      border-radius: 12px;
-      background: rgba(22, 119, 255, 0.10);
-      border: 1px solid rgba(22, 119, 255, 0.26);
-      color: #DCEBFF;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 11px;
+      background: linear-gradient(90deg, rgba(22, 119, 255, 0.14), rgba(15, 23, 42, 0.85));
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      color: #EAF3FF;
       text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 700;
-      transition: background 0.2s, border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
     }
 
     .abi-btn:hover {
-      background: rgba(22, 119, 255, 0.22);
       border-color: var(--cyan);
+      background: linear-gradient(90deg, rgba(0, 229, 255, 0.18), rgba(22, 119, 255, 0.20));
+      transform: translateY(-1px);
     }
 
-    section { padding: 38px 0; }
+    .abi-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .abi-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.26);
+      color: var(--cyan);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .abi-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+    }
+
+    .abi-name {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .abi-arch {
+      font-size: 0.72rem;
+      color: var(--muted);
+      direction: ltr;
+      text-align: right;
+    }
+
+    .abi-size {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--cyan);
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.24);
+      padding: 4px 10px;
+      border-radius: 7px;
+      direction: ltr;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Sections */
+    section { padding: 34px 0; }
 
     .section-head {
       text-align: center;
       margin-bottom: 24px;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 6px;
+      direction: ltr;
     }
 
     .section-head h2 {
@@ -335,9 +486,16 @@
 
     .section-head p {
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
+    .ltr-inline {
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+    }
+
+    /* Gaming Feature Panels */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -345,161 +503,162 @@
     }
 
     .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--stroke);
-      border-radius: 20px;
-      padding: 18px;
-      transition: border-color 0.2s, transform 0.2s;
+      padding: 20px 18px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
     }
 
     .feature-card:hover {
-      border-color: rgba(22, 119, 255, 0.45);
-      transform: translateY(-2px);
+      border-color: var(--stroke-strong);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 38px rgba(0, 229, 255, 0.12);
     }
 
     .feature-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: rgba(22, 119, 255, 0.14);
-      border: 1px solid rgba(22, 119, 255, 0.30);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0, 229, 255, 0.16), rgba(22, 119, 255, 0.16));
+      border: 1px solid rgba(0, 229, 255, 0.34);
       color: var(--cyan);
       display: grid;
       place-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.14);
     }
 
     .feature-card h3 {
-      font-size: 1rem;
-      font-weight: 800;
+      font-size: 0.98rem;
+      font-weight: 900;
       margin-bottom: 6px;
     }
 
     .feature-card p {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       color: var(--muted);
     }
 
+    /* Gaming VIP Panels */
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 14px;
+      gap: 16px;
     }
 
     .plan-card {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--stroke);
-      border-radius: 22px;
-      padding: 20px;
+      padding: 22px 18px 18px;
       display: flex;
       flex-direction: column;
       gap: 14px;
+      overflow: visible;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .plan-card:hover {
+      border-color: var(--stroke-strong);
+      transform: translateY(-2px);
     }
 
     .plan-card.popular {
-      background: linear-gradient(180deg, rgba(22, 119, 255, 0.16), rgba(13, 18, 30, 0.96));
-      border-color: rgba(0, 229, 255, 0.50);
-      box-shadow: 0 12px 34px rgba(22, 119, 255, 0.18);
+      background: linear-gradient(180deg, rgba(22, 119, 255, 0.20), rgba(8, 13, 25, 0.96));
+      border-color: rgba(0, 229, 255, 0.55);
+      box-shadow: 0 16px 40px rgba(22, 119, 255, 0.24);
     }
 
     .plan-badge {
       position: absolute;
-      top: -11px;
+      top: -12px;
       left: 16px;
       font-size: 0.72rem;
-      font-weight: 800;
-      padding: 3px 11px;
-      border-radius: 999px;
+      font-weight: 900;
+      padding: 3px 12px;
+      border-radius: 6px;
       background: linear-gradient(90deg, var(--cyan), var(--primary));
-      color: #04101E;
+      color: #03101F;
+      box-shadow: 0 4px 16px rgba(0, 229, 255, 0.35);
     }
 
     .plan-badge.discount {
-      background: #10203A;
+      background: #0A1B33;
       color: var(--cyan);
-      border: 1px solid rgba(0, 229, 255, 0.45);
+      border: 1px solid rgba(0, 229, 255, 0.50);
+      box-shadow: none;
     }
 
     .plan-head {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
       gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
 
-    .plan-title { font-size: 1.15rem; font-weight: 900; }
-    .plan-price { font-size: 1.05rem; font-weight: 900; color: var(--cyan); }
-    .plan-sub { font-size: 0.83rem; color: var(--muted); }
+    .plan-title {
+      font-size: 1.12rem;
+      font-weight: 900;
+    }
+
+    .plan-price {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .plan-sub {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .plan-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #C7D7F2;
+    }
+
+    .plan-perk {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .plan-perk svg {
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
 
     .plan-btn {
       margin-top: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 11px 16px;
-      border-radius: 14px;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 10px;
       background: rgba(22, 119, 255, 0.16);
-      border: 1px solid rgba(22, 119, 255, 0.42);
+      border: 1px solid rgba(0, 229, 255, 0.35);
       color: #fff;
       font-weight: 800;
       font-size: 0.88rem;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
 
     .plan-card.popular .plan-btn {
-      background: linear-gradient(90deg, var(--cyan), var(--primary));
-      color: #04101E;
+      background: linear-gradient(95deg, var(--cyan), var(--primary));
+      color: #03101F;
       border: none;
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
     }
 
-    .plan-btn:hover { opacity: 0.92; }
+    .plan-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
 
-    .archive-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .archive-item {
-      background: var(--surface);
-      border: 1px solid var(--stroke);
-      border-radius: 18px;
-      padding: 16px;
-    }
-
-    .archive-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .archive-ver {
-      font-weight: 900;
-      font-size: 0.98rem;
-      color: var(--cyan);
-      direction: ltr;
-    }
-
-    .archive-date {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .archive-notes {
-      font-size: 0.82rem;
-      color: #B8C4DC;
-      margin-bottom: 12px;
-      white-space: pre-line;
-    }
-
+    /* Footer */
     footer {
-      border-top: 1px solid var(--stroke);
-      padding: 28px 0 40px;
+      border-top: 1px solid rgba(0, 229, 255, 0.12);
+      padding: 26px 0 38px;
       text-align: center;
       color: var(--muted);
       font-size: 0.82rem;
@@ -508,7 +667,7 @@
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 18px;
       margin-bottom: 12px;
       flex-wrap: wrap;
     }
@@ -517,36 +676,39 @@
       color: #CBE2FF;
       text-decoration: none;
       font-weight: 700;
+      transition: color 0.2s;
     }
+
+    .footer-links a:hover { color: var(--cyan); }
 
     @media (min-width: 720px) {
       .nav-links { display: flex; }
-      .hero { padding: 64px 0 36px; }
+      .hero { padding: 60px 0 34px; }
     }
   </style>
 </head>
 <body>
-  <div class="bg-glow"></div>
+  <div class="bg-layer"></div>
 
   <header>
     <div class="container nav">
       <a href="#" class="brand">
         <div class="brand-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2L4 14h7l-1 8 10-12h-7l0-8z" fill="#04101E"/>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2L4 14h7l-1 8 10-12h-7l0-8z" fill="#03101F"/>
           </svg>
         </div>
         <span class="brand-name">BALOCH PING</span>
       </a>
 
       <nav class="nav-links">
+        <a href="#download">دانلود</a>
         <a href="#features">امکانات</a>
         <a href="#vip">اشتراک VIP</a>
-        <a href="#releases">آرشیو نسخه‌ها</a>
         <a id="nav-support" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener">پشتیبانی</a>
       </nav>
 
-      <span id="top-version" class="version-pill">نسخه رسمی</span>
+      <span id="top-version" class="version-pill">Official</span>
     </div>
   </header>
 
@@ -554,7 +716,7 @@
     <section class="hero">
       <div class="hero-badge">
         <span class="dot-live"></span>
-        <span>وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping</span>
+        <span>وب‌سایت رسمی اپلیکیشن گیمینگ <span class="ltr-inline">Baloch Ping</span></span>
       </div>
 
       <h1>پینگ <span class="grad-text">کمتر،</span><br />بازی <span class="grad-text">بهتر.</span></h1>
@@ -563,28 +725,41 @@
       </p>
 
       <div class="hero-actions">
-        <a id="main-download-btn" href="#releases" class="btn-primary">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <a id="main-download-btn" href="#download" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          <span id="main-download-label">دانلود برای اندروید</span>
+          <span>دانلود برای اندروید</span>
+          <span id="main-download-ver" class="btn-ver-tag" style="display:none;"></span>
         </a>
 
         <div class="hero-sub-links">
-          <a href="#vip" class="link-ghost">👑 خرید اشتراک VIP</a>
-          <a id="hero-support-link" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener" class="link-ghost">✈️ پشتیبانی تلگرام</a>
+          <a href="#vip" class="btn-secondary">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 18h20"/>
+              <path d="M4 15L2 6l6 4 4-6 4 6 6-4-2 9H4z"/>
+            </svg>
+            <span>خرید اشتراک VIP</span>
+          </a>
+          <a id="hero-support-link" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener" class="btn-secondary">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"/>
+              <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+            </svg>
+            <span>پشتیبانی تلگرام</span>
+          </a>
         </div>
       </div>
 
-      <div class="release-card">
+      <div id="download" class="hud-panel hud-corners release-card">
         <div class="release-top">
           <div class="release-title">
             <span class="dot-live"></span>
-            <span>آخرین نسخه منتشرشده</span>
+            <span>آخرین نسخه رسمی</span>
           </div>
-          <span class="status-chip">دانلود مستقیم</span>
+          <span id="card-date" class="status-chip">دانلود مستقیم</span>
         </div>
 
         <div class="release-meta">
@@ -602,34 +777,69 @@
           </div>
         </div>
 
-        <div id="latest-abis" class="abi-list"></div>
+        <div id="latest-notes" class="release-notes">
+          <div class="release-notes-head">تغییرات این نسخه</div>
+          <div id="latest-notes-body"></div>
+        </div>
+
+        <div id="latest-abis" class="abi-list">
+          <div style="text-align:center;color:var(--muted);font-size:0.84rem;padding:8px 0;">در حال دریافت لینک‌های دانلود...</div>
+        </div>
       </div>
     </section>
 
     <section id="features">
       <div class="section-head">
-        <h2>چرا Baloch Ping؟</h2>
+        <span class="section-kicker">GAMING PERFORMANCE</span>
+        <h2>چرا <span class="ltr-inline">Baloch Ping</span>؟</h2>
         <p>طراحی‌شده اختصاصی برای گیمرهای پابجی، کالاف دیوتی موبایل و ای‌فوتبال</p>
       </div>
 
       <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
+        <div class="hud-panel feature-card">
+          <div class="feature-icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
           <h3>پینگ واقعی و پایدار</h3>
           <p>تست مستقیم از هسته برنامه بدون فشار اضافه روی اینترنت حین بازی و بدون آمار نمایشی.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
+
+        <div class="hud-panel feature-card">
+          <div class="feature-icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="12" y1="2" x2="12" y2="5"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="5" y2="12"/>
+              <line x1="19" y1="12" x2="22" y2="12"/>
+            </svg>
+          </div>
           <h3>انتخاب هوشمند سرور</h3>
           <p>پیدا کردن و اتصال خودکار به کم‌پینگ‌ترین سرور تنها با یک کلیک از طریق Auto Select.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🎨</div>
+
+        <div class="hud-panel feature-card">
+          <div class="feature-icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+              <polyline points="2 17 12 22 22 17"/>
+              <polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
           <h3>تم‌های رنگی پویا</h3>
           <p>رابط کاربری گیمینگ با امکان تغییر رنگ کامل محیط برنامه مطابق سلیقه شما.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
+
+        <div class="hud-panel feature-card">
+          <div class="feature-icon">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
           <h3>آی‌پی ثابت و تحویل آنی</h3>
           <p>سرورهای اختصاصی VIP با آپدیت خودکار و پشتیبانی مستقیم در تلگرام.</p>
         </div>
@@ -638,40 +848,31 @@
 
     <section id="vip">
       <div class="section-head">
-        <h2 id="vip-title">اشتراک اختصاصی VIP</h2>
+        <span class="section-kicker">VIP GAMING ACCESS</span>
+        <h2 id="vip-title">اشتراک اختصاصی گیمینگ</h2>
         <p id="vip-subtitle">اتصال پایدار به سرورهای اختصاصی با کمترین پینگ در بازی‌های آنلاین</p>
       </div>
       <div id="plans-grid" class="plans-grid"></div>
-    </section>
-
-    <section id="releases">
-      <div class="section-head">
-        <h2>آرشیو نسخه‌ها</h2>
-        <p>دانلود مستقیم و بدون نیاز به فیلترشکن تمام فایل‌های رسمی</p>
-      </div>
-      <div id="archive-list" class="archive-list">
-        <div class="archive-item" style="text-align:center;color:var(--muted);">در حال دریافت لیست نسخه‌ها...</div>
-      </div>
     </section>
   </main>
 
   <footer>
     <div class="container">
       <div class="footer-links">
+        <a href="#download">دانلود آخرین نسخه</a>
         <a href="#features">امکانات</a>
-        <a href="#vip">اشتراک‌ها</a>
-        <a href="#releases">دانلود نسخه‌ها</a>
+        <a href="#vip">اشتراک VIP</a>
         <a id="footer-support" href="https://t.me/DNS_GAMINGX" target="_blank" rel="noopener">پشتیبانی تلگرام</a>
       </div>
       <p id="footer-note">تحویل آنی از طریق پشتیبانی • تضمین کیفیت و پایداری سرورها</p>
-      <p style="margin-top:6px;opacity:0.65;">© Baloch Ping — تمامی حقوق محفوظ است</p>
+      <p style="margin-top:6px;opacity:0.62;">© Baloch Ping — تمامی حقوق محفوظ است</p>
     </div>
   </footer>
 
   <script>
     const FALLBACK_SUPPORT = "https://t.me/DNS_GAMINGX";
     const FALLBACK_VIP = {
-      hero_title: "اشتراک اختصاصی VIP",
+      hero_title: "اشتراک اختصاصی گیمینگ",
       hero_subtitle: "اتصال پایدار به سرورهای اختصاصی با کمترین پینگ در بازی‌های آنلاین",
       support_url: FALLBACK_SUPPORT,
       footer_note: "تحویل آنی از طریق پشتیبانی • تضمین کیفیت و پایداری سرورها",
@@ -682,29 +883,33 @@
       ]
     };
 
+    const DOWNLOAD_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+    const CHECK_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+    const ARROW_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`;
+
     const esc = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
     const isSafeUrl = (u) => typeof u === "string" && /^(https?:\/\/|tg:\/\/)/i.test(u.trim());
     const proxyUrl = (url) => "/download?url=" + encodeURIComponent(url);
     const fmtSize = (bytes) => bytes ? (bytes / (1024 * 1024)).toFixed(1) + " MB" : "—";
     const fmtDate = (iso) => {
-      if (!iso) return "";
+      if (!iso) return "دانلود مستقیم";
       try { return new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(iso)); }
-      catch { return iso.slice(0, 10); }
+      catch { return "دانلود مستقیم"; }
     };
 
-    function abiLabel(name) {
+    function abiMeta(name) {
       const n = name.toLowerCase();
-      if (n.includes("universal")) return "نسخه کامل (Universal)";
-      if (n.includes("arm64")) return "گوشی‌های جدید (arm64)";
-      if (n.includes("armeabi")) return "گوشی‌های قدیمی‌تر (arm32)";
-      if (n.includes("x86_64")) return "شبیه‌ساز (x86_64)";
-      return name;
+      if (n.includes("universal")) return { label: "نسخه کامل برای همه گوشی‌ها", arch: "Universal APK" };
+      if (n.includes("arm64")) return { label: "گوشی‌های جدید (پیشنهادی)", arch: "arm64-v8a" };
+      if (n.includes("armeabi")) return { label: "گوشی‌های قدیمی‌تر", arch: "armeabi-v7a" };
+      if (n.includes("x86_64")) return { label: "شبیه‌ساز کامپیوتر", arch: "x86_64" };
+      return { label: "نسخه اندروید", arch: name };
     }
 
     function pickBestAsset(assets) {
       if (!assets || !assets.length) return null;
-      return assets.find((a) => a.name.toLowerCase().includes("universal"))
-        || assets.find((a) => a.name.toLowerCase().includes("arm64"))
+      return assets.find((a) => a.name.toLowerCase().includes("arm64"))
+        || assets.find((a) => a.name.toLowerCase().includes("universal"))
         || assets[0];
     }
 
@@ -732,27 +937,33 @@
         const isDisc = p.is_discount_badge !== undefined ? !!p.is_discount_badge : (!!p.badge && !isPop);
         const buyHref = buildBuyUrl(p.buy_url || support, p);
         return `
-          <div class="plan-card ${isPop ? "popular" : ""}">
+          <div class="hud-panel plan-card ${isPop ? "popular" : ""}">
             ${p.badge ? `<span class="plan-badge ${isDisc ? "discount" : ""}">${esc(p.badge)}</span>` : ""}
             <div class="plan-head">
               <div class="plan-title">${esc(p.title)}</div>
               <div class="plan-price">${esc(p.price)}</div>
             </div>
             ${p.subtitle ? `<div class="plan-sub">${esc(p.subtitle)}</div>` : ""}
-            <a class="plan-btn" href="${esc(buyHref)}" target="_blank" rel="noopener">خرید بسته ${esc(p.title)} ←</a>
+            <div class="plan-perks">
+              <div class="plan-perk">${CHECK_SVG}<span>پینگ پایین و آی‌پی ثابت</span></div>
+              <div class="plan-perk">${CHECK_SVG}<span>تحویل آنی و آپدیت خودکار</span></div>
+            </div>
+            <a class="plan-btn" href="${esc(buyHref)}" target="_blank" rel="noopener">
+              <span>خرید بسته ${esc(p.title)}</span>
+              ${ARROW_SVG}
+            </a>
           </div>
         `;
       }).join("");
     }
 
-    function renderReleases(releases) {
-      const archive = document.getElementById("archive-list");
+    function renderLatestRelease(releases) {
       const latestAbis = document.getElementById("latest-abis");
 
       if (!releases || !releases.length) {
         document.getElementById("card-ver").textContent = "به زودی";
         document.getElementById("card-size").textContent = "—";
-        archive.innerHTML = `<div class="archive-item" style="text-align:center;color:var(--muted);">هنوز نسخه‌ای در ریلیزها منتشر نشده است. به محض انتشار، خودکار اینجا نمایش داده می‌شود.</div>`;
+        latestAbis.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:0.84rem;">نسخه‌ای برای دانلود یافت نشد.</div>`;
         return;
       }
 
@@ -760,40 +971,39 @@
       const best = pickBestAsset(latest.assets);
       const verText = latest.tag || latest.name;
 
-      document.getElementById("top-version").textContent = "نسخه " + verText;
+      document.getElementById("top-version").textContent = verText;
       document.getElementById("card-ver").textContent = verText;
       document.getElementById("card-size").textContent = best ? fmtSize(best.size) : "—";
+      document.getElementById("card-date").textContent = fmtDate(latest.published_at);
+
+      if (latest.body && latest.body.trim()) {
+        document.getElementById("latest-notes").style.display = "block";
+        document.getElementById("latest-notes-body").textContent = latest.body.trim();
+      }
 
       if (best) {
         const btn = document.getElementById("main-download-btn");
         btn.href = proxyUrl(best.url);
-        document.getElementById("main-download-label").textContent = `دانلود برای اندروید (${verText})`;
+        const verTag = document.getElementById("main-download-ver");
+        verTag.textContent = verText;
+        verTag.style.display = "inline-block";
       }
 
-      latestAbis.innerHTML = (latest.assets || []).map((a) => `
-        <a class="abi-btn" href="${esc(proxyUrl(a.url))}">
-          <span>${esc(abiLabel(a.name))}</span>
-          <span style="opacity:0.75;direction:ltr;">${esc(fmtSize(a.size))}</span>
-        </a>
-      `).join("");
-
-      archive.innerHTML = releases.map((r) => `
-        <div class="archive-item">
-          <div class="archive-head">
-            <span class="archive-ver">${esc(r.name || r.tag)}</span>
-            <span class="archive-date">${esc(fmtDate(r.published_at))}</span>
-          </div>
-          ${r.body ? `<div class="archive-notes">${esc(r.body)}</div>` : ""}
-          <div class="abi-list">
-            ${(r.assets || []).map((a) => `
-              <a class="abi-btn" href="${esc(proxyUrl(a.url))}">
-                <span>⬇ ${esc(abiLabel(a.name))}</span>
-                <span style="opacity:0.75;direction:ltr;">${esc(fmtSize(a.size))}</span>
-              </a>
-            `).join("")}
-          </div>
-        </div>
-      `).join("");
+      latestAbis.innerHTML = (latest.assets || []).map((a) => {
+        const meta = abiMeta(a.name);
+        return `
+          <a class="abi-btn" href="${esc(proxyUrl(a.url))}">
+            <div class="abi-info">
+              <div class="abi-icon">${DOWNLOAD_SVG}</div>
+              <div class="abi-text">
+                <span class="abi-name">${esc(meta.label)}</span>
+                <span class="abi-arch">${esc(meta.arch)}</span>
+              </div>
+            </div>
+            <span class="abi-size">${esc(fmtSize(a.size))}</span>
+          </a>
+        `;
+      }).join("");
     }
 
     (async () => {
@@ -801,10 +1011,10 @@
         const res = await fetch("/api");
         const data = await res.json();
         renderVip(data.vip);
-        renderReleases(data.releases);
+        renderLatestRelease(data.releases);
       } catch {
         renderVip(null);
-        renderReleases([]);
+        renderLatestRelease([]);
       }
     })();
   </script>
