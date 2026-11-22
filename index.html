@@ -1554,26 +1554,26 @@
       applyStep(0);
     })();
 
-    /* 2. Dual-Row Smooth Scrolling Game Cards with Official Game Icons & Artwork */
+    /* 2. Dual-Row Smooth Scrolling Game Cards with Verified Official Icons & Artwork */
     (() => {
-      const VALORANT_SVG = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M3 5.5v6.1l6.1 7.4h4.7L3 5.5z" fill="#FF4655"/><path d="M21 5.5v6.1l-3.7 4.5h-4.7L21 5.5z" fill="#FF4655"/></svg>`;
+      const VALORANT_SVG = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M3 5.5v6.1l6.1 7.4h4.7L3 5.5z" fill="#FF4655"/><path d="M21 5.5v6.1l-3.7 4.5h-4.7L21 5.5z" fill="#FF4655"/></svg>`;
 
       const ROW_1 = [
-        { name: "PUBG MOBILE", fa: "پابجی موبایل • رجیستر دقیق", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", bundle: "com.tencent.ig", img: "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg", mono: "PUBG" },
-        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", bundle: "com.activision.callofduty.shooter", img: "https://cdn.akamai.steamstatic.com/steam/apps/1938090/header.jpg", mono: "CODM" },
-        { name: "FREE FIRE", fa: "فری فایر • پینگ ثابت", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", bundle: "com.dts.freefireth", img: "", mono: "FF" },
-        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", bundle: "jp.konami.pesam", img: "https://cdn.akamai.steamstatic.com/steam/apps/1665460/header.jpg", mono: "eFB" },
-        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", bundle: "", img: "", svg: VALORANT_SVG, mono: "VAL" },
-        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#06B6D4", glow: "rgba(6,182,212,0.32)", bundle: "com.supercell.scroll", img: "", mono: "CR" }
+        { name: "PUBG MOBILE", fa: "پابجی موبایل • رجیستر دقیق", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", appId: "1330123889", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", mono: "PUBG" },
+        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", appId: "1287282214", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", mono: "CODM" },
+        { name: "FREE FIRE", fa: "فری فایر • پینگ ثابت", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", appId: "1300146617", img: "", mono: "FF" },
+        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", appId: "1117270703", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1665460/3d7cad698741287226458a67e9b8f3fede2ba154/capsule_616x353.jpg", mono: "eFB" },
+        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", appId: "", img: "", svg: VALORANT_SVG, mono: "VAL" },
+        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#06B6D4", glow: "rgba(6,182,212,0.32)", appId: "1053012308", img: "", mono: "CR" }
       ];
 
       const ROW_2 = [
-        { name: "WARZONE", fa: "وارزون • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", bundle: "", img: "https://cdn.akamai.steamstatic.com/steam/apps/1938090/header.jpg", mono: "WZ" },
-        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", bundle: "com.mobile.legends", img: "", mono: "MLBB" },
-        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", bundle: "com.ea.ios.fifamobile", img: "", mono: "FC" },
-        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • رجیستر تیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.30)", bundle: "", img: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg", mono: "CS2" },
-        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", bundle: "", img: "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg", mono: "APEX" },
-        { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", tag: "ZERO LOSS", accent: "#A855F7", glow: "rgba(168,85,247,0.32)", bundle: "com.supercell.laser", img: "", mono: "BS" }
+        { name: "WARZONE", fa: "وارزون • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", appId: "", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", mono: "WZ" },
+        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", appId: "1160056295", img: "", mono: "MLBB" },
+        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", appId: "1094930513", img: "", mono: "FC" },
+        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • رجیستر تیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.30)", appId: "", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg", mono: "CS2" },
+        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", appId: "", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/6cf04767652d703b6050da84b82cfb1194258d7d/header.jpg", mono: "APEX" },
+        { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", tag: "ZERO LOSS", accent: "#A855F7", glow: "rgba(168,85,247,0.32)", appId: "1229016807", img: "", mono: "BS" }
       ];
 
       function buildThumb(g) {
@@ -1585,10 +1585,10 @@
       }
 
       function buildCard(g) {
-        const bundleAttr = g.bundle ? ` data-bundle="${g.bundle}"` : "";
+        const idAttr = g.appId ? ` data-appid="${g.appId}"` : "";
         return `
           <div class="m-game-card" style="--g-accent:${g.accent};--g-glow:${g.glow};">
-            <div class="m-game-thumb"${bundleAttr}>${buildThumb(g)}</div>
+            <div class="m-game-thumb"${idAttr}>${buildThumb(g)}</div>
             <div class="m-game-info">
               <span class="m-game-tag"><span class="m-game-dot"></span>${g.tag}</span>
               <div class="m-game-title">${g.name}</div>
@@ -1606,31 +1606,37 @@
       mountRow("games-row-1", ROW_1);
       mountRow("games-row-2", ROW_2);
 
-      /* Fetch Official High-Res Square App Icons for Mobile Games via JSONP */
-      const bundles = [...ROW_1, ...ROW_2].map((g) => g.bundle).filter(Boolean);
-      if (bundles.length) {
+      /* Fetch Official High-Res Square App Icons by Verified Numeric App Store IDs */
+      const appIds = [...ROW_1, ...ROW_2].map((g) => g.appId).filter(Boolean);
+      if (appIds.length) {
         window.__bpLoadIcons = (data) => {
           if (!data || !Array.isArray(data.results)) return;
           data.results.forEach((app) => {
-            if (!app.bundleId || !app.artworkUrl100) return;
-            const iconUrl = app.artworkUrl100.replace("100x100bb", "256x256bb");
-            document.querySelectorAll(`.m-game-thumb[data-bundle="${app.bundleId}"]`).forEach((box) => {
+            const trackId = app.trackId ? String(app.trackId) : "";
+            const iconUrl = app.artworkUrl512 || (app.artworkUrl100 ? app.artworkUrl100.replace("100x100bb", "256x256bb") : "");
+            if (!trackId || !iconUrl) return;
+            document.querySelectorAll(`.m-game-thumb[data-appid="${trackId}"]`).forEach((box) => {
+              if (box.dataset.loaded === "1") return;
               const img = document.createElement("img");
               img.src = iconUrl;
               img.alt = app.trackName || "";
               img.loading = "lazy";
               img.referrerPolicy = "no-referrer";
               img.onload = () => {
+                box.dataset.loaded = "1";
                 box.innerHTML = "";
                 box.appendChild(img);
               };
             });
           });
         };
-        const sc = document.createElement("script");
-        sc.src = "https://itunes.apple.com/lookup?bundleId=" + encodeURIComponent(bundles.join(",")) + "&country=us&callback=__bpLoadIcons";
-        sc.async = true;
-        document.body.appendChild(sc);
+
+        ["us", "gb"].forEach((region) => {
+          const sc = document.createElement("script");
+          sc.src = "https://itunes.apple.com/lookup?id=" + appIds.join(",") + "&country=" + region + "&callback=__bpLoadIcons";
+          sc.async = true;
+          document.body.appendChild(sc);
+        });
       }
     })();
 
