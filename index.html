@@ -12,14 +12,13 @@
   <style>
     :root {
       --bg: #050811;
-      --surface: rgba(12, 17, 30, 0.82);
-      --surface-solid: #0B101D;
-      --surface-2: rgba(17, 24, 42, 0.72);
+      --surface: rgba(12, 17, 30, 0.84);
       --border: rgba(255, 255, 255, 0.08);
       --border-hover: rgba(22, 119, 255, 0.55);
       --primary: #1677FF;
       --primary-soft: rgba(22, 119, 255, 0.14);
       --cyan: #38BDF8;
+      --neon: #00E5FF;
       --green: #10B981;
       --red: #EF4444;
       --text: #F8FAFC;
@@ -49,14 +48,13 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Architectural Global Grid & Spotlight Backdrop */
     .bg-grid {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(820px 480px at 50% -100px, rgba(22, 119, 255, 0.22), transparent 70%),
+        radial-gradient(820px 480px at 50% -100px, rgba(22, 119, 255, 0.24), transparent 70%),
         radial-gradient(500px 380px at 100% 35%, rgba(56, 189, 248, 0.07), transparent 70%),
         linear-gradient(180deg, rgba(5, 8, 17, 0.78), rgba(5, 8, 17, 0.94)),
         url('bg.jpg') center center / cover no-repeat,
@@ -81,12 +79,12 @@
       display: inline-block;
     }
 
-    /* Sticky Minimal Global Header */
+    /* Sticky Header */
     header {
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(5, 8, 17, 0.78);
+      background: rgba(5, 8, 17, 0.80);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
@@ -180,72 +178,161 @@
 
     .nav-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
 
-    /* Hero Section with Orbital Centerpiece */
+    /* Hero + Animated Connecting Engine */
     .hero {
       position: relative;
       text-align: center;
-      padding: 48px 0 36px;
+      padding: 36px 0 34px;
       overflow: hidden;
     }
 
-    .hero-emblem {
+    .engine-stage {
       position: relative;
-      width: 136px;
-      height: 136px;
-      margin: 0 auto 24px;
+      width: 196px;
+      height: 196px;
+      margin: 0 auto 14px;
       display: grid;
       place-items: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .orbit {
+    .engine-glow {
+      position: absolute;
+      inset: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 229, 255, 0.34) 0%, rgba(22, 119, 255, 0.18) 45%, transparent 72%);
+      animation: engineBreathe 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .engine-pulse {
+      position: absolute;
+      inset: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 229, 255, 0.45);
+      animation: engineWave 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+      pointer-events: none;
+    }
+
+    .engine-pulse.delay {
+      animation-delay: 1.2s;
+    }
+
+    .engine-svg {
       position: absolute;
       inset: 0;
-      border-radius: 50%;
-      border: 1px dashed rgba(22, 119, 255, 0.34);
-      animation: orbitSpin 36s linear infinite;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
 
-    .orbit-inner {
-      position: absolute;
-      inset: 18px;
-      border-radius: 50%;
-      border: 1px solid rgba(56, 189, 248, 0.18);
-      background: radial-gradient(circle, rgba(22, 119, 255, 0.24) 0%, transparent 72%);
+    .ring-ticks-outer {
+      transform-origin: 100px 100px;
+      animation: spinCW 24s linear infinite;
     }
 
-    @keyframes orbitSpin {
+    .ring-arc-fast {
+      transform-origin: 100px 100px;
+      animation: spinCW 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+
+    .ring-rotor-ccw {
+      transform-origin: 100px 100px;
+      animation: spinCCW 5.5s linear infinite;
+    }
+
+    .engine-stage.connected .ring-arc-fast {
+      animation-duration: 6s;
+    }
+
+    .engine-core {
+      position: relative;
+      z-index: 3;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, #47D7FF 0%, #1677FF 52%, #0B3A99 100%);
+      border: 2px solid rgba(186, 230, 253, 0.45);
+      display: grid;
+      place-items: center;
+      box-shadow:
+        0 0 0 8px rgba(22, 119, 255, 0.12),
+        0 0 38px rgba(0, 229, 255, 0.45),
+        inset 0 2px 10px rgba(255, 255, 255, 0.42),
+        inset 0 -8px 16px rgba(3, 16, 48, 0.65);
+      transition: transform 0.2s ease, box-shadow 0.35s ease, background 0.35s ease;
+    }
+
+    .engine-stage:active .engine-core {
+      transform: scale(0.94);
+    }
+
+    .engine-stage.connected .engine-core {
+      background: radial-gradient(circle at 32% 28%, #34D399 0%, #0EA5E9 54%, #1677FF 100%);
+      box-shadow:
+        0 0 0 8px rgba(16, 185, 129, 0.14),
+        0 0 42px rgba(16, 185, 129, 0.48),
+        inset 0 2px 10px rgba(255, 255, 255, 0.42);
+    }
+
+    .engine-core svg {
+      color: #ffffff;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+    }
+
+    .engine-telemetry {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.77rem;
+      font-weight: 800;
+      color: #E2E8F0;
+      background: rgba(12, 18, 34, 0.88);
+      border: 1px solid rgba(56, 189, 248, 0.26);
+      padding: 6px 15px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .engine-ping-val {
+      font-size: 0.74rem;
+      font-weight: 900;
+      color: var(--neon);
+      background: rgba(0, 229, 255, 0.10);
+      border: 1px solid rgba(0, 229, 255, 0.28);
+      padding: 1px 8px;
+      border-radius: 999px;
+      direction: ltr;
+      white-space: nowrap;
+    }
+
+    .engine-telemetry.ok .engine-ping-val {
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.32);
+    }
+
+    @keyframes spinCW {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
-    .hero-logo-core {
-      position: relative;
-      z-index: 2;
-      width: 68px;
-      height: 68px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, #181B24, #0C0E14);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      display: grid;
-      place-items: center;
-      box-shadow:
-        0 0 0 1px rgba(22, 119, 255, 0.22),
-        0 18px 40px rgba(0, 0, 0, 0.65),
-        0 0 42px rgba(22, 119, 255, 0.35);
+    @keyframes spinCCW {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
     }
 
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      color: #CBD5E1;
-      background: rgba(15, 23, 42, 0.76);
-      border: 1px solid var(--border);
-      padding: 5px 14px;
-      border-radius: 999px;
-      margin-bottom: 18px;
+    @keyframes engineBreathe {
+      0%, 100% { transform: scale(0.95); opacity: 0.78; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    @keyframes engineWave {
+      0% { transform: scale(0.86); opacity: 0.72; }
+      100% { transform: scale(1.52); opacity: 0; }
     }
 
     .live-dot {
@@ -257,8 +344,13 @@
       flex-shrink: 0;
     }
 
+    .live-dot.connecting {
+      background: var(--neon);
+      box-shadow: 0 0 10px var(--neon);
+    }
+
     h1 {
-      font-size: clamp(2.15rem, 8vw, 3.75rem);
+      font-size: clamp(2.15rem, 8vw, 3.7rem);
       font-weight: 900;
       line-height: 1.2;
       letter-spacing: -0.6px;
@@ -273,9 +365,9 @@
 
     .hero-desc {
       color: var(--muted);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
       max-width: 560px;
-      margin: 0 auto 28px;
+      margin: 0 auto 26px;
     }
 
     .hero-cta-row {
@@ -347,7 +439,7 @@
 
     .btn-ghost svg { color: var(--cyan); flex-shrink: 0; }
 
-    /* Clean 3-Column Trust Bar (Global Minimal Style) */
+    /* Trust Strip */
     .trust-strip {
       max-width: 680px;
       margin: 0 auto 36px;
@@ -391,7 +483,7 @@
       line-height: 1.4;
     }
 
-    /* Premium Surface Panel */
+    /* Surface Panel */
     .panel {
       position: relative;
       background: linear-gradient(180deg, rgba(14, 20, 36, 0.90), rgba(9, 13, 24, 0.96));
@@ -402,11 +494,9 @@
       transition: border-color 0.25s ease, transform 0.25s ease;
     }
 
-    .panel:hover {
-      border-color: rgba(255, 255, 255, 0.14);
-    }
+    .panel:hover { border-color: rgba(255, 255, 255, 0.14); }
 
-    /* Release Command Module */
+    /* Release Download Hub */
     .release-panel {
       max-width: 620px;
       margin: 0 auto;
@@ -484,18 +574,9 @@
       white-space: pre-line;
     }
 
-    .changelog-k {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--cyan);
-      margin-bottom: 3px;
-    }
+    .changelog-k { font-size: 0.72rem; font-weight: 800; color: var(--cyan); margin-bottom: 3px; }
 
-    .abi-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
+    .abi-stack { display: flex; flex-direction: column; gap: 9px; }
 
     .abi-row {
       display: flex;
@@ -522,12 +603,7 @@
       transform: translateY(-1px);
     }
 
-    .abi-left {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      min-width: 0;
-    }
+    .abi-left { display: flex; align-items: center; gap: 11px; min-width: 0; }
 
     .abi-ico {
       width: 34px;
@@ -559,12 +635,12 @@
     }
 
     /* Section Header */
-    section { padding: 48px 0; }
+    section { padding: 46px 0; }
 
     .sec-head {
       text-align: center;
       max-width: 620px;
-      margin: 0 auto 30px;
+      margin: 0 auto 28px;
     }
 
     .sec-kicker {
@@ -585,21 +661,16 @@
       margin-bottom: 8px;
     }
 
-    .sec-head p {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
+    .sec-head p { color: var(--muted); font-size: 0.9rem; }
 
-    /* Global Comparison Section (Standard vs Baloch Ping) */
+    /* Comparison Section */
     .compare-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 14px;
     }
 
-    .compare-card {
-      padding: 22px 20px;
-    }
+    .compare-card { padding: 22px 20px; }
 
     .compare-card.pro {
       border-color: rgba(22, 119, 255, 0.42);
@@ -616,10 +687,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .compare-head h3 {
-      font-size: 1rem;
-      font-weight: 900;
-    }
+    .compare-head h3 { font-size: 1rem; font-weight: 900; }
 
     .cmp-badge {
       font-size: 0.7rem;
@@ -629,17 +697,8 @@
       white-space: nowrap;
     }
 
-    .cmp-badge.bad {
-      color: #FCA5A5;
-      background: rgba(239, 68, 68, 0.10);
-      border: 1px solid rgba(239, 68, 68, 0.26);
-    }
-
-    .cmp-badge.good {
-      color: #6EE7B7;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.30);
-    }
+    .cmp-badge.bad { color: #FCA5A5; background: rgba(239, 68, 68, 0.10); border: 1px solid rgba(239, 68, 68, 0.26); }
+    .cmp-badge.good { color: #6EE7B7; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.30); }
 
     .signal-meter {
       margin-bottom: 16px;
@@ -657,106 +716,127 @@
       margin-bottom: 7px;
     }
 
-    .meter-track {
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      overflow: hidden;
-    }
+    .meter-track { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
+    .meter-fill { height: 100%; border-radius: 999px; }
+    .meter-fill.bad { width: 42%; background: linear-gradient(90deg, #DC2626, #F59E0B); }
+    .meter-fill.good { width: 94%; background: linear-gradient(90deg, var(--primary), var(--cyan), var(--green)); }
 
-    .meter-fill {
-      height: 100%;
-      border-radius: 999px;
-    }
-
-    .meter-fill.bad {
-      width: 42%;
-      background: linear-gradient(90deg, #DC2626, #F59E0B);
-    }
-
-    .meter-fill.good {
-      width: 94%;
-      background: linear-gradient(90deg, var(--primary), var(--cyan), var(--green));
-    }
-
-    .compare-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .compare-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      font-size: 0.84rem;
-      color: #CBD5E1;
-    }
-
-    .compare-list li svg {
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
+    .compare-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .compare-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.84rem; color: #CBD5E1; }
+    .compare-list li svg { flex-shrink: 0; margin-top: 4px; }
     .compare-list.bad li svg { color: var(--red); }
     .compare-list.good li svg { color: var(--green); }
 
-    /* Clean Esports Game Cards (Zero Overlapping Logos, Optional Local Artwork) */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+    /* Infinite Dual-Row Moving Game Cards Carousel (Strictly Locked Inside Viewport) */
+    .games-section {
+      position: relative;
+      z-index: 2;
+      padding: 46px 0;
+      width: 100%;
+      overflow: hidden;
     }
 
-    .game-card {
+    .marquee-shell {
       position: relative;
-      border-radius: 18px;
+      width: 100%;
       overflow: hidden;
-      border: 1px solid var(--border);
-      background: linear-gradient(155deg, #0E172B 0%, #070B16 100%);
-      min-height: 158px;
-      padding: 16px;
+      direction: ltr;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    }
+
+    .marquee-row {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .marquee-row.forward {
+      animation: glideLeft 34s linear infinite;
+    }
+
+    .marquee-row.reverse {
+      animation: glideRight 38s linear infinite;
+    }
+
+    .marquee-shell:hover .marquee-row {
+      animation-play-state: paused;
+    }
+
+    .marquee-group {
+      display: flex;
+      gap: 12px;
+      padding-right: 12px;
+      flex-shrink: 0;
+    }
+
+    @keyframes glideLeft {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes glideRight {
+      0% { transform: translate3d(-50%, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    .m-game-card {
+      position: relative;
+      width: 236px;
+      height: 112px;
+      flex-shrink: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(16, 24, 44, 0.96), rgba(7, 11, 22, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 14px 15px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      direction: rtl;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+      transition: border-color 0.25s ease, transform 0.25s ease;
     }
 
-    .game-card::after {
+    .m-game-card::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(220px 140px at 0% 0%, rgba(22, 119, 255, 0.18), transparent 72%);
+      background: radial-gradient(170px 110px at 0% 0%, var(--g-glow, rgba(22, 119, 255, 0.28)), transparent 74%);
       pointer-events: none;
     }
 
-    .game-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-hover);
-      box-shadow: 0 16px 36px rgba(22, 119, 255, 0.16);
+    .m-game-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--g-accent, #38BDF8), transparent);
+      opacity: 0.85;
+      pointer-events: none;
     }
 
-    .game-bg-img {
+    .m-game-card:hover {
+      border-color: var(--g-accent, #38BDF8);
+      transform: translateY(-2px);
+    }
+
+    .m-game-bg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.42;
-      transition: transform 0.45s ease;
-    }
-
-    .game-card:hover .game-bg-img { transform: scale(1.06); }
-
-    .game-scrim {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(5, 8, 17, 0.25) 0%, rgba(5, 8, 17, 0.88) 100%);
+      opacity: 0.24;
       pointer-events: none;
     }
 
-    .game-top {
+    .m-game-top {
       position: relative;
       z-index: 2;
       display: flex;
@@ -765,53 +845,65 @@
       gap: 8px;
     }
 
-    .game-emblem {
-      width: 36px;
-      height: 36px;
+    .m-game-ico {
+      width: 34px;
+      height: 34px;
       border-radius: 10px;
-      background: rgba(22, 119, 255, 0.14);
-      border: 1px solid rgba(22, 119, 255, 0.34);
-      color: var(--cyan);
+      background: rgba(5, 8, 17, 0.72);
+      border: 1px solid var(--g-accent, rgba(56, 189, 248, 0.4));
+      color: var(--g-accent, #38BDF8);
       display: grid;
       place-items: center;
       flex-shrink: 0;
+      box-shadow: 0 0 14px var(--g-glow, rgba(56, 189, 248, 0.2));
     }
 
-    .game-proto {
+    .m-game-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-size: 0.65rem;
       font-weight: 800;
-      color: #93C5FD;
-      background: rgba(5, 8, 17, 0.72);
-      border: 1px solid var(--border);
+      color: #E2E8F0;
+      background: rgba(5, 8, 17, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.10);
       padding: 3px 8px;
-      border-radius: 6px;
+      border-radius: 999px;
       direction: ltr;
       white-space: nowrap;
     }
 
-    .game-bottom {
+    .m-game-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--g-accent, #10B981);
+      box-shadow: 0 0 7px var(--g-accent, #10B981);
+    }
+
+    .m-game-bot {
       position: relative;
       z-index: 2;
-      margin-top: 22px;
       text-align: right;
     }
 
-    .game-name {
-      font-size: 0.96rem;
+    .m-game-title {
+      font-size: 0.92rem;
       font-weight: 900;
       color: #fff;
       direction: ltr;
       text-align: right;
-      line-height: 1.3;
-      margin-bottom: 3px;
+      line-height: 1.25;
+      white-space: nowrap;
     }
 
-    .game-note {
-      font-size: 0.74rem;
+    .m-game-fa {
+      font-size: 0.72rem;
       color: var(--muted);
+      white-space: nowrap;
     }
 
-    /* Global Bento Grid for App Capabilities */
+    /* Bento Grid Capabilities */
     .bento-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -861,23 +953,11 @@
       white-space: nowrap;
     }
 
-    .bento-card h3 {
-      font-size: 1rem;
-      font-weight: 900;
-      color: var(--text);
-    }
-
-    .bento-card p {
-      font-size: 0.84rem;
-      color: var(--muted);
-    }
+    .bento-card h3 { font-size: 1rem; font-weight: 900; color: var(--text); }
+    .bento-card p { font-size: 0.84rem; color: var(--muted); }
 
     /* Engine Specs Strip */
-    .specs-bar {
-      margin-top: 14px;
-      padding: 18px;
-      text-align: center;
-    }
+    .specs-bar { margin-top: 14px; padding: 18px; text-align: center; }
 
     .specs-label {
       font-size: 0.78rem;
@@ -909,10 +989,7 @@
       transition: border-color 0.2s, color 0.2s;
     }
 
-    .spec-pill:hover {
-      border-color: var(--primary);
-      color: var(--cyan);
-    }
+    .spec-pill:hover { border-color: var(--primary); color: var(--cyan); }
 
     /* FAQ Accordion */
     .faq-list {
@@ -931,9 +1008,7 @@
       transition: border-color 0.2s;
     }
 
-    details.faq-item[open] {
-      border-color: rgba(22, 119, 255, 0.38);
-    }
+    details.faq-item[open] { border-color: rgba(22, 119, 255, 0.38); }
 
     details.faq-item summary {
       list-style: none;
@@ -957,20 +1032,16 @@
       flex-shrink: 0;
     }
 
-    details.faq-item[open] .faq-chevron {
-      transform: rotate(180deg);
-      color: var(--cyan);
-    }
+    details.faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--cyan); }
 
     .faq-body {
-      padding: 0 18px 16px;
+      padding: 12px 18px 16px;
       font-size: 0.84rem;
       color: var(--muted);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 12px;
     }
 
-    /* Global Minimal Footer */
+    /* Footer */
     footer {
       position: relative;
       z-index: 2;
@@ -987,12 +1058,7 @@
       text-align: center;
     }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
     .footer-links a {
       color: var(--muted);
@@ -1003,22 +1069,17 @@
     }
 
     .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.78rem; color: var(--dim); }
 
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--dim);
-    }
-
-    /* Responsive Desktop Layout */
     @media (min-width: 720px) {
       .nav-links { display: flex; }
       .nav-cta { display: inline-flex; }
-      .hero { padding: 64px 0 42px; }
+      .hero { padding: 52px 0 40px; }
       .hero-cta-row { flex-direction: row; max-width: 480px; }
       .btn-primary { width: auto; min-width: 245px; }
       .btn-ghost { width: auto; min-width: 180px; }
       .compare-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
-      .games-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+      .m-game-card { width: 268px; height: 122px; }
       .bento-grid { grid-template-columns: repeat(6, 1fr); gap: 14px; }
       .bento-span-3 { grid-column: span 3; }
       .bento-span-2 { grid-column: span 2; }
@@ -1026,7 +1087,9 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .orbit { animation: none; }
+      .ring-ticks-outer, .ring-arc-fast, .ring-rotor-ccw, .engine-pulse, .engine-glow, .marquee-row {
+        animation: none !important;
+      }
     }
   </style>
 </head>
@@ -1059,424 +1122,384 @@
     </div>
   </header>
 
-  <main class="container">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-emblem" aria-hidden="true">
-        <div class="orbit"></div>
-        <div class="orbit-inner"></div>
-        <div class="hero-logo-core">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-            <path fill="#FFFFFF" fill-rule="evenodd" clip-rule="evenodd" d="M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z"/>
+  <main>
+    <!-- Hero with Animated Turbo Connection Engine -->
+    <div class="container">
+      <section class="hero">
+        <div id="engine-stage" class="engine-stage" role="button" tabindex="0" aria-label="شروع انیمیشن موتور اتصال">
+          <div class="engine-glow"></div>
+          <div class="engine-pulse"></div>
+          <div class="engine-pulse delay"></div>
+
+          <svg class="engine-svg" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="engGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00E5FF"/>
+                <stop offset="55%" stop-color="#1677FF"/>
+                <stop offset="100%" stop-color="#10B981"/>
+              </linearGradient>
+            </defs>
+            <!-- Segmented Radial Engine Ticks -->
+            <circle class="ring-ticks-outer" cx="100" cy="100" r="88" stroke="rgba(148,163,184,0.22)" stroke-width="6" stroke-dasharray="2.5 8.5"/>
+            <!-- Fast Connecting Sweep Arc -->
+            <circle class="ring-arc-fast" cx="100" cy="100" r="88" stroke="url(#engGrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="95 460"/>
+            <!-- Counter-Rotating Inner Turbine Ring -->
+            <circle class="ring-rotor-ccw" cx="100" cy="100" r="70" stroke="rgba(0,229,255,0.42)" stroke-width="2" stroke-dasharray="28 18 10 18"/>
+            <!-- Subtle Precision Inner Guide -->
+            <circle cx="100" cy="100" r="59" stroke="rgba(56,189,248,0.16)" stroke-width="1"/>
           </svg>
+
+          <div class="engine-core">
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+              <line x1="12" y1="2" x2="12" y2="12"/>
+            </svg>
+          </div>
+        </div>
+
+        <div id="engine-telemetry" class="engine-telemetry">
+          <span id="engine-dot" class="live-dot connecting"></span>
+          <span id="engine-status-text">موتور در حال یافتن کم‌پینگ‌ترین مسیر...</span>
+          <span id="engine-ping" class="engine-ping-val">SCAN</span>
+        </div>
+
+        <h1>پینگ <span class="accent-grad">پایدارتر،</span><br />رجیستر <span class="accent-grad">دقیق‌تر.</span></h1>
+        <p class="hero-desc">
+          کلاینت تخصصی بهینه‌سازی شبکه برای گیمرهای موبایل — مجهز به هسته ترکیبی، تکه‌تکه‌سازی پکت‌های بازی و انتخاب خودکار کم‌پینگ‌ترین مسیر.
+        </p>
+
+        <div class="hero-cta-row">
+          <a id="main-download-btn" href="#download" class="btn-primary">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>دانلود مستقیم اندروید</span>
+            <span id="main-download-ver" class="btn-tag" style="display:none;"></span>
+          </a>
+
+          <a id="hero-support-link" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" class="btn-ghost">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"/>
+              <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+            </svg>
+            <span>پشتیبانی تلگرام</span>
+          </a>
+        </div>
+
+        <!-- 3-Item Global Trust Strip -->
+        <div class="trust-strip">
+          <div class="trust-item green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+            <span class="trust-label">اتصال امن و پایدار</span>
+          </div>
+          <div class="trust-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="6" width="20" height="12" rx="4"/>
+              <line x1="6" y1="12" x2="10" y2="12"/>
+              <line x1="8" y1="10" x2="8" y2="14"/>
+              <circle cx="15" cy="13" r="1"/>
+              <circle cx="17.5" cy="11" r="1"/>
+            </svg>
+            <span class="trust-label">مخصوص گیمرهای رقابتی</span>
+          </div>
+          <div class="trust-item cyan">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span class="trust-label">مسیریابی هوشمند ایران</span>
+          </div>
+        </div>
+
+        <!-- Release Download Hub -->
+        <div id="download" class="panel release-panel">
+          <div class="release-head">
+            <div class="release-title">
+              <span class="live-dot"></span>
+              <span>آخرین نسخه رسمی</span>
+            </div>
+            <span id="card-date" class="date-chip">دانلود مستقیم</span>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-cell">
+              <div class="meta-k">نسخه</div>
+              <div id="card-ver" class="meta-v">...</div>
+            </div>
+            <div class="meta-cell">
+              <div class="meta-k">حجم فایل</div>
+              <div id="card-size" class="meta-v">...</div>
+            </div>
+            <div class="meta-cell">
+              <div class="meta-k">سیستم‌عامل</div>
+              <div class="meta-v">Android 8+</div>
+            </div>
+          </div>
+
+          <div id="latest-notes" class="changelog">
+            <div class="changelog-k">تغییرات این نسخه</div>
+            <div id="latest-notes-body"></div>
+          </div>
+
+          <div id="latest-abis" class="abi-stack">
+            <div style="text-align:center;color:var(--muted);font-size:0.84rem;padding:10px 0;">در حال دریافت لینک‌های دانلود...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section id="compare">
+        <div class="sec-head">
+          <span class="sec-kicker">NETWORK ARCHITECTURE</span>
+          <h2>تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span></h2>
+          <p>چرا مسیریابی هوشمند و مهندسی پکت در فایت‌های حساس نتیجه بازی را عوض می‌کند</p>
+        </div>
+
+        <div class="compare-grid">
+          <div class="panel compare-card">
+            <div class="compare-head">
+              <h3>اتصال عادی اینترنت</h3>
+              <span class="cmp-badge bad">مسیر غیربهینه</span>
+            </div>
+            <div class="signal-meter">
+              <div class="meter-row">
+                <span>پایداری مسیر و پکت‌ها</span>
+                <span>نوسان بالا</span>
+              </div>
+              <div class="meter-track"><div class="meter-fill bad"></div></div>
+            </div>
+            <ul class="compare-list bad">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span>نوسان شدید پینگ (Jitter) و از دست رفتن تیرها در درگیری نزدیک</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span>قطع شدن ناگهانی بازی هنگام جابه‌جایی بین وای‌فای و اینترنت همراه</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span>محدودیت DPI روی بسته‌های UDP و کندی در باز شدن لابی</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span>بدون کنترل روی DNS، اندازه MTU یا تفکیک سرویس‌های داخلی</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel compare-card pro">
+            <div class="compare-head">
+              <h3>موتور شبکه <span class="ltr">Baloch Ping</span></h3>
+              <span class="cmp-badge good">بهینه‌سازی گیمینگ</span>
+            </div>
+            <div class="signal-meter">
+              <div class="meter-row">
+                <span>پایداری مسیر و پکت‌ها</span>
+                <span style="color:#6EE7B7;">حداکثر پایداری</span>
+              </div>
+              <div class="meter-track"><div class="meter-fill good"></div></div>
+            </div>
+            <ul class="compare-list good">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>هسته ترکیبی با تکه‌تکه‌سازی UDP و TLS برای عبور بدون اختلال از محدودیت‌ها</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>بازسازی فوری تونل حین تغییر شبکه و سوییچ خودکار روی کم‌پینگ‌ترین سرور</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>موتور DNS اختصاصی با استراتژی IPv4 و پرس‌وجوی موازی برای اتصال سریع‌تر</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>مسیریابی هوشمند ایران (GeoIP/GeoSite) و مسدودسازی تبلیغات مزاحم</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Continuous Scrolling Game Cards Right Above Engine Capabilities -->
+    <section id="games" class="games-section">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-kicker">SUPPORTED GAMES</span>
+          <h2>بهینه‌سازی‌شده برای محبوب‌ترین بازی‌های آنلاین</h2>
+          <p>کاهش تاخیر و پکت‌لاس روی بازی‌های رقابتی موبایل و پی‌سی</p>
         </div>
       </div>
 
-      <div class="hero-pill">
-        <span class="live-dot"></span>
-        <span>وب‌سایت رسمی اپلیکیشن <span class="ltr">Baloch Ping</span></span>
+      <div class="marquee-shell" aria-label="لیست بازی‌های پشتیبانی‌شده">
+        <div id="games-row-1" class="marquee-row forward"></div>
+        <div id="games-row-2" class="marquee-row reverse"></div>
       </div>
+    </section>
 
-      <h1>پینگ <span class="accent-grad">پایدارتر،</span><br />رجیستر <span class="accent-grad">دقیق‌تر.</span></h1>
-      <p class="hero-desc">
-        کلاینت تخصصی بهینه‌سازی شبکه برای گیمرهای موبایل — مجهز به هسته ترکیبی، تکه‌تکه‌سازی پکت‌های بازی و انتخاب خودکار کم‌پینگ‌ترین مسیر.
-      </p>
-
-      <div class="hero-cta-row">
-        <a id="main-download-btn" href="#download" class="btn-primary">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          <span>دانلود مستقیم اندروید</span>
-          <span id="main-download-ver" class="btn-tag" style="display:none;"></span>
-        </a>
-
-        <a id="hero-support-link" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" class="btn-ghost">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 2L11 13"/>
-            <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
-          </svg>
-          <span>پشتیبانی تلگرام</span>
-        </a>
-      </div>
-
-      <!-- 3-Item Global Trust Strip -->
-      <div class="trust-strip">
-        <div class="trust-item green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <polyline points="9 12 11 14 15 10"/>
-          </svg>
-          <span class="trust-label">اتصال امن و پایدار</span>
+    <div class="container">
+      <!-- Bento Grid Capabilities -->
+      <section id="features">
+        <div class="sec-head">
+          <span class="sec-kicker">ENGINE CAPABILITIES</span>
+          <h2>امکانات تخصصی زیر کاپوت <span class="ltr">Baloch Ping</span></h2>
+          <p>طراحی‌شده با کنترل کامل روی هسته اتصال، ترافیک، DNS و شخصی‌سازی محیط برنامه</p>
         </div>
-        <div class="trust-item">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="6" width="20" height="12" rx="4"/>
-            <line x1="6" y1="12" x2="10" y2="12"/>
-            <line x1="8" y1="10" x2="8" y2="14"/>
-            <circle cx="15" cy="13" r="1"/>
-            <circle cx="17.5" cy="11" r="1"/>
-          </svg>
-          <span class="trust-label">مخصوص گیمرهای رقابتی</span>
-        </div>
-        <div class="trust-item cyan">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          <span class="trust-label">مسیریابی هوشمند ایران</span>
-        </div>
-      </div>
 
-      <!-- Release Download Hub -->
-      <div id="download" class="panel release-panel">
-        <div class="release-head">
-          <div class="release-title">
+        <div class="bento-grid">
+          <div class="panel bento-card bento-span-3">
+            <div class="bento-top">
+              <div class="bento-ico">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+              </div>
+              <span class="bento-tag">HYBRID CORE</span>
+            </div>
+            <h3>هسته ترکیبی و بهینه‌سازی پکت بازی</h3>
+            <p>انتخاب خودکار هسته متناسب با پروتکل همراه با تکه‌تکه‌سازی UDP و TLS، قابلیت Multiplex (MUX)، Multipath TCP، TCP Fast Open، مسدودسازی QUIC و تنظیم دقیق MTU تونل.</p>
+          </div>
+
+          <div class="panel bento-card bento-span-3">
+            <div class="bento-top">
+              <div class="bento-ico">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
+                  <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+              </div>
+              <span class="bento-tag">AUTO SELECT</span>
+            </div>
+            <h3>تست پینگ واقعی و سوییچ هوشمند</h3>
+            <p>تست همزمان سرورها با متد HTTP GET و انتخاب بهترین نتیجه، حذف خودکار سرورهای خراب پس از تست و انتخاب خودکار کم‌پینگ‌ترین مسیر بر اساس آستانه تحمل تاخیر.</p>
+          </div>
+
+          <div class="panel bento-card bento-span-2">
+            <div class="bento-top">
+              <div class="bento-ico">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+              </div>
+              <span class="bento-tag">ZERO DROP</span>
+            </div>
+            <h3>پایداری حین تغییر شبکه</h3>
+            <p>بازسازی سریع تونل هنگام جابه‌جایی بین وای‌فای و اینترنت همراه، اتصال خودکار پس از روشن شدن گوشی و نمایش سرعت لحظه‌ای در نوار اعلان.</p>
+          </div>
+
+          <div class="panel bento-card bento-span-2">
+            <div class="bento-top">
+              <div class="bento-ico">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9 12 11 14 15 10"/>
+                </svg>
+              </div>
+              <span class="bento-tag">DNS &amp; GEO</span>
+            </div>
+            <h3>مسیریابی ایران و موتور DNS</h3>
+            <p>جداسازی هوشمند سایت‌های ایرانی، حذف تبلیغات مزاحم و DNS اختصاصی روی HTTPS با استراتژی IPv4، پرس‌وجوی موازی و بازنویسی Hosts.</p>
+          </div>
+
+          <div class="panel bento-card bento-span-2">
+            <div class="bento-top">
+              <div class="bento-ico">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                  <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              </div>
+              <span class="bento-tag">LAN SHARE</span>
+            </div>
+            <h3>اشتراک‌گذاری و شخصی‌سازی</h3>
+            <p>پروکسی محلی SOCKS5/HTTP با احراز هویت برای کامپیوتر، رابط تمام‌فارسی با انتخاب نوع دکمه اتصال، آیکون تیره/روشن و بررسی خودکار آپدیت‌ها.</p>
+          </div>
+        </div>
+
+        <div class="panel specs-bar">
+          <div class="specs-label">
             <span class="live-dot"></span>
-            <span>آخرین نسخه رسمی</span>
+            <span>پروتکل‌ها و ماژول‌های داخلی هسته</span>
           </div>
-          <span id="card-date" class="date-chip">دانلود مستقیم</span>
+          <div class="specs-wrap">
+            <span class="spec-pill">Hybrid Core</span>
+            <span class="spec-pill">UDP Fragment</span>
+            <span class="spec-pill">TLS Fragment</span>
+            <span class="spec-pill">Multipath TCP</span>
+            <span class="spec-pill">TCP Fast Open</span>
+            <span class="spec-pill">Multiplex (MUX)</span>
+            <span class="spec-pill">Custom MTU</span>
+            <span class="spec-pill">Block QUIC</span>
+            <span class="spec-pill">DoH / IPv4 Only</span>
+            <span class="spec-pill">Parallel DNS</span>
+            <span class="spec-pill">Iran Geo-Routing</span>
+            <span class="spec-pill">Ad-Block Rules</span>
+            <span class="spec-pill">SOCKS5 / HTTP LAN</span>
+            <span class="spec-pill">Auto Reconnect</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq">
+        <div class="sec-head">
+          <span class="sec-kicker">FAQ &amp; SETUP</span>
+          <h2>سوالات متداول</h2>
+          <p>پاسخ کوتاه به پرسش‌های پرتکرار پیش از نصب و استفاده از برنامه</p>
         </div>
 
-        <div class="meta-grid">
-          <div class="meta-cell">
-            <div class="meta-k">نسخه</div>
-            <div id="card-ver" class="meta-v">...</div>
-          </div>
-          <div class="meta-cell">
-            <div class="meta-k">حجم فایل</div>
-            <div id="card-size" class="meta-v">...</div>
-          </div>
-          <div class="meta-cell">
-            <div class="meta-k">سیستم‌عامل</div>
-            <div class="meta-v">Android 8+</div>
-          </div>
-        </div>
-
-        <div id="latest-notes" class="changelog">
-          <div class="changelog-k">تغییرات این نسخه</div>
-          <div id="latest-notes-body"></div>
-        </div>
-
-        <div id="latest-abis" class="abi-stack">
-          <div style="text-align:center;color:var(--muted);font-size:0.84rem;padding:10px 0;">در حال دریافت لینک‌های دانلود...</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Comparison Section -->
-    <section id="compare">
-      <div class="sec-head">
-        <span class="sec-kicker">NETWORK ARCHITECTURE</span>
-        <h2>تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span></h2>
-        <p>چرا مسیریابی هوشمند و مهندسی پکت در فایت‌های حساس نتیجه بازی را عوض می‌کند</p>
-      </div>
-
-      <div class="compare-grid">
-        <div class="panel compare-card">
-          <div class="compare-head">
-            <h3>اتصال عادی اینترنت</h3>
-            <span class="cmp-badge bad">مسیر غیربهینه</span>
-          </div>
-          <div class="signal-meter">
-            <div class="meter-row">
-              <span>پایداری مسیر و پکت‌ها</span>
-              <span>نوسان بالا</span>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>
+              <span>کدام فایل نصبی را دانلود کنم؛ arm64 یا armeabi-v7a؟</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              برای بیش از ۹۰ درصد گوشی‌های اندرویدی جدید، نسخه <span class="ltr">arm64-v8a</span> بهترین و سریع‌ترین انتخاب است (دکمه اصلی بالای صفحه نیز همین نسخه را دانلود می‌کند). تنها اگر گوشی شما خیلی قدیمی است و حین نصب خطا داد، نسخه <span class="ltr">armeabi-v7a</span> را نصب کنید.
             </div>
-            <div class="meter-track"><div class="meter-fill bad"></div></div>
-          </div>
-          <ul class="compare-list bad">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <span>نوسان شدید پینگ (Jitter) و از دست رفتن تیرها در درگیری نزدیک</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <span>قطع شدن ناگهانی بازی هنگام جابه‌جایی بین وای‌فای و اینترنت همراه</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <span>محدودیت DPI روی بسته‌های UDP و کندی در باز شدن لابی</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              <span>بدون کنترل روی DNS، اندازه MTU یا تفکیک سرویس‌های داخلی</span>
-            </li>
-          </ul>
-        </div>
+          </details>
 
-        <div class="panel compare-card pro">
-          <div class="compare-head">
-            <h3>موتور شبکه <span class="ltr">Baloch Ping</span></h3>
-            <span class="cmp-badge good">بهینه‌سازی گیمینگ</span>
-          </div>
-          <div class="signal-meter">
-            <div class="meter-row">
-              <span>پایداری مسیر و پکت‌ها</span>
-              <span style="color:#6EE7B7;">حداکثر پایداری</span>
+          <details class="faq-item">
+            <summary>
+              <span>آیا هنگام روشن بودن برنامه، سایت‌ها و برنامه‌های ایرانی باز می‌شوند؟</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              بله. با فعال بودن فایل‌های منابع جغرافیایی ایران (<span class="ltr">geoip-ir</span> و <span class="ltr">geosite-ir</span>) در بخش تنظیمات برنامه، ترافیک سرویس‌های داخلی به‌صورت مستقیم عبور می‌کند و نیازی به قطع اتصال نیست.
             </div>
-            <div class="meter-track"><div class="meter-fill good"></div></div>
-          </div>
-          <ul class="compare-list good">
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>هسته ترکیبی با تکه‌تکه‌سازی UDP و TLS برای عبور بدون اختلال از محدودیت‌ها</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>بازسازی فوری تونل حین تغییر شبکه و سوییچ خودکار روی کم‌پینگ‌ترین سرور</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>موتور DNS اختصاصی با استراتژی IPv4 و پرس‌وجوی موازی برای اتصال سریع‌تر</span>
-            </li>
-            <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              <span>مسیریابی هوشمند ایران (GeoIP/GeoSite) و مسدودسازی تبلیغات مزاحم</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+          </details>
 
-    <!-- Optimized Games (Clean Esports Cards) -->
-    <section id="games">
-      <div class="sec-head">
-        <span class="sec-kicker">OPTIMIZED TITLES</span>
-        <h2>آماده برای بازی‌های رقابتی</h2>
-        <p>تنظیم‌شده برای پایداری بسته‌های UDP و کاهش دیلی در بازی‌های محبوب موبایل و پی‌سی</p>
-      </div>
-
-      <div class="games-grid">
-        <div class="game-card">
-          <img class="game-bg-img" src="pubg.jpg" alt="" loading="lazy" onerror="this.remove()" />
-          <div class="game-scrim"></div>
-          <div class="game-top">
-            <div class="game-emblem">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
-                <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/>
-                <line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/>
-              </svg>
+          <details class="faq-item">
+            <summary>
+              <span>آیا می‌توان اتصال بهینه‌شده گوشی را روی کامپیوتر هم استفاده کرد؟</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              بله. در تنظیمات برنامه کافیست گزینه «اجازه اتصال از شبکه محلی» را فعال کنید تا از طریق پورت‌های محلی <span class="ltr">SOCKS5 (10808)</span> و <span class="ltr">HTTP (10809)</span> روی کامپیوتر یا دستگاه دوم هم به همان اتصال متصل شوید.
             </div>
-            <span class="game-proto">UDP / BR</span>
-          </div>
-          <div class="game-bottom">
-            <div class="game-name">PUBG MOBILE</div>
-            <div class="game-note">رجیستر دقیق تیر و پینگ ثابت در درگیری نزدیک</div>
-          </div>
-        </div>
+          </details>
 
-        <div class="game-card">
-          <img class="game-bg-img" src="codm.jpg" alt="" loading="lazy" onerror="this.remove()" />
-          <div class="game-scrim"></div>
-          <div class="game-top">
-            <div class="game-emblem">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.7 5.8 21 7 14 2 9.3 9 8.5 12 2"/>
-              </svg>
+          <details class="faq-item">
+            <summary>
+              <span>آپدیت‌های بعدی برنامه چطور انجام می‌شود؟</span>
+              <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-body">
+              برنامه دارای سیستم بررسی خودکار به‌روزرسانی است و هر نسخه جدید همزمان بدون نیاز به فیلترشکن در همین صفحه برای دانلود مستقیم منتشر می‌شود.
             </div>
-            <span class="game-proto">LOW JITTER</span>
-          </div>
-          <div class="game-bottom">
-            <div class="game-name">COD MOBILE</div>
-            <div class="game-note">کاهش دیلی در مچ‌های رنک مولتی و بتل رویال</div>
-          </div>
+          </details>
         </div>
-
-        <div class="game-card">
-          <img class="game-bg-img" src="efootball.jpg" alt="" loading="lazy" onerror="this.remove()" />
-          <div class="game-scrim"></div>
-          <div class="game-top">
-            <div class="game-emblem">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <polygon points="12 7 16 10 14.5 15 9.5 15 8 10 12 7"/>
-              </svg>
-            </div>
-            <span class="game-proto">DIRECT ROUTE</span>
-          </div>
-          <div class="game-bottom">
-            <div class="game-name">eFOOTBALL</div>
-            <div class="game-note">واکنش سریع و پاس‌کاری روان بدون فریز لحظه‌ای</div>
-          </div>
-        </div>
-
-        <div class="game-card">
-          <img class="game-bg-img" src="valorant.jpg" alt="" loading="lazy" onerror="this.remove()" />
-          <div class="game-scrim"></div>
-          <div class="game-top">
-            <div class="game-emblem">
-              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-              </svg>
-            </div>
-            <span class="game-proto">LAN / PC</span>
-          </div>
-          <div class="game-bottom">
-            <div class="game-name">VALORANT &amp; WARZONE</div>
-            <div class="game-note">قابل اشتراک‌گذاری روی پی‌سی از طریق SOCKS5 محلی</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bento Grid Capabilities -->
-    <section id="features">
-      <div class="sec-head">
-        <span class="sec-kicker">ENGINE CAPABILITIES</span>
-        <h2>امکانات تخصصی زیر کاپوت <span class="ltr">Baloch Ping</span></h2>
-        <p>طراحی‌شده با کنترل کامل روی هسته اتصال، ترافیک، DNS و شخصی‌سازی محیط برنامه</p>
-      </div>
-
-      <div class="bento-grid">
-        <div class="panel bento-card bento-span-3">
-          <div class="bento-top">
-            <div class="bento-ico">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-              </svg>
-            </div>
-            <span class="bento-tag">HYBRID CORE</span>
-          </div>
-          <h3>هسته ترکیبی و بهینه‌سازی پکت بازی</h3>
-          <p>انتخاب خودکار هسته متناسب با پروتکل همراه با تکه‌تکه‌سازی UDP و TLS، قابلیت Multiplex (MUX)، Multipath TCP، TCP Fast Open، مسدودسازی QUIC و تنظیم دقیق MTU تونل.</p>
-        </div>
-
-        <div class="panel bento-card bento-span-3">
-          <div class="bento-top">
-            <div class="bento-ico">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
-                <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
-              </svg>
-            </div>
-            <span class="bento-tag">AUTO SELECT</span>
-          </div>
-          <h3>تست پینگ واقعی و سوییچ هوشمند</h3>
-          <p>تست همزمان سرورها با متد HTTP GET و انتخاب بهترین نتیجه، حذف خودکار سرورهای خراب پس از تست و انتخاب خودکار کم‌پینگ‌ترین مسیر بر اساس آستانه تحمل تاخیر.</p>
-        </div>
-
-        <div class="panel bento-card bento-span-2">
-          <div class="bento-top">
-            <div class="bento-ico">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-              </svg>
-            </div>
-            <span class="bento-tag">ZERO DROP</span>
-          </div>
-          <h3>پایداری حین تغییر شبکه</h3>
-          <p>بازسازی سریع تونل هنگام جابه‌جایی بین وای‌فای و اینترنت همراه، اتصال خودکار پس از روشن شدن گوشی و نمایش سرعت لحظه‌ای در نوار اعلان.</p>
-        </div>
-
-        <div class="panel bento-card bento-span-2">
-          <div class="bento-top">
-            <div class="bento-ico">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <polyline points="9 12 11 14 15 10"/>
-              </svg>
-            </div>
-            <span class="bento-tag">DNS &amp; GEO</span>
-          </div>
-          <h3>مسیریابی ایران و موتور DNS</h3>
-          <p>جداسازی هوشمند سایت‌های ایرانی، حذف تبلیغات مزاحم و DNS اختصاصی روی HTTPS با استراتژی IPv4، پرس‌وجوی موازی و بازنویسی Hosts.</p>
-        </div>
-
-        <div class="panel bento-card bento-span-2">
-          <div class="bento-top">
-            <div class="bento-ico">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-              </svg>
-            </div>
-            <span class="bento-tag">LAN SHARE</span>
-          </div>
-          <h3>اشتراک‌گذاری و شخصی‌سازی</h3>
-          <p>پروکسی محلی SOCKS5/HTTP با احراز هویت برای کامپیوتر، رابط تمام‌فارسی با انتخاب نوع دکمه اتصال، آیکون تیره/روشن و بررسی خودکار آپدیت‌ها.</p>
-        </div>
-      </div>
-
-      <div class="panel specs-bar">
-        <div class="specs-label">
-          <span class="live-dot"></span>
-          <span>پروتکل‌ها و ماژول‌های داخلی هسته</span>
-        </div>
-        <div class="specs-wrap">
-          <span class="spec-pill">Hybrid Core</span>
-          <span class="spec-pill">UDP Fragment</span>
-          <span class="spec-pill">TLS Fragment</span>
-          <span class="spec-pill">Multipath TCP</span>
-          <span class="spec-pill">TCP Fast Open</span>
-          <span class="spec-pill">Multiplex (MUX)</span>
-          <span class="spec-pill">Custom MTU</span>
-          <span class="spec-pill">Block QUIC</span>
-          <span class="spec-pill">DoH / IPv4 Only</span>
-          <span class="spec-pill">Parallel DNS</span>
-          <span class="spec-pill">Iran Geo-Routing</span>
-          <span class="spec-pill">Ad-Block Rules</span>
-          <span class="spec-pill">SOCKS5 / HTTP LAN</span>
-          <span class="spec-pill">Auto Reconnect</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq">
-      <div class="sec-head">
-        <span class="sec-kicker">FAQ &amp; SETUP</span>
-        <h2>سوالات متداول</h2>
-        <p>پاسخ کوتاه به پرسش‌های پرتکرار پیش از نصب و استفاده از برنامه</p>
-      </div>
-
-      <div class="faq-list">
-        <details class="faq-item">
-          <summary>
-            <span>کدام فایل نصبی را دانلود کنم؛ arm64 یا armeabi-v7a؟</span>
-            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <div class="faq-body">
-            برای بیش از ۹۰ درصد گوشی‌های اندرویدی جدید، نسخه <span class="ltr">arm64-v8a</span> بهترین و سریع‌ترین انتخاب است (دکمه اصلی بالای صفحه نیز همین نسخه را دانلود می‌کند). تنها اگر گوشی شما خیلی قدیمی است و حین نصب خطا داد، نسخه <span class="ltr">armeabi-v7a</span> را نصب کنید.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>
-            <span>آیا هنگام روشن بودن برنامه، سایت‌ها و برنامه‌های ایرانی باز می‌شوند؟</span>
-            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <div class="faq-body">
-            بله. با فعال بودن فایل‌های منابع جغرافیایی ایران (<span class="ltr">geoip-ir</span> و <span class="ltr">geosite-ir</span>) در بخش تنظیمات برنامه، ترافیک سرویس‌های داخلی به‌صورت مستقیم عبور می‌کند و نیازی به قطع اتصال نیست.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>
-            <span>آیا می‌توان اتصال بهینه‌شده گوشی را روی کامپیوتر هم استفاده کرد؟</span>
-            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <div class="faq-body">
-            بله. در تنظیمات برنامه کافیست گزینه «اجازه اتصال از شبکه محلی» را فعال کنید تا از طریق پورت‌های محلی <span class="ltr">SOCKS5 (10808)</span> و <span class="ltr">HTTP (10809)</span> روی کامپیوتر یا دستگاه دوم هم به همان اتصال متصل شوید.
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary>
-            <span>آپدیت‌های بعدی برنامه چطور انجام می‌شود؟</span>
-            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <div class="faq-body">
-            برنامه دارای سیستم بررسی خودکار به‌روزرسانی است و هر نسخه جدید همزمان بدون نیاز به فیلترشکن در همین صفحه برای دانلود مستقیم منتشر می‌شود.
-          </div>
-        </details>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
   <footer>
@@ -1503,6 +1526,101 @@
   </footer>
 
   <script>
+    /* 1. Interactive Live Connecting Engine Animation */
+    (() => {
+      const stage = document.getElementById("engine-stage");
+      const telemetry = document.getElementById("engine-telemetry");
+      const dot = document.getElementById("engine-dot");
+      const statusText = document.getElementById("engine-status-text");
+      const pingEl = document.getElementById("engine-ping");
+
+      const steps = [
+        { text: "موتور در حال یافتن کم‌پینگ‌ترین مسیر...", badge: "SCAN", ok: false, ms: 2100 },
+        { text: "بهینه‌سازی پکت‌های UDP و هسته ترکیبی...", badge: "SYNC", ok: false, ms: 2100 },
+        { text: "مسیر گیمینگ قفل شد • اتصال پایدار", badge: "OPTIMIZED", ok: true, ms: 3800 }
+      ];
+
+      let idx = 0;
+      let timer = null;
+
+      function applyStep(i) {
+        const s = steps[i];
+        statusText.textContent = s.text;
+        pingEl.textContent = s.badge;
+        stage.classList.toggle("connected", s.ok);
+        telemetry.classList.toggle("ok", s.ok);
+        dot.classList.toggle("connecting", !s.ok);
+
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          idx = (i + 1) % steps.length;
+          applyStep(idx);
+        }, s.ms);
+      }
+
+      stage.addEventListener("click", () => {
+        idx = 0;
+        applyStep(0);
+      });
+
+      applyStep(0);
+    })();
+
+    /* 2. Dual-Row Smooth Scrolling Game Cards */
+    (() => {
+      const ICONS = {
+        aim: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>`,
+        bolt: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+        ball: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 7 16 10 14.5 15 9.5 15 8 10 12 7"/></svg>`,
+        flame: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+        shield: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+        star: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 8.5 22 9.3 17 14 18.2 21 12 17.7 5.8 21 7 14 2 9.3 9 8.5 12 2"/></svg>`
+      };
+
+      const ROW_1 = [
+        { name: "PUBG MOBILE", fa: "پابجی موبایل • رجیستر دقیق", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.28)", icon: "aim", img: "pubg.jpg" },
+        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.28)", icon: "star", img: "codm.jpg" },
+        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.30)", icon: "ball", img: "efootball.jpg" },
+        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FB7185", glow: "rgba(251,113,133,0.28)", icon: "bolt", img: "valorant.jpg" },
+        { name: "FREE FIRE", fa: "فری فایر • پینگ ثابت", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.28)", icon: "flame", img: "freefire.jpg" },
+        { name: "FORTNITE", fa: "فورتنایت • بیلد بدون تاخیر", tag: "ZERO LOSS", accent: "#A855F7", glow: "rgba(168,85,247,0.28)", icon: "bolt", img: "fortnite.jpg" }
+      ];
+
+      const ROW_2 = [
+        { name: "WARZONE MOBILE", fa: "وارزون موبایل • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.28)", icon: "aim", img: "warzone.jpg" },
+        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • رجیستر تیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.26)", icon: "aim", img: "cs2.jpg" },
+        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.28)", icon: "ball", img: "eafc.jpg" },
+        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.28)", icon: "flame", img: "apex.jpg" },
+        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.28)", icon: "shield", img: "mlbb.jpg" },
+        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#06B6D4", glow: "rgba(6,182,212,0.28)", icon: "star", img: "clash.jpg" }
+      ];
+
+      function buildCard(g) {
+        return `
+          <div class="m-game-card" style="--g-accent:${g.accent};--g-glow:${g.glow};">
+            <img class="m-game-bg" src="${g.img}" alt="" loading="lazy" onerror="this.remove()" />
+            <div class="m-game-top">
+              <div class="m-game-ico">${ICONS[g.icon] || ICONS.aim}</div>
+              <span class="m-game-tag"><span class="m-game-dot"></span>${g.tag}</span>
+            </div>
+            <div class="m-game-bot">
+              <div class="m-game-title">${g.name}</div>
+              <div class="m-game-fa">${g.fa}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function mountRow(elId, list) {
+        const html = `<div class="marquee-group">${list.map(buildCard).join("")}</div>`;
+        document.getElementById(elId).innerHTML = html + html;
+      }
+
+      mountRow("games-row-1", ROW_1);
+      mountRow("games-row-2", ROW_2);
+    })();
+
+    /* 3. Dynamic Latest Release & Support Link Integration */
     const FALLBACK_SUPPORT = "https://t.me/BalochpingSuport";
     const DOWNLOAD_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
 
