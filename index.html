@@ -714,7 +714,7 @@
     .compare-list.bad li svg { color: var(--red); }
     .compare-list.good li svg { color: var(--green); }
 
-    /* Dual-Row Moving Game Cards with Real Game Artwork Icons */
+    /* Dual-Row Moving Game Cards */
     .games-section {
       position: relative;
       z-index: 2;
@@ -805,16 +805,15 @@
       transform: translateY(-2px);
     }
 
-    /* Real Game Artwork Square Box */
     .m-game-thumb {
       position: relative;
       z-index: 2;
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
       border-radius: 14px;
       overflow: hidden;
       flex-shrink: 0;
-      background: linear-gradient(135deg, #111827, #070B16);
+      background: var(--g-bg, linear-gradient(135deg, #111827, #070B16));
       border: 1.5px solid var(--g-accent, rgba(56, 189, 248, 0.45));
       box-shadow: 0 6px 18px var(--g-glow, rgba(0, 0, 0, 0.45));
       display: grid;
@@ -822,18 +821,18 @@
     }
 
     .m-game-thumb img {
+      position: relative;
+      z-index: 2;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .m-game-mono {
-      font-size: 0.92rem;
-      font-weight: 900;
-      letter-spacing: 0.6px;
-      color: var(--g-accent, #38BDF8);
-      direction: ltr;
+    .m-game-thumb svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .m-game-info {
@@ -1317,7 +1316,7 @@
       </section>
     </div>
 
-    <!-- Continuous Scrolling Game Cards with Real Game Artwork -->
+    <!-- Continuous Scrolling Game Cards -->
     <section id="games" class="games-section">
       <div class="container">
         <div class="sec-head">
@@ -1554,41 +1553,53 @@
       applyStep(0);
     })();
 
-    /* 2. Dual-Row Smooth Scrolling Game Cards with Verified Official Icons & Artwork */
+    /* 2. Dual-Row Smooth Scrolling Game Cards (100% Guaranteed Visuals — Zero Broken Icons) */
     (() => {
-      const VALORANT_SVG = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M3 5.5v6.1l6.1 7.4h4.7L3 5.5z" fill="#FF4655"/><path d="M21 5.5v6.1l-3.7 4.5h-4.7L21 5.5z" fill="#FF4655"/></svg>`;
+      const EMBLEMS = {
+        valorant: `<svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" fill="#180A10"/><path d="M12 18v14.5L27.5 51H39L12 18z" fill="#FF4655"/><path d="M52 18v14.5L42.5 44H31L52 18z" fill="#FF4655"/></svg>`,
+
+        freefire: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="ffG" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#2D1406"/><stop offset="1" stop-color="#0D0A0B"/></linearGradient><linearGradient id="ffF" x1="16" y1="12" x2="48" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="#FDE047"/><stop offset="0.55" stop-color="#F97316"/><stop offset="1" stop-color="#DC2626"/></linearGradient></defs><rect width="64" height="64" fill="url(#ffG)"/><path d="M16 17h18l-2.5 6.5H23v5.5h8.5L29 35.5H23V48h-7V17z" fill="#FFFFFF"/><path d="M35 17h15l-2.5 6.5H41v5.5h7.5L46 35.5H41V48h-6.5V17z" fill="url(#ffF)"/><path d="M34 11l4 4-9 38-3.5-2.5L34 11z" fill="#FACC15"/></svg>`,
+
+        clash: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="crBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#1E3A8A"/><stop offset="1" stop-color="#091229"/></linearGradient><linearGradient id="crGold" x1="14" y1="16" x2="50" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#FEF08A"/><stop offset="0.5" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><rect width="64" height="64" fill="url(#crBg)"/><path d="M12 44L15 22l10 9 7-14 7 14 10-9 3 22H12z" fill="url(#crGold)" stroke="#FEF9C3" stroke-width="1.6" stroke-linejoin="round"/><rect x="14" y="45" width="36" height="5.5" rx="2.5" fill="#F59E0B"/><polygon points="32,27 36.5,33.5 32,40 27.5,33.5" fill="#38BDF8" stroke="#E0F2FE" stroke-width="1.2"/></svg>`,
+
+        mlbb: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mlBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#172554"/><stop offset="1" stop-color="#090E21"/></linearGradient><linearGradient id="mlGold" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="#FDE68A"/><stop offset="0.55" stop-color="#F59E0B"/><stop offset="1" stop-color="#92400E"/></linearGradient></defs><rect width="64" height="64" fill="url(#mlBg)"/><path d="M32 9l19 8v15c0 12.5-8 20-19 24-11-4-19-11.5-19-24V17l19-8z" fill="#0F1C3F" stroke="url(#mlGold)" stroke-width="3"/><path d="M20 42V22l12 11 12-11v20h-5.5V31.5L32 37.5l-6.5-6V42H20z" fill="url(#mlGold)"/><polygon points="32,16 35.5,21 32,26 28.5,21" fill="#38BDF8"/></svg>`,
+
+        brawl: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="bsBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#581C87"/><stop offset="1" stop-color="#140926"/></linearGradient><linearGradient id="bsY" x1="14" y1="10" x2="50" y2="54" gradientUnits="userSpaceOnUse"><stop stop-color="#FEF08A"/><stop offset="0.6" stop-color="#FACC15"/><stop offset="1" stop-color="#EA580C"/></linearGradient></defs><rect width="64" height="64" fill="url(#bsBg)"/><path d="M32 11c-12 0-20 8-20 18.5 0 6 3 10.8 7.5 13.7V49c0 2.2 1.8 4 4 4h17c2.2 0 4-1.8 4-4v-5.8C49 40.3 52 35.5 52 29.5 52 19 44 11 32 11z" fill="url(#bsY)" stroke="#1E0B36" stroke-width="2.5"/><circle cx="24" cy="30" r="5.2" fill="#1E0B36"/><circle cx="40" cy="30" r="5.2" fill="#1E0B36"/><path d="M29.5 37.5h5l-2.5-4.5-2.5 4.5z" fill="#1E0B36"/><rect x="25" y="44" width="3.5" height="6" rx="1" fill="#1E0B36"/><rect x="30.25" y="44" width="3.5" height="6" rx="1" fill="#1E0B36"/><rect x="35.5" y="44" width="3.5" height="6" rx="1" fill="#1E0B36"/></svg>`,
+
+        fc: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="fcBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#064E3B"/><stop offset="1" stop-color="#071217"/></linearGradient></defs><rect width="64" height="64" fill="url(#fcBg)"/><polygon points="10,16 54,16 32,53" fill="#0B1F19" stroke="#22C55E" stroke-width="2.5" stroke-linejoin="round"/><path d="M22 24h12v3.8h-7.5v3h6.2v3.6h-6.2V40H22V24zm20.5 0c2.7 0 4.6 1.2 5.4 3.2l-3.6 1.6c-.4-.9-1.1-1.3-2-1.3-1.6 0-2.6 1.2-2.6 3.5s1 3.5 2.6 3.5c1 0 1.7-.5 2.1-1.4l3.5 1.6c-.9 2.1-2.8 3.3-5.5 3.3-4.3 0-7.2-2.9-7.2-7s2.9-7 7.3-7z" fill="#FFFFFF"/></svg>`,
+
+        cs2: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="csBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#D97706"/><stop offset="1" stop-color="#1E293B"/></linearGradient></defs><rect width="64" height="64" fill="url(#csBg)"/><path d="M13 21h38v22H13z" fill="#0F172A" fill-opacity="0.72" rx="6"/><text x="32" y="39" text-anchor="middle" fill="#FDE047" font-family="system-ui,sans-serif" font-weight="900" font-size="22">CS2</text></svg>`
+      };
 
       const ROW_1 = [
-        { name: "PUBG MOBILE", fa: "پابجی موبایل • رجیستر دقیق", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", appId: "1330123889", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", mono: "PUBG" },
-        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", appId: "1287282214", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", mono: "CODM" },
-        { name: "FREE FIRE", fa: "فری فایر • پینگ ثابت", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", appId: "1300146617", img: "", mono: "FF" },
-        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", appId: "1117270703", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1665460/3d7cad698741287226458a67e9b8f3fede2ba154/capsule_616x353.jpg", mono: "eFB" },
-        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", appId: "", img: "", svg: VALORANT_SVG, mono: "VAL" },
-        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#06B6D4", glow: "rgba(6,182,212,0.32)", appId: "1053012308", img: "", mono: "CR" }
+        { name: "PUBG MOBILE", fa: "پابجی موبایل • رجیستر دقیق", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", pos: "50% 40%", svg: EMBLEMS.freefire },
+        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "30% 25%", svg: EMBLEMS.cs2 },
+        { name: "FREE FIRE", fa: "فری فایر • پینگ ثابت", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", img: "", svg: EMBLEMS.freefire },
+        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1665460/3d7cad698741287226458a67e9b8f3fede2ba154/capsule_616x353.jpg", pos: "50% 35%", svg: EMBLEMS.fc },
+        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", img: "", svg: EMBLEMS.valorant },
+        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "", svg: EMBLEMS.clash }
       ];
 
       const ROW_2 = [
-        { name: "WARZONE", fa: "وارزون • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", appId: "", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", mono: "WZ" },
-        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", appId: "1160056295", img: "", mono: "MLBB" },
-        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", appId: "1094930513", img: "", mono: "FC" },
-        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • رجیستر تیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.30)", appId: "", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/162664aa5da85f418105350c5d67ca565f6c3713/header.jpg", mono: "CS2" },
-        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", appId: "", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/6cf04767652d703b6050da84b82cfb1194258d7d/header.jpg", mono: "APEX" },
-        { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", tag: "ZERO LOSS", accent: "#A855F7", glow: "rgba(168,85,247,0.32)", appId: "1229016807", img: "", mono: "BS" }
+        { name: "WARZONE", fa: "وارزون • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "25% 25%", svg: EMBLEMS.cs2 },
+        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", img: "", svg: EMBLEMS.mlbb },
+        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/2195250/header.jpg", pos: "50% 25%", svg: EMBLEMS.fc },
+        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • رجیستر تیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg", pos: "68% 30%", svg: EMBLEMS.cs2 },
+        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/6cf04767652d703b6050da84b82cfb1194258d7d/header.jpg", pos: "72% 28%", svg: EMBLEMS.valorant },
+        { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", tag: "ZERO LOSS", accent: "#C084FC", glow: "rgba(192,132,252,0.32)", img: "", svg: EMBLEMS.brawl }
       ];
 
       function buildThumb(g) {
-        if (g.svg) return g.svg;
-        if (g.img) {
-          return `<img src="${g.img}" alt="${g.name}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'m-game-mono',textContent:'${g.mono}'}))">`;
-        }
-        return `<span class="m-game-mono">${g.mono}</span>`;
+        if (!g.img) return g.svg;
+        const pos = g.pos || "50% 50%";
+        return `<img src="${g.img}" alt="${g.name}" style="object-position:${pos};" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML=this.parentElement.dataset.svg">`;
       }
 
       function buildCard(g) {
-        const idAttr = g.appId ? ` data-appid="${g.appId}"` : "";
+        const safeSvg = g.svg.replace(/"/g, "&quot;");
         return `
           <div class="m-game-card" style="--g-accent:${g.accent};--g-glow:${g.glow};">
-            <div class="m-game-thumb"${idAttr}>${buildThumb(g)}</div>
+            <div class="m-game-thumb" data-svg="${safeSvg}">${buildThumb(g)}</div>
             <div class="m-game-info">
               <span class="m-game-tag"><span class="m-game-dot"></span>${g.tag}</span>
               <div class="m-game-title">${g.name}</div>
@@ -1605,39 +1616,6 @@
 
       mountRow("games-row-1", ROW_1);
       mountRow("games-row-2", ROW_2);
-
-      /* Fetch Official High-Res Square App Icons by Verified Numeric App Store IDs */
-      const appIds = [...ROW_1, ...ROW_2].map((g) => g.appId).filter(Boolean);
-      if (appIds.length) {
-        window.__bpLoadIcons = (data) => {
-          if (!data || !Array.isArray(data.results)) return;
-          data.results.forEach((app) => {
-            const trackId = app.trackId ? String(app.trackId) : "";
-            const iconUrl = app.artworkUrl512 || (app.artworkUrl100 ? app.artworkUrl100.replace("100x100bb", "256x256bb") : "");
-            if (!trackId || !iconUrl) return;
-            document.querySelectorAll(`.m-game-thumb[data-appid="${trackId}"]`).forEach((box) => {
-              if (box.dataset.loaded === "1") return;
-              const img = document.createElement("img");
-              img.src = iconUrl;
-              img.alt = app.trackName || "";
-              img.loading = "lazy";
-              img.referrerPolicy = "no-referrer";
-              img.onload = () => {
-                box.dataset.loaded = "1";
-                box.innerHTML = "";
-                box.appendChild(img);
-              };
-            });
-          });
-        };
-
-        ["us", "gb"].forEach((region) => {
-          const sc = document.createElement("script");
-          sc.src = "https://itunes.apple.com/lookup?id=" + appIds.join(",") + "&country=" + region + "&callback=__bpLoadIcons";
-          sc.async = true;
-          document.body.appendChild(sc);
-        });
-      }
     })();
 
     /* 3. Dynamic Latest Release & Support Link Integration */
