@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>Baloch Ping | موتور هوشمند کاهش پینگ گیمینگ</title>
-  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping — هسته ترکیبی، تکه‌تکه‌سازی پکت و دانلود مستقیم آخرین نسخه اندروید." />
-  <meta name="theme-color" content="#050811" />
+  <title>Baloch Ping | نسل جدید کاهش پینگ گیمینگ</title>
+  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping — موتور هوشمند مسیریابی، هسته ترکیبی، تکه‌تکه‌سازی پکت و دانلود مستقیم آخرین نسخه اندروید." />
+  <meta name="theme-color" content="#04070F" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 38'%3E%3Crect width='38' height='38' rx='10' fill='%2312141A'/%3E%3Cg transform='translate(6.65 7.5)'%3E%3Cpath fill='%23ffffff' fill-rule='evenodd' clip-rule='evenodd' d='M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
   <style>
     :root {
-      --bg: #050811;
-      --surface: rgba(12, 17, 30, 0.84);
+      --bg: #04070F;
+      --surface: rgba(11, 16, 29, 0.86);
       --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(22, 119, 255, 0.55);
+      --border-strong: rgba(56, 189, 248, 0.28);
       --primary: #1677FF;
       --primary-soft: rgba(22, 119, 255, 0.14);
       --cyan: #38BDF8;
       --neon: #00E5FF;
       --green: #10B981;
+      --amber: #F59E0B;
       --red: #EF4444;
       --text: #F8FAFC;
       --muted: #94A3B8;
@@ -48,27 +49,49 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Top Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      z-index: 100;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    .scroll-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--neon), var(--green));
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.65);
+      transition: width 0.08s linear;
+    }
+
+    /* Architectural Backdrop */
     .bg-grid {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(820px 480px at 50% -100px, rgba(22, 119, 255, 0.24), transparent 70%),
-        radial-gradient(500px 380px at 100% 35%, rgba(56, 189, 248, 0.07), transparent 70%),
-        linear-gradient(180deg, rgba(5, 8, 17, 0.78), rgba(5, 8, 17, 0.94)),
+        radial-gradient(860px 500px at 50% -110px, rgba(22, 119, 255, 0.25), transparent 70%),
+        radial-gradient(520px 380px at 100% 35%, rgba(56, 189, 248, 0.08), transparent 70%),
+        radial-gradient(480px 360px at 0% 72%, rgba(16, 185, 129, 0.06), transparent 72%),
+        linear-gradient(180deg, rgba(4, 7, 15, 0.78), rgba(4, 7, 15, 0.95)),
         url('bg.jpg') center center / cover no-repeat,
         linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px),
         var(--bg);
-      background-size: auto, auto, auto, cover, 44px 44px, 44px 44px, auto;
+      background-size: auto, auto, auto, auto, cover, 44px 44px, 44px 44px, auto;
     }
 
     .container {
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 1040px;
+      max-width: 1060px;
       margin: 0 auto;
       padding: 0 18px;
     }
@@ -79,14 +102,26 @@
       display: inline-block;
     }
 
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Sticky Header */
     header {
       position: sticky;
       top: 0;
       z-index: 60;
-      background: rgba(5, 8, 17, 0.84);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(4, 7, 15, 0.84);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
 
@@ -128,13 +163,13 @@
     .nav-links {
       display: none;
       align-items: center;
-      gap: 26px;
+      gap: 24px;
     }
 
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 600;
       transition: color 0.2s;
     }
@@ -154,19 +189,18 @@
       font-size: 0.8rem;
       font-weight: 800;
       color: #fff;
-      background: var(--primary);
+      background: linear-gradient(135deg, #1E82FF, #1262D6);
       padding: 7px 14px;
       border-radius: 9px;
       text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.14);
       transition: filter 0.2s, transform 0.2s;
     }
 
     .nav-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
 
     /* Three-Dot Quick Menu Panel */
-    .menu-wrap {
-      position: relative;
-    }
+    .menu-wrap { position: relative; }
 
     .menu-btn {
       width: 40px;
@@ -190,22 +224,20 @@
       box-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
     }
 
-    .menu-btn:active {
-      transform: scale(0.94);
-    }
+    .menu-btn:active { transform: scale(0.94); }
 
     .menu-panel {
       position: absolute;
       top: calc(100% + 10px);
       left: 0;
-      width: 242px;
-      background: rgba(9, 14, 27, 0.97);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(56, 189, 248, 0.26);
+      width: 248px;
+      background: rgba(8, 13, 26, 0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-strong);
       border-radius: 18px;
       padding: 10px;
-      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.74), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       opacity: 0;
       visibility: hidden;
       transform: translateY(-8px) scale(0.97);
@@ -230,11 +262,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .menu-head-title {
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: var(--muted);
-    }
+    .menu-head-title { font-size: 0.76rem; font-weight: 800; color: var(--muted); }
 
     .menu-ver {
       font-size: 0.7rem;
@@ -248,41 +276,33 @@
       white-space: nowrap;
     }
 
-    .menu-list {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
+    .menu-list { display: flex; flex-direction: column; gap: 3px; }
 
     .menu-link {
+      width: 100%;
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 11px;
+      padding: 9px 11px;
       border-radius: 11px;
       color: #E2E8F0;
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
+      text-align: right;
       transition: background 0.18s, color 0.18s;
     }
 
-    .menu-link svg {
-      color: var(--cyan);
-      flex-shrink: 0;
-    }
+    .menu-link svg { color: var(--cyan); flex-shrink: 0; }
+    .menu-link:hover, .menu-link:active { background: rgba(22, 119, 255, 0.16); color: #fff; }
+    .menu-link.copied { color: #34D399; }
+    .menu-link.copied svg { color: #34D399; }
 
-    .menu-link:hover,
-    .menu-link:active {
-      background: rgba(22, 119, 255, 0.16);
-      color: #fff;
-    }
-
-    .menu-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 7px 6px;
-    }
+    .menu-divider { height: 1px; background: var(--border); margin: 7px 6px; }
 
     .menu-support {
       display: flex;
@@ -300,11 +320,7 @@
       transition: background 0.2s, border-color 0.2s;
     }
 
-    .menu-support svg {
-      color: var(--neon);
-      flex-shrink: 0;
-    }
-
+    .menu-support svg { color: var(--neon); flex-shrink: 0; }
     .menu-support:hover {
       background: linear-gradient(135deg, rgba(22, 119, 255, 0.34), rgba(0, 229, 255, 0.20));
       border-color: var(--neon);
@@ -314,7 +330,7 @@
     .hero {
       position: relative;
       text-align: center;
-      padding: 36px 0 34px;
+      padding: 34px 0 34px;
       overflow: hidden;
     }
 
@@ -358,21 +374,9 @@
       pointer-events: none;
     }
 
-    .ring-ticks-outer {
-      transform-origin: 100px 100px;
-      animation: spinCW 24s linear infinite;
-    }
-
-    .ring-arc-fast {
-      transform-origin: 100px 100px;
-      animation: spinCW 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-    }
-
-    .ring-rotor-ccw {
-      transform-origin: 100px 100px;
-      animation: spinCCW 5.5s linear infinite;
-    }
-
+    .ring-ticks-outer { transform-origin: 100px 100px; animation: spinCW 24s linear infinite; }
+    .ring-arc-fast { transform-origin: 100px 100px; animation: spinCW 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; }
+    .ring-rotor-ccw { transform-origin: 100px 100px; animation: spinCCW 5.5s linear infinite; }
     .engine-stage.connected .ring-arc-fast { animation-duration: 6s; }
 
     .engine-core {
@@ -403,10 +407,7 @@
         inset 0 2px 10px rgba(255, 255, 255, 0.42);
     }
 
-    .engine-core svg {
-      color: #ffffff;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
-    }
+    .engine-core svg { color: #ffffff; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35)); }
 
     .engine-telemetry {
       display: inline-flex;
@@ -415,7 +416,7 @@
       font-size: 0.77rem;
       font-weight: 800;
       color: #E2E8F0;
-      background: rgba(12, 18, 34, 0.88);
+      background: rgba(11, 17, 32, 0.90);
       border: 1px solid rgba(56, 189, 248, 0.26);
       padding: 6px 15px;
       border-radius: 999px;
@@ -424,7 +425,7 @@
     }
 
     .engine-ping-val {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 900;
       color: var(--neon);
       background: rgba(0, 229, 255, 0.10);
@@ -443,16 +444,8 @@
 
     @keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes spinCCW { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-    @keyframes engineBreathe {
-      0%, 100% { transform: scale(0.95); opacity: 0.78; }
-      50% { transform: scale(1.08); opacity: 1; }
-    }
-
-    @keyframes engineWave {
-      0% { transform: scale(0.86); opacity: 0.72; }
-      100% { transform: scale(1.52); opacity: 0; }
-    }
+    @keyframes engineBreathe { 0%, 100% { transform: scale(0.95); opacity: 0.78; } 50% { transform: scale(1.08); opacity: 1; } }
+    @keyframes engineWave { 0% { transform: scale(0.86); opacity: 0.72; } 100% { transform: scale(1.52); opacity: 0; } }
 
     .live-dot {
       width: 7px;
@@ -469,15 +462,15 @@
     }
 
     h1 {
-      font-size: clamp(2.15rem, 8vw, 3.7rem);
+      font-size: clamp(2.1rem, 7.6vw, 3.65rem);
       font-weight: 900;
-      line-height: 1.2;
+      line-height: 1.24;
       letter-spacing: -0.6px;
       margin-bottom: 14px;
     }
 
     .accent-grad {
-      background: linear-gradient(95deg, #60A5FA, var(--primary), var(--cyan));
+      background: linear-gradient(95deg, #60A5FA, var(--primary), var(--neon));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -605,11 +598,11 @@
     /* Surface Panel */
     .panel {
       position: relative;
-      background: linear-gradient(180deg, rgba(14, 20, 36, 0.90), rgba(9, 13, 24, 0.96));
+      background: linear-gradient(180deg, rgba(13, 19, 34, 0.92), rgba(8, 12, 23, 0.97));
       border: 1px solid var(--border);
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.06);
       transition: border-color 0.25s ease, transform 0.25s ease;
     }
 
@@ -645,13 +638,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .release-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.94rem;
-      font-weight: 800;
-    }
+    .release-title { display: flex; align-items: center; gap: 8px; font-size: 0.94rem; font-weight: 800; }
 
     .date-chip {
       font-size: 0.72rem;
@@ -664,15 +651,10 @@
       white-space: nowrap;
     }
 
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
+    .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
 
     .meta-cell {
-      background: rgba(5, 8, 17, 0.72);
+      background: rgba(4, 7, 15, 0.74);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 10px 8px;
@@ -695,7 +677,6 @@
     }
 
     .changelog-k { font-size: 0.72rem; font-weight: 800; color: var(--cyan); margin-bottom: 3px; }
-
     .abi-stack { display: flex; flex-direction: column; gap: 9px; }
 
     .abi-row {
@@ -717,12 +698,7 @@
       background: linear-gradient(90deg, rgba(22, 119, 255, 0.14), rgba(15, 23, 42, 0.85));
     }
 
-    .abi-row:hover {
-      border-color: var(--primary);
-      background: rgba(22, 119, 255, 0.16);
-      transform: translateY(-1px);
-    }
-
+    .abi-row:hover { border-color: var(--primary); background: rgba(22, 119, 255, 0.16); transform: translateY(-1px); }
     .abi-left { display: flex; align-items: center; gap: 11px; min-width: 0; }
 
     .abi-ico {
@@ -755,16 +731,8 @@
     }
 
     /* Section Header */
-    section {
-      padding: 46px 0;
-      scroll-margin-top: 72px;
-    }
-
-    .sec-head {
-      text-align: center;
-      max-width: 620px;
-      margin: 0 auto 28px;
-    }
+    section { padding: 48px 0; scroll-margin-top: 72px; }
+    .sec-head { text-align: center; max-width: 640px; margin: 0 auto 28px; }
 
     .sec-kicker {
       display: inline-block;
@@ -777,27 +745,191 @@
       direction: ltr;
     }
 
-    .sec-head h2 {
-      font-size: clamp(1.45rem, 4.5vw, 2rem);
-      font-weight: 900;
-      letter-spacing: -0.3px;
-      margin-bottom: 8px;
-    }
-
+    .sec-head h2 { font-size: clamp(1.45rem, 4.5vw, 2rem); font-weight: 900; letter-spacing: -0.3px; margin-bottom: 8px; }
     .sec-head p { color: var(--muted); font-size: 0.9rem; }
 
-    /* Comparison Section */
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
+    /* Interactive Live Route Simulator (Global Tech Showcase) */
+    .sim-panel {
+      padding: 20px 18px;
+      margin-bottom: 18px;
+      border-color: rgba(56, 189, 248, 0.24);
     }
 
+    .sim-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .sim-title-wrap { display: flex; align-items: center; gap: 9px; }
+    .sim-title { font-size: 0.92rem; font-weight: 900; }
+
+    .sim-switch {
+      display: inline-flex;
+      background: rgba(4, 7, 15, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .sim-tab {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .sim-tab.active.pro {
+      background: linear-gradient(135deg, #1E82FF, #0EA5E9);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(22, 119, 255, 0.35);
+    }
+
+    .sim-tab.active.std {
+      background: rgba(239, 68, 68, 0.22);
+      color: #FCA5A5;
+      border: 1px solid rgba(239, 68, 68, 0.32);
+    }
+
+    .sim-canvas {
+      position: relative;
+      background: rgba(4, 7, 15, 0.72);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 14px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .sim-track {
+      display: grid;
+      grid-template-columns: auto 1fr auto 1fr auto;
+      align-items: center;
+      gap: 6px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .sim-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 68px;
+    }
+
+    .sim-node-ico {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+    .sim-node.core .sim-node-ico {
+      width: 54px;
+      height: 54px;
+      border-radius: 15px;
+      border-color: var(--neon);
+      color: #fff;
+      background: linear-gradient(145deg, rgba(22, 119, 255, 0.35), rgba(0, 229, 255, 0.16));
+      box-shadow: 0 0 26px rgba(0, 229, 255, 0.28);
+    }
+
+    .sim-panel.is-std .sim-node.core .sim-node-ico {
+      border-color: rgba(239, 68, 68, 0.55);
+      color: #FCA5A5;
+      background: rgba(239, 68, 68, 0.12);
+      box-shadow: 0 0 22px rgba(239, 68, 68, 0.22);
+    }
+
+    .sim-node-label { font-size: 0.72rem; font-weight: 800; color: #E2E8F0; text-align: center; white-space: nowrap; }
+    .sim-node-sub { font-size: 0.64rem; color: var(--muted); direction: ltr; white-space: nowrap; }
+
+    .sim-pipe {
+      position: relative;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.18);
+      overflow: hidden;
+    }
+
+    .sim-panel.is-std .sim-pipe { background: rgba(239, 68, 68, 0.16); }
+
+    .sim-packet {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 34%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--neon), var(--green));
+      box-shadow: 0 0 12px var(--neon);
+      animation: packetFlowPro 1.45s linear infinite;
+    }
+
+    .sim-pipe.second .sim-packet { animation-delay: 0.72s; }
+
+    .sim-panel.is-std .sim-packet {
+      width: 22%;
+      background: linear-gradient(90deg, transparent, var(--amber), var(--red));
+      box-shadow: 0 0 10px var(--red);
+      animation: packetFlowStd 2.6s steps(7, end) infinite;
+    }
+
+    @keyframes packetFlowPro {
+      0% { right: -36%; opacity: 0.2; }
+      20% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { right: 105%; opacity: 0.2; }
+    }
+
+    @keyframes packetFlowStd {
+      0% { right: -24%; opacity: 0.9; }
+      45% { right: 42%; opacity: 0.35; }
+      70% { right: 56%; opacity: 0.85; }
+      100% { right: 105%; opacity: 0.1; }
+    }
+
+    .sim-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+    }
+
+    .sim-stat {
+      background: rgba(4, 7, 15, 0.68);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .sim-stat-k { font-size: 0.69rem; color: var(--muted); margin-bottom: 2px; }
+    .sim-stat-v { font-size: 0.82rem; font-weight: 900; color: #34D399; transition: color 0.25s; }
+    .sim-panel.is-std .sim-stat-v { color: #FCA5A5; }
+
+    /* Comparison Section */
+    .compare-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .compare-card { padding: 22px 20px; }
 
     .compare-card.pro {
       border-color: rgba(22, 119, 255, 0.42);
-      background: linear-gradient(180deg, rgba(22, 119, 255, 0.12), rgba(9, 13, 24, 0.96));
+      background: linear-gradient(180deg, rgba(22, 119, 255, 0.12), rgba(8, 12, 23, 0.97));
     }
 
     .compare-head {
@@ -812,33 +944,19 @@
 
     .compare-head h3 { font-size: 1rem; font-weight: 900; }
 
-    .cmp-badge {
-      font-size: 0.7rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
+    .cmp-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
     .cmp-badge.bad { color: #FCA5A5; background: rgba(239, 68, 68, 0.10); border: 1px solid rgba(239, 68, 68, 0.26); }
     .cmp-badge.good { color: #6EE7B7; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.30); }
 
     .signal-meter {
       margin-bottom: 16px;
-      background: rgba(5, 8, 17, 0.7);
+      background: rgba(4, 7, 15, 0.72);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 12px;
     }
 
-    .meter-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.74rem;
-      color: var(--muted);
-      margin-bottom: 7px;
-    }
-
+    .meter-row { display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--muted); margin-bottom: 7px; }
     .meter-track { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
     .meter-fill { height: 100%; border-radius: 999px; }
     .meter-fill.bad { width: 42%; background: linear-gradient(90deg, #DC2626, #F59E0B); }
@@ -851,13 +969,7 @@
     .compare-list.good li svg { color: var(--green); }
 
     /* Dual-Row Moving Game Cards */
-    .games-section {
-      position: relative;
-      z-index: 2;
-      padding: 46px 0;
-      width: 100%;
-      overflow: hidden;
-    }
+    .games-section { position: relative; z-index: 2; padding: 48px 0; width: 100%; overflow: hidden; }
 
     .marquee-shell {
       position: relative;
@@ -871,32 +983,14 @@
       mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
     }
 
-    .marquee-row {
-      display: flex;
-      width: max-content;
-      will-change: transform;
-    }
-
+    .marquee-row { display: flex; width: max-content; will-change: transform; }
     .marquee-row.forward { animation: glideLeft 36s linear infinite; }
     .marquee-row.reverse { animation: glideRight 40s linear infinite; }
     .marquee-shell:hover .marquee-row { animation-play-state: paused; }
+    .marquee-group { display: flex; gap: 12px; padding-right: 12px; flex-shrink: 0; }
 
-    .marquee-group {
-      display: flex;
-      gap: 12px;
-      padding-right: 12px;
-      flex-shrink: 0;
-    }
-
-    @keyframes glideLeft {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
-    }
-
-    @keyframes glideRight {
-      0% { transform: translate3d(-50%, 0, 0); }
-      100% { transform: translate3d(0, 0, 0); }
-    }
+    @keyframes glideLeft { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+    @keyframes glideRight { 0% { transform: translate3d(-50%, 0, 0); } 100% { transform: translate3d(0, 0, 0); } }
 
     .m-game-card {
       position: relative;
@@ -936,10 +1030,7 @@
       pointer-events: none;
     }
 
-    .m-game-card:hover {
-      border-color: var(--g-accent, #38BDF8);
-      transform: translateY(-2px);
-    }
+    .m-game-card:hover { border-color: var(--g-accent, #38BDF8); transform: translateY(-2px); }
 
     .m-game-thumb {
       position: relative;
@@ -949,27 +1040,15 @@
       border-radius: 14px;
       overflow: hidden;
       flex-shrink: 0;
-      background: var(--g-bg, linear-gradient(135deg, #111827, #070B16));
+      background: linear-gradient(135deg, #111827, #070B16);
       border: 1.5px solid var(--g-accent, rgba(56, 189, 248, 0.45));
       box-shadow: 0 6px 18px var(--g-glow, rgba(0, 0, 0, 0.45));
       display: grid;
       place-items: center;
     }
 
-    .m-game-thumb img {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .m-game-thumb svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
+    .m-game-thumb img { position: relative; z-index: 2; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .m-game-thumb svg { width: 100%; height: 100%; display: block; }
 
     .m-game-info {
       position: relative;
@@ -999,13 +1078,7 @@
       margin-bottom: 2px;
     }
 
-    .m-game-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--g-accent, #10B981);
-      box-shadow: 0 0 7px var(--g-accent, #10B981);
-    }
+    .m-game-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--g-accent, #10B981); box-shadow: 0 0 7px var(--g-accent, #10B981); }
 
     .m-game-title {
       width: 100%;
@@ -1020,40 +1093,13 @@
       text-overflow: ellipsis;
     }
 
-    .m-game-fa {
-      width: 100%;
-      font-size: 0.71rem;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .m-game-fa { width: 100%; font-size: 0.71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     /* Bento Grid Capabilities */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-
-    .bento-card {
-      padding: 22px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .bento-card:hover {
-      border-color: rgba(22, 119, 255, 0.42);
-      transform: translateY(-2px);
-    }
-
-    .bento-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
+    .bento-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .bento-card { padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; }
+    .bento-card:hover { border-color: rgba(22, 119, 255, 0.42); transform: translateY(-2px); }
+    .bento-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
     .bento-ico {
       width: 40px;
@@ -1084,30 +1130,14 @@
 
     /* Engine Specs Strip */
     .specs-bar { margin-top: 14px; padding: 18px; text-align: center; }
-
-    .specs-label {
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: #CBD5E1;
-      margin-bottom: 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .specs-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 7px;
-      direction: ltr;
-    }
+    .specs-label { font-size: 0.78rem; font-weight: 800; color: #CBD5E1; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px; }
+    .specs-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; direction: ltr; }
 
     .spec-pill {
       font-size: 0.73rem;
       font-weight: 700;
       color: #CBD5E1;
-      background: rgba(5, 8, 17, 0.75);
+      background: rgba(4, 7, 15, 0.78);
       border: 1px solid var(--border);
       padding: 5px 11px;
       border-radius: 8px;
@@ -1117,14 +1147,45 @@
 
     .spec-pill:hover { border-color: var(--primary); color: var(--cyan); }
 
-    /* FAQ Accordion */
-    .faq-list {
-      max-width: 740px;
-      margin: 0 auto;
+    /* 3-Step Quick Onboarding */
+    .steps-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+    .step-card {
+      padding: 22px 20px;
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
+
+    .step-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+    .step-num {
+      font-size: 0.76rem;
+      font-weight: 900;
+      color: var(--neon);
+      background: rgba(0, 229, 255, 0.10);
+      border: 1px solid rgba(0, 229, 255, 0.28);
+      padding: 4px 10px;
+      border-radius: 8px;
+      direction: ltr;
+    }
+
+    .step-ico {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: #E2E8F0;
+      display: grid;
+      place-items: center;
+    }
+
+    .step-card h3 { font-size: 0.98rem; font-weight: 900; }
+    .step-card p { font-size: 0.83rem; color: var(--muted); }
+
+    /* FAQ Accordion */
+    .faq-list { max-width: 740px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
 
     details.faq-item {
       background: var(--surface);
@@ -1151,51 +1212,103 @@
     }
 
     details.faq-item summary::-webkit-details-marker { display: none; }
-
-    .faq-chevron {
-      color: var(--muted);
-      transition: transform 0.22s ease, color 0.22s ease;
-      flex-shrink: 0;
-    }
-
+    .faq-chevron { color: var(--muted); transition: transform 0.22s ease, color 0.22s ease; flex-shrink: 0; }
     details.faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--cyan); }
+    .faq-body { padding: 12px 18px 16px; font-size: 0.84rem; color: var(--muted); border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
-    .faq-body {
-      padding: 12px 18px 16px;
-      font-size: 0.84rem;
-      color: var(--muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* Footer */
+    /* Footer with Live Infrastructure Status */
     footer {
       position: relative;
       z-index: 2;
       border-top: 1px solid var(--border);
-      padding: 34px 0 44px;
+      padding: 36px 0 92px;
       margin-top: 24px;
     }
 
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+
+    .status-pill {
+      display: inline-flex;
       align-items: center;
-      gap: 16px;
-      text-align: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #A7F3D0;
+      background: rgba(16, 185, 129, 0.09);
+      border: 1px solid rgba(16, 185, 129, 0.26);
+      padding: 5px 13px;
+      border-radius: 999px;
     }
 
     .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-
-    .footer-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.84rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.84rem; font-weight: 600; transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
     .footer-copy { font-size: 0.78rem; color: var(--dim); }
+
+    /* Floating Smart Bottom Download Pill */
+    .float-bar {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      max-width: 440px;
+      margin: 0 auto;
+      z-index: 55;
+      background: rgba(9, 14, 28, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(56, 189, 248, 0.30);
+      border-radius: 16px;
+      padding: 9px 10px 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    }
+
+    .float-bar.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .float-info { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .float-text { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
+    .float-title { font-size: 0.8rem; font-weight: 900; color: var(--text); white-space: nowrap; }
+    .float-sub { font-size: 0.69rem; color: var(--cyan); direction: ltr; text-align: right; white-space: nowrap; }
+
+    .float-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+
+    .float-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #1E82FF, #1262D6);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 8px 13px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .float-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
 
     @media (min-width: 720px) {
       .nav-links { display: flex; }
@@ -1210,17 +1323,21 @@
       .bento-grid { grid-template-columns: repeat(6, 1fr); gap: 14px; }
       .bento-span-3 { grid-column: span 3; }
       .bento-span-2 { grid-column: span 2; }
+      .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
+      footer { padding-bottom: 52px; }
       .footer-inner { flex-direction: row; justify-content: space-between; text-align: right; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .ring-ticks-outer, .ring-arc-fast, .ring-rotor-ccw, .engine-pulse, .engine-glow, .marquee-row {
+      .ring-ticks-outer, .ring-arc-fast, .ring-rotor-ccw, .engine-pulse, .engine-glow, .marquee-row, .sim-packet {
         animation: none !important;
       }
+      .reveal { opacity: 1; transform: none; transition: none; }
     }
   </style>
 </head>
 <body>
+  <div class="scroll-progress" aria-hidden="true"><div id="scroll-bar" class="scroll-progress-bar"></div></div>
   <div class="bg-grid"></div>
 
   <header>
@@ -1236,9 +1353,10 @@
 
       <nav class="nav-links">
         <a href="#download">دانلود</a>
-        <a href="#compare">مقایسه</a>
+        <a href="#compare">شبیه‌ساز و مقایسه</a>
         <a href="#games">بازی‌ها</a>
         <a href="#features">امکانات</a>
+        <a href="#howto">شروع سریع</a>
         <a href="#faq">سوالات متداول</a>
       </nav>
 
@@ -1262,58 +1380,39 @@
 
             <div class="menu-list">
               <a class="menu-link" href="#download" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 <span>دانلود آخرین نسخه</span>
               </a>
-
               <a class="menu-link" href="#compare" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="20" x2="18" y2="10"/>
-                  <line x1="12" y1="20" x2="12" y2="4"/>
-                  <line x1="6" y1="20" x2="6" y2="14"/>
-                </svg>
-                <span>مقایسه شبکه</span>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span>شبیه‌ساز و مقایسه شبکه</span>
               </a>
-
               <a class="menu-link" href="#games" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="6" width="20" height="12" rx="4"/>
-                  <line x1="6" y1="12" x2="10" y2="12"/>
-                  <line x1="8" y1="10" x2="8" y2="14"/>
-                  <circle cx="15" cy="13" r="1"/>
-                  <circle cx="17.5" cy="11" r="1"/>
-                </svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="13" r="1"/><circle cx="17.5" cy="11" r="1"/></svg>
                 <span>بازی‌های پشتیبانی‌شده</span>
               </a>
-
               <a class="menu-link" href="#features" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 <span>امکانات تخصصی</span>
               </a>
-
+              <a class="menu-link" href="#howto" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                <span>راهنمای شروع سریع</span>
+              </a>
               <a class="menu-link" href="#faq" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                  <line x1="12" y1="17" x2="12.01" y2="17"/>
-                </svg>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <span>سوالات متداول</span>
               </a>
+              <button id="copy-site-btn" class="menu-link" type="button" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                <span id="copy-site-text">کپی لینک برای هم‌تیمی</span>
+              </button>
             </div>
 
             <div class="menu-divider"></div>
 
             <a id="menu-support" class="menu-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" role="menuitem">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 2L11 13"/>
-                <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
               <span>پشتیبانی تلگرام</span>
             </a>
           </div>
@@ -1323,7 +1422,7 @@
   </header>
 
   <main>
-    <!-- Hero with Animated Turbo Connection Engine -->
+    <!-- Hero Section -->
     <div class="container">
       <section class="hero">
         <div id="engine-stage" class="engine-stage" role="button" tabindex="0" aria-label="شروع انیمیشن موتور اتصال">
@@ -1359,9 +1458,9 @@
           <span id="engine-ping" class="engine-ping-val">SCAN</span>
         </div>
 
-        <h1>پینگ <span class="accent-grad">پایدارتر،</span><br />رجیستر <span class="accent-grad">دقیق‌تر.</span></h1>
+        <h1>نسل جدید<br /><span class="accent-grad">کاهش پینگ گیمینگ.</span></h1>
         <p class="hero-desc">
-          کلاینت تخصصی بهینه‌سازی شبکه برای گیمرهای موبایل — مجهز به هسته ترکیبی، تکه‌تکه‌سازی پکت‌های بازی و انتخاب خودکار کم‌پینگ‌ترین مسیر.
+          موتور هوشمند مسیریابی و بهینه‌سازی شبکه برای گیمرها — اتصال پایدار، حداقل تاخیر و کنترل کامل روی هسته اتصال.
         </p>
 
         <div class="hero-cta-row">
@@ -1384,37 +1483,24 @@
           </a>
         </div>
 
-        <!-- 3-Item Global Trust Strip -->
+        <!-- 3-Item Trust Strip -->
         <div class="trust-strip">
           <div class="trust-item green">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <polyline points="9 12 11 14 15 10"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
             <span class="trust-label">اتصال امن و پایدار</span>
           </div>
           <div class="trust-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="6" width="20" height="12" rx="4"/>
-              <line x1="6" y1="12" x2="10" y2="12"/>
-              <line x1="8" y1="10" x2="8" y2="14"/>
-              <circle cx="15" cy="13" r="1"/>
-              <circle cx="17.5" cy="11" r="1"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="13" r="1"/><circle cx="17.5" cy="11" r="1"/></svg>
             <span class="trust-label">مخصوص گیمرهای رقابتی</span>
           </div>
           <div class="trust-item cyan">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             <span class="trust-label">مسیریابی هوشمند ایران</span>
           </div>
         </div>
 
         <!-- Release Download Hub -->
-        <div id="download" class="panel release-panel">
+        <div id="download" class="panel release-panel reveal">
           <div class="release-head">
             <div class="release-title">
               <span class="live-dot"></span>
@@ -1449,12 +1535,73 @@
         </div>
       </section>
 
-      <!-- Comparison Section -->
-      <section id="compare">
+      <!-- Live Interactive Route Simulator + Comparison -->
+      <section id="compare" class="reveal">
         <div class="sec-head">
-          <span class="sec-kicker">NETWORK ARCHITECTURE</span>
+          <span class="sec-kicker">LIVE NETWORK ARCHITECTURE</span>
           <h2>تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span></h2>
-          <p>چرا مسیریابی هوشمند و مهندسی پکت در فایت‌های حساس نتیجه بازی را عوض می‌کند</p>
+          <p>حالت مسیر را تغییر دهید تا عملکرد موتور مسیریابی هوشمند را در برابر اینترنت معمولی ببینید</p>
+        </div>
+
+        <!-- Interactive Route Visualizer -->
+        <div id="sim-panel" class="panel sim-panel">
+          <div class="sim-header">
+            <div class="sim-title-wrap">
+              <span id="sim-dot" class="live-dot"></span>
+              <span class="sim-title">شبیه‌ساز زنده مسیر پکت‌های بازی</span>
+            </div>
+            <div class="sim-switch" role="tablist" aria-label="انتخاب حالت شبیه‌ساز">
+              <button id="sim-btn-pro" class="sim-tab active pro" type="button" role="tab" aria-selected="true">موتور بلوچ پینگ</button>
+              <button id="sim-btn-std" class="sim-tab std" type="button" role="tab" aria-selected="false">مسیر عادی</button>
+            </div>
+          </div>
+
+          <div class="sim-canvas">
+            <div class="sim-track">
+              <div class="sim-node">
+                <div class="sim-node-ico">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
+                <span class="sim-node-label">گوشی شما</span>
+                <span class="sim-node-sub">CLIENT</span>
+              </div>
+
+              <div class="sim-pipe"><div class="sim-packet"></div></div>
+
+              <div class="sim-node core">
+                <div class="sim-node-ico">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <span id="sim-mid-label" class="sim-node-label">هسته ترکیبی</span>
+                <span id="sim-mid-sub" class="sim-node-sub">UDP FRAGMENT</span>
+              </div>
+
+              <div class="sim-pipe second"><div class="sim-packet"></div></div>
+
+              <div class="sim-node">
+                <div class="sim-node-ico">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                </div>
+                <span class="sim-node-label">سرور بازی</span>
+                <span class="sim-node-sub">GAME NODE</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-stats">
+            <div class="sim-stat">
+              <div class="sim-stat-k">پایداری پکت‌ها</div>
+              <div id="sim-stat-1" class="sim-stat-v">حداکثر ثبات</div>
+            </div>
+            <div class="sim-stat">
+              <div class="sim-stat-k">نوسان (Jitter)</div>
+              <div id="sim-stat-2" class="sim-stat-v">بسیار پایین</div>
+            </div>
+            <div class="sim-stat">
+              <div class="sim-stat-k">عبور از محدودیت</div>
+              <div id="sim-stat-3" class="sim-stat-v">بهینه‌سازی شده</div>
+            </div>
+          </div>
         </div>
 
         <div class="compare-grid">
@@ -1473,7 +1620,7 @@
             <ul class="compare-list bad">
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                <span>نوسان شدید پینگ (Jitter) و از دست رفتن تیرها در درگیری نزدیک</span>
+                <span>نوسان شدید پینگ و تاخیر در ثبت فرمان‌ها هنگام درگیری حساس</span>
               </li>
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1481,7 +1628,7 @@
               </li>
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                <span>محدودیت DPI روی بسته‌های UDP و کندی در باز شدن لابی</span>
+                <span>محدودیت DPI روی بسته‌های UDP و کندی در ورود به لابی بازی</span>
               </li>
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -1526,7 +1673,7 @@
     </div>
 
     <!-- Continuous Scrolling Game Cards -->
-    <section id="games" class="games-section">
+    <section id="games" class="games-section reveal">
       <div class="container">
         <div class="sec-head">
           <span class="sec-kicker">SUPPORTED GAMES</span>
@@ -1543,7 +1690,7 @@
 
     <div class="container">
       <!-- Bento Grid Capabilities -->
-      <section id="features">
+      <section id="features" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">ENGINE CAPABILITIES</span>
           <h2>امکانات تخصصی زیر کاپوت <span class="ltr">Baloch Ping</span></h2>
@@ -1554,9 +1701,7 @@
           <div class="panel bento-card bento-span-3">
             <div class="bento-top">
               <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               </div>
               <span class="bento-tag">HYBRID CORE</span>
             </div>
@@ -1567,10 +1712,7 @@
           <div class="panel bento-card bento-span-3">
             <div class="bento-top">
               <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>
-                  <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
               </div>
               <span class="bento-tag">AUTO SELECT</span>
             </div>
@@ -1581,10 +1723,7 @@
           <div class="panel bento-card bento-span-2">
             <div class="bento-top">
               <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
-                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
               </div>
               <span class="bento-tag">ZERO DROP</span>
             </div>
@@ -1595,10 +1734,7 @@
           <div class="panel bento-card bento-span-2">
             <div class="bento-top">
               <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <polyline points="9 12 11 14 15 10"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
               </div>
               <span class="bento-tag">DNS &amp; GEO</span>
             </div>
@@ -1609,10 +1745,7 @@
           <div class="panel bento-card bento-span-2">
             <div class="bento-top">
               <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                  <line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-                </svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               </div>
               <span class="bento-tag">LAN SHARE</span>
             </div>
@@ -1645,8 +1778,52 @@
         </div>
       </section>
 
+      <!-- 3-Step Quick Onboarding -->
+      <section id="howto" class="reveal">
+        <div class="sec-head">
+          <span class="sec-kicker">QUICK START</span>
+          <h2>راه‌اندازی در ۳۰ ثانیه</h2>
+          <p>بدون نیاز به تنظیمات پیچیده؛ در سه گام کوتاه آماده رقابت شوید</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="panel step-card">
+            <div class="step-top">
+              <span class="step-num">STEP 01</span>
+              <div class="step-ico">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+            </div>
+            <h3>دانلود مستقیم و نصب</h3>
+            <p>نسخه پیشنهادی <span class="ltr">arm64-v8a</span> را مستقیم از بالای صفحه دریافت و بدون نیاز به فیلترشکن روی گوشی اندرویدی خود نصب کنید.</p>
+          </div>
+
+          <div class="panel step-card">
+            <div class="step-top">
+              <span class="step-num">STEP 02</span>
+              <div class="step-ico">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/></svg>
+              </div>
+            </div>
+            <h3>تست پینگ و انتخاب خودکار</h3>
+            <p>برنامه به‌صورت خودکار سرورها را همزمان بررسی می‌کند و کم‌پینگ‌ترین مسیر را برای اپراتور اینترنت شما آماده نگه می‌دارد.</p>
+          </div>
+
+          <div class="panel step-card">
+            <div class="step-top">
+              <span class="step-num">STEP 03</span>
+              <div class="step-ico">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+              </div>
+            </div>
+            <h3>اتصال و ورود به بازی</h3>
+            <p>دکمه اتصال را لمس کنید و وارد بازی شوید؛ سرویس‌های داخلی ایران همچنان مستقیم باز می‌شوند و حین تعویض شبکه قطع نخواهید شد.</p>
+          </div>
+        </div>
+      </section>
+
       <!-- FAQ Section -->
-      <section id="faq">
+      <section id="faq" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">FAQ &amp; SETUP</span>
           <h2>سوالات متداول</h2>
@@ -1700,13 +1877,16 @@
 
   <footer>
     <div class="container footer-inner">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path fill="#FFFFFF" fill-rule="evenodd" clip-rule="evenodd" d="M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z"/>
-          </svg>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path fill="#FFFFFF" fill-rule="evenodd" clip-rule="evenodd" d="M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z"/>
+            </svg>
+          </div>
+          <span class="brand-title">BALOCH PING</span>
         </div>
-        <span class="brand-title">BALOCH PING</span>
+        <span class="status-pill"><span class="live-dot"></span><span>وضعیت زیرساخت و سرور دانلود: فعال</span></span>
       </div>
 
       <div class="footer-links">
@@ -1714,6 +1894,7 @@
         <a href="#compare">مقایسه</a>
         <a href="#games">بازی‌ها</a>
         <a href="#features">امکانات</a>
+        <a href="#howto">شروع سریع</a>
         <a id="footer-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener">پشتیبانی تلگرام</a>
       </div>
 
@@ -1721,11 +1902,77 @@
     </div>
   </footer>
 
+  <!-- Smart Floating Bottom Download Bar -->
+  <div id="float-bar" class="float-bar" aria-label="دسترسی سریع دانلود">
+    <div class="float-info">
+      <div class="brand-mark" style="width:32px;height:32px;" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+          <path fill="#FFFFFF" fill-rule="evenodd" clip-rule="evenodd" d="M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z"/>
+        </svg>
+      </div>
+      <div class="float-text">
+        <span class="float-title">Baloch Ping</span>
+        <span id="float-ver" class="float-sub">Android 8+</span>
+      </div>
+    </div>
+
+    <div class="float-actions">
+      <a id="float-dl-btn" class="float-dl" href="#download">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>دانلود مستقیم</span>
+      </a>
+      <button id="float-close" class="float-close" type="button" aria-label="بستن نوار دانلود">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
   <script>
-    /* 0. Three-Dot Quick Menu Panel Toggle */
+    /* 0. Scroll Progress, Floating Download Bar & Smooth Reveal */
+    (() => {
+      const bar = document.getElementById("scroll-bar");
+      const floatBar = document.getElementById("float-bar");
+      const floatClose = document.getElementById("float-close");
+      let dismissed = false;
+
+      floatClose.addEventListener("click", () => {
+        dismissed = true;
+        floatBar.classList.remove("show");
+      });
+
+      function onScroll() {
+        const y = window.scrollY || document.documentElement.scrollTop;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = max > 0 ? Math.min(100, (y / max) * 100) + "%" : "0%";
+        if (!dismissed) {
+          floatBar.classList.toggle("show", y > 560);
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("is-visible");
+              io.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      } else {
+        document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+      }
+    })();
+
+    /* 1. Three-Dot Quick Menu + Share Copy Link */
     (() => {
       const btn = document.getElementById("menu-btn");
       const panel = document.getElementById("nav-menu");
+      const copyBtn = document.getElementById("copy-site-btn");
+      const copyTxt = document.getElementById("copy-site-text");
 
       function setOpen(state) {
         panel.classList.toggle("open", state);
@@ -1741,10 +1988,28 @@
         a.addEventListener("click", () => setOpen(false));
       });
 
-      document.addEventListener("click", (e) => {
-        if (!panel.contains(e.target) && !btn.contains(e.target)) {
-          setOpen(false);
+      copyBtn.addEventListener("click", async () => {
+        const url = window.location.origin + "/";
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          const t = document.createElement("textarea");
+          t.value = url;
+          document.body.appendChild(t);
+          t.select();
+          document.execCommand("copy");
+          t.remove();
         }
+        copyBtn.classList.add("copied");
+        copyTxt.textContent = "لینک سایت کپی شد";
+        setTimeout(() => {
+          copyBtn.classList.remove("copied");
+          copyTxt.textContent = "کپی لینک برای هم‌تیمی";
+        }, 1900);
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!panel.contains(e.target) && !btn.contains(e.target)) setOpen(false);
       });
 
       document.addEventListener("keydown", (e) => {
@@ -1752,7 +2017,7 @@
       });
     })();
 
-    /* 1. Interactive Live Connecting Engine Animation */
+    /* 2. Interactive Live Connecting Engine Animation */
     (() => {
       const stage = document.getElementById("engine-stage");
       const telemetry = document.getElementById("engine-telemetry");
@@ -1784,36 +2049,68 @@
         }, s.ms);
       }
 
-      stage.addEventListener("click", () => {
-        idx = 0;
-        applyStep(0);
-      });
-
+      stage.addEventListener("click", () => { idx = 0; applyStep(0); });
       applyStep(0);
     })();
 
-    /* 2. Dual-Row Smooth Scrolling Game Cards */
+    /* 3. Interactive Live Route Simulator */
+    (() => {
+      const simPanel = document.getElementById("sim-panel");
+      const btnPro = document.getElementById("sim-btn-pro");
+      const btnStd = document.getElementById("sim-btn-std");
+      const midLabel = document.getElementById("sim-mid-label");
+      const midSub = document.getElementById("sim-mid-sub");
+      const s1 = document.getElementById("sim-stat-1");
+      const s2 = document.getElementById("sim-stat-2");
+      const s3 = document.getElementById("sim-stat-3");
+      const simDot = document.getElementById("sim-dot");
+
+      function setMode(isStd) {
+        simPanel.classList.toggle("is-std", isStd);
+        btnPro.classList.toggle("active", !isStd);
+        btnStd.classList.toggle("active", isStd);
+        btnPro.setAttribute("aria-selected", !isStd ? "true" : "false");
+        btnStd.setAttribute("aria-selected", isStd ? "true" : "false");
+
+        if (isStd) {
+          midLabel.textContent = "مسیر شلوغ اپراتور";
+          midSub.textContent = "HIGH JITTER";
+          s1.textContent = "پکت‌لاس و افت";
+          s2.textContent = "نوسان شدید";
+          s3.textContent = "محدودیت DPI";
+          simDot.style.background = "#EF4444";
+          simDot.style.boxShadow = "0 0 10px #EF4444";
+        } else {
+          midLabel.textContent = "هسته ترکیبی";
+          midSub.textContent = "UDP FRAGMENT";
+          s1.textContent = "حداکثر ثبات";
+          s2.textContent = "بسیار پایین";
+          s3.textContent = "بهینه‌سازی شده";
+          simDot.style.background = "#10B981";
+          simDot.style.boxShadow = "0 0 10px #10B981";
+        }
+      }
+
+      btnPro.addEventListener("click", () => setMode(false));
+      btnStd.addEventListener("click", () => setMode(true));
+    })();
+
+    /* 4. Dual-Row Smooth Scrolling Game Cards */
     (() => {
       const EMBLEMS = {
         valorant: `<svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" fill="#180A10"/><path d="M12 18v14.5L27.5 51H39L12 18z" fill="#FF4655"/><path d="M52 18v14.5L42.5 44H31L52 18z" fill="#FF4655"/></svg>`,
-
         freefire: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="ffG" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#2D1406"/><stop offset="1" stop-color="#0D0A0B"/></linearGradient><linearGradient id="ffF" x1="16" y1="12" x2="48" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="#FDE047"/><stop offset="0.55" stop-color="#F97316"/><stop offset="1" stop-color="#DC2626"/></linearGradient></defs><rect width="64" height="64" fill="url(#ffG)"/><path d="M16 17h18l-2.5 6.5H23v5.5h8.5L29 35.5H23V48h-7V17z" fill="#FFFFFF"/><path d="M35 17h15l-2.5 6.5H41v5.5h7.5L46 35.5H41V48h-6.5V17z" fill="url(#ffF)"/><path d="M34 11l4 4-9 38-3.5-2.5L34 11z" fill="#FACC15"/></svg>`,
-
         clash: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="crBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#1E3A8A"/><stop offset="1" stop-color="#091229"/></linearGradient><linearGradient id="crGold" x1="14" y1="16" x2="50" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#FEF08A"/><stop offset="0.5" stop-color="#F59E0B"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><rect width="64" height="64" fill="url(#crBg)"/><path d="M12 44L15 22l10 9 7-14 7 14 10-9 3 22H12z" fill="url(#crGold)" stroke="#FEF9C3" stroke-width="1.6" stroke-linejoin="round"/><rect x="14" y="45" width="36" height="5.5" rx="2.5" fill="#F59E0B"/><polygon points="32,27 36.5,33.5 32,40 27.5,33.5" fill="#38BDF8" stroke="#E0F2FE" stroke-width="1.2"/></svg>`,
-
         mlbb: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mlBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#172554"/><stop offset="1" stop-color="#090E21"/></linearGradient><linearGradient id="mlGold" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="#FDE68A"/><stop offset="0.55" stop-color="#F59E0B"/><stop offset="1" stop-color="#92400E"/></linearGradient></defs><rect width="64" height="64" fill="url(#mlBg)"/><path d="M32 9l19 8v15c0 12.5-8 20-19 24-11-4-19-11.5-19-24V17l19-8z" fill="#0F1C3F" stroke="url(#mlGold)" stroke-width="3"/><path d="M20 42V22l12 11 12-11v20h-5.5V31.5L32 37.5l-6.5-6V42H20z" fill="url(#mlGold)"/><polygon points="32,16 35.5,21 32,26 28.5,21" fill="#38BDF8"/></svg>`,
-
         brawl: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="bsBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#581C87"/><stop offset="1" stop-color="#140926"/></linearGradient><linearGradient id="bsY" x1="14" y1="10" x2="50" y2="54" gradientUnits="userSpaceOnUse"><stop stop-color="#FEF08A"/><stop offset="0.6" stop-color="#FACC15"/><stop offset="1" stop-color="#EA580C"/></linearGradient></defs><rect width="64" height="64" fill="url(#bsBg)"/><path d="M32 11c-12 0-20 8-20 18.5 0 6 3 10.8 7.5 13.7V49c0 2.2 1.8 4 4 4h17c2.2 0 4-1.8 4-4v-5.8C49 40.3 52 35.5 52 29.5 52 19 44 11 32 11z" fill="url(#bsY)" stroke="#1E0B36" stroke-width="2.5"/><circle cx="24" cy="30" r="5.2" fill="#1E0B36"/><circle cx="40" cy="30" r="5.2" fill="#1E0B36"/><path d="M29.5 37.5h5l-2.5-4.5-2.5 4.5z" fill="#1E0B36"/><rect x="25" y="44" width="3.5" height="6" rx="1" fill="#1E0B36"/><rect x="30.25" y="44" width="3.5" height="6" rx="1" fill="#1E0B36"/><rect x="35.5" y="44" width="3.5" height="6" rx="1" fill="#1E0B36"/></svg>`,
-
         fc: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="fcBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#064E3B"/><stop offset="1" stop-color="#071217"/></linearGradient></defs><rect width="64" height="64" fill="url(#fcBg)"/><polygon points="10,16 54,16 32,53" fill="#0B1F19" stroke="#22C55E" stroke-width="2.5" stroke-linejoin="round"/><path d="M22 24h12v3.8h-7.5v3h6.2v3.6h-6.2V40H22V24zm20.5 0c2.7 0 4.6 1.2 5.4 3.2l-3.6 1.6c-.4-.9-1.1-1.3-2-1.3-1.6 0-2.6 1.2-2.6 3.5s1 3.5 2.6 3.5c1 0 1.7-.5 2.1-1.4l3.5 1.6c-.9 2.1-2.8 3.3-5.5 3.3-4.3 0-7.2-2.9-7.2-7s2.9-7 7.3-7z" fill="#FFFFFF"/></svg>`,
-
         cs2: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="csBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#D97706"/><stop offset="1" stop-color="#1E293B"/></linearGradient></defs><rect width="64" height="64" fill="url(#csBg)"/><rect x="13" y="21" width="38" height="22" rx="6" fill="#0F172A" fill-opacity="0.72"/><text x="32" y="39" text-anchor="middle" fill="#FDE047" font-family="system-ui,sans-serif" font-weight="900" font-size="22">CS2</text></svg>`
       };
 
       const ROW_1 = [
-        { name: "PUBG MOBILE", fa: "پابجی موبایل • رجیستر دقیق", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", pos: "50% 40%", svg: EMBLEMS.freefire },
+        { name: "PUBG MOBILE", fa: "پابجی موبایل • پینگ ثابت", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", pos: "50% 40%", svg: EMBLEMS.freefire },
         { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "30% 25%", svg: EMBLEMS.cs2 },
-        { name: "FREE FIRE", fa: "فری فایر • پینگ ثابت", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", img: "", svg: EMBLEMS.freefire },
+        { name: "FREE FIRE", fa: "فری فایر • مسیر سریع", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", img: "", svg: EMBLEMS.freefire },
         { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1665460/3d7cad698741287226458a67e9b8f3fede2ba154/capsule_616x353.jpg", pos: "50% 35%", svg: EMBLEMS.fc },
         { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", img: "", svg: EMBLEMS.valorant },
         { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "", svg: EMBLEMS.clash }
@@ -1823,7 +2120,7 @@
         { name: "WARZONE", fa: "وارزون • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "25% 25%", svg: EMBLEMS.cs2 },
         { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", img: "", svg: EMBLEMS.mlbb },
         { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/2195250/header.jpg", pos: "50% 25%", svg: EMBLEMS.fc },
-        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • رجیستر تیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg", pos: "68% 30%", svg: EMBLEMS.cs2 },
+        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • کمترین تاخیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg", pos: "68% 30%", svg: EMBLEMS.cs2 },
         { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/6cf04767652d703b6050da84b82cfb1194258d7d/header.jpg", pos: "72% 28%", svg: EMBLEMS.valorant },
         { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", tag: "ZERO LOSS", accent: "#C084FC", glow: "rgba(192,132,252,0.32)", img: "", svg: EMBLEMS.brawl }
       ];
@@ -1857,7 +2154,7 @@
       mountRow("games-row-2", ROW_2);
     })();
 
-    /* 3. Dynamic Latest Release & Support Link Integration */
+    /* 5. Dynamic Latest Release & Support Link Integration */
     const FALLBACK_SUPPORT = "https://t.me/BalochpingSuport";
     const DOWNLOAD_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
 
@@ -1901,11 +2198,11 @@
       const best = pickBestAsset(latest.assets);
       const verText = latest.tag || latest.name;
 
-      const menuVer = document.getElementById("menu-version");
-      if (menuVer) menuVer.textContent = verText;
+      document.getElementById("menu-version").textContent = verText;
       document.getElementById("card-ver").textContent = verText;
       document.getElementById("card-size").textContent = best ? fmtSize(best.size) : "—";
       document.getElementById("card-date").textContent = fmtDate(latest.published_at);
+      document.getElementById("float-ver").textContent = `${verText} • ${best ? fmtSize(best.size) : "Android 8+"}`;
 
       if (latest.body && latest.body.trim()) {
         document.getElementById("latest-notes").style.display = "block";
@@ -1916,6 +2213,7 @@
         const direct = proxyUrl(best.url);
         document.getElementById("main-download-btn").href = direct;
         document.getElementById("nav-download-cta").href = direct;
+        document.getElementById("float-dl-btn").href = direct;
         const verTag = document.getElementById("main-download-ver");
         verTag.textContent = verText;
         verTag.style.display = "inline-block";
