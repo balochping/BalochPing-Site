@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="blue">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Baloch Ping | نسل جدید کاهش پینگ گیمینگ</title>
-  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping — موتور هوشمند مسیریابی، هسته ترکیبی، تکه‌تکه‌سازی پکت و دانلود مستقیم آخرین نسخه اندروید." />
+  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping — موتور هوشمند مسیریابی، تست پینگ زنده، هسته ترکیبی و دانلود مستقیم آخرین نسخه اندروید." />
   <meta name="theme-color" content="#04070F" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 38'%3E%3Crect width='38' height='38' rx='10' fill='%2312141A'/%3E%3Cg transform='translate(6.65 7.5)'%3E%3Cpath fill='%23ffffff' fill-rule='evenodd' clip-rule='evenodd' d='M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
   <style>
-    :root {
+    :root,
+    html[data-theme="blue"] {
       --bg: #04070F;
-      --surface: rgba(11, 16, 29, 0.86);
+      --surface: rgba(11, 16, 29, 0.88);
       --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(56, 189, 248, 0.28);
       --primary: #1677FF;
-      --primary-soft: rgba(22, 119, 255, 0.14);
+      --primary-2: #0EA5E9;
       --cyan: #38BDF8;
       --neon: #00E5FF;
+      --accent-rgb: 0, 229, 255;
+      --primary-rgb: 22, 119, 255;
+      --btn-text: #FFFFFF;
       --green: #10B981;
       --amber: #F59E0B;
       --red: #EF4444;
@@ -27,11 +30,37 @@
       --dim: #64748B;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    html[data-theme="lime"] {
+      --primary: #84CC16;
+      --primary-2: #A3E635;
+      --cyan: #BEF264;
+      --neon: #CCFF00;
+      --accent-rgb: 204, 255, 0;
+      --primary-rgb: 132, 204, 22;
+      --btn-text: #091204;
     }
+
+    html[data-theme="red"] {
+      --primary: #FF4655;
+      --primary-2: #E11D48;
+      --cyan: #FB7185;
+      --neon: #FF5E6C;
+      --accent-rgb: 255, 70, 85;
+      --primary-rgb: 225, 29, 72;
+      --btn-text: #FFFFFF;
+    }
+
+    html[data-theme="gold"] {
+      --primary: #F59E0B;
+      --primary-2: #D97706;
+      --cyan: #FCD34D;
+      --neon: #FDE047;
+      --accent-rgb: 253, 224, 71;
+      --primary-rgb: 245, 158, 11;
+      --btn-text: #140D02;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
       width: 100%;
@@ -49,6 +78,18 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-variant-numeric: tabular-nums;
+      direction: ltr;
+    }
+
+    .ltr {
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+    }
+
     /* Top Scroll Progress Bar */
     .scroll-progress {
       position: fixed;
@@ -56,33 +97,32 @@
       left: 0;
       right: 0;
       height: 2px;
-      z-index: 100;
+      z-index: 120;
       pointer-events: none;
-      background: transparent;
     }
 
     .scroll-progress-bar {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, var(--primary), var(--neon), var(--green));
-      box-shadow: 0 0 12px rgba(0, 229, 255, 0.65);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.7);
       transition: width 0.08s linear;
     }
 
-    /* Architectural Backdrop */
+    /* Dynamic Cyber Grid Backdrop */
     .bg-grid {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(860px 500px at 50% -110px, rgba(22, 119, 255, 0.25), transparent 70%),
-        radial-gradient(520px 380px at 100% 35%, rgba(56, 189, 248, 0.08), transparent 70%),
+        radial-gradient(880px 520px at 50% -110px, rgba(var(--primary-rgb), 0.26), transparent 70%),
+        radial-gradient(520px 380px at 100% 35%, rgba(var(--accent-rgb), 0.08), transparent 70%),
         radial-gradient(480px 360px at 0% 72%, rgba(16, 185, 129, 0.06), transparent 72%),
         linear-gradient(180deg, rgba(4, 7, 15, 0.78), rgba(4, 7, 15, 0.95)),
         url('bg.jpg') center center / cover no-repeat,
-        linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
         var(--bg);
       background-size: auto, auto, auto, auto, cover, 44px 44px, 44px 44px, auto;
     }
@@ -96,12 +136,6 @@
       padding: 0 18px;
     }
 
-    .ltr {
-      direction: ltr;
-      unicode-bidi: isolate;
-      display: inline-block;
-    }
-
     /* Scroll Reveal */
     .reveal {
       opacity: 0;
@@ -109,17 +143,14 @@
       transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
     /* Sticky Header */
     header {
       position: sticky;
       top: 0;
-      z-index: 60;
-      background: rgba(4, 7, 15, 0.84);
+      z-index: 70;
+      background: rgba(4, 7, 15, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -130,7 +161,7 @@
       align-items: center;
       justify-content: space-between;
       height: 64px;
-      gap: 16px;
+      gap: 14px;
     }
 
     .brand {
@@ -160,36 +191,20 @@
       direction: ltr;
     }
 
-    .nav-links {
-      display: none;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.84rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
+    .nav-links { display: none; align-items: center; gap: 20px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
 
     .nav-cta {
       display: none;
       align-items: center;
       gap: 6px;
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: 800;
-      color: #fff;
-      background: linear-gradient(135deg, #1E82FF, #1262D6);
+      color: var(--btn-text);
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
       padding: 7px 14px;
       border-radius: 9px;
       text-decoration: none;
@@ -197,9 +212,9 @@
       transition: filter 0.2s, transform 0.2s;
     }
 
-    .nav-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
+    .nav-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-    /* Three-Dot Quick Menu Panel */
+    /* Three-Dot Quick Command Panel */
     .menu-wrap { position: relative; }
 
     .menu-btn {
@@ -207,7 +222,7 @@
       height: 40px;
       border-radius: 12px;
       background: rgba(15, 23, 42, 0.86);
-      border: 1px solid rgba(56, 189, 248, 0.26);
+      border: 1px solid rgba(var(--accent-rgb), 0.30);
       color: #E2E8F0;
       display: grid;
       place-items: center;
@@ -218,10 +233,10 @@
 
     .menu-btn:hover,
     .menu-btn[aria-expanded="true"] {
-      border-color: var(--cyan);
-      background: rgba(22, 119, 255, 0.18);
+      border-color: var(--neon);
+      background: rgba(var(--primary-rgb), 0.20);
       color: var(--neon);
-      box-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
+      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.26);
     }
 
     .menu-btn:active { transform: scale(0.94); }
@@ -230,53 +245,113 @@
       position: absolute;
       top: calc(100% + 10px);
       left: 0;
-      width: 248px;
-      background: rgba(8, 13, 26, 0.97);
+      width: 264px;
+      background: rgba(7, 12, 24, 0.98);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--border-strong);
+      border: 1px solid rgba(var(--accent-rgb), 0.28);
       border-radius: 18px;
-      padding: 10px;
-      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.74), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      padding: 11px;
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.78), inset 0 1px 0 rgba(255, 255, 255, 0.08);
       opacity: 0;
       visibility: hidden;
       transform: translateY(-8px) scale(0.97);
       transform-origin: top left;
       transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
-      z-index: 80;
+      z-index: 90;
     }
 
-    .menu-panel.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
+    html[dir="ltr"] .menu-panel {
+      left: auto;
+      right: 0;
+      transform-origin: top right;
     }
+
+    .menu-panel.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
 
     .menu-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      padding: 6px 8px 10px;
-      margin-bottom: 6px;
+      padding: 4px 6px 10px;
+      margin-bottom: 8px;
       border-bottom: 1px solid var(--border);
     }
 
-    .menu-head-title { font-size: 0.76rem; font-weight: 800; color: var(--muted); }
+    .menu-head-title { font-size: 0.74rem; font-weight: 800; color: var(--muted); }
 
     .menu-ver {
-      font-size: 0.7rem;
+      font-size: 0.69rem;
       font-weight: 800;
       color: var(--cyan);
-      background: rgba(56, 189, 248, 0.10);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(var(--accent-rgb), 0.10);
+      border: 1px solid rgba(var(--accent-rgb), 0.26);
       padding: 2px 8px;
       border-radius: 999px;
       direction: ltr;
       white-space: nowrap;
     }
 
-    .menu-list { display: flex; flex-direction: column; gap: 3px; }
+    /* Controls inside 3-dot Menu (Lang + Live Themes) */
+    .menu-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px;
+      margin-bottom: 8px;
+      background: rgba(4, 7, 15, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .theme-dots { display: flex; align-items: center; gap: 6px; }
+
+    .theme-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      cursor: pointer;
+      transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .theme-dot:hover { transform: scale(1.1); }
+    .theme-dot.active { border-color: #fff; box-shadow: 0 0 12px currentColor; transform: scale(1.08); }
+    .theme-dot[data-set-theme="blue"] { background: #1677FF; color: #00E5FF; }
+    .theme-dot[data-set-theme="lime"] { background: #A3E635; color: #CCFF00; }
+    .theme-dot[data-set-theme="red"] { background: #FF4655; color: #FF4655; }
+    .theme-dot[data-set-theme="gold"] { background: #F59E0B; color: #FDE047; }
+
+    .lang-toggle {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2px;
+      gap: 2px;
+      direction: ltr;
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.69rem;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: var(--btn-text);
+    }
+
+    .menu-list { display: flex; flex-direction: column; gap: 2px; }
 
     .menu-link {
       width: 100%;
@@ -287,22 +362,22 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 9px 11px;
-      border-radius: 11px;
+      padding: 8px 10px;
+      border-radius: 10px;
       color: #E2E8F0;
       text-decoration: none;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 700;
-      text-align: right;
+      text-align: inherit;
       transition: background 0.18s, color 0.18s;
     }
 
     .menu-link svg { color: var(--cyan); flex-shrink: 0; }
-    .menu-link:hover, .menu-link:active { background: rgba(22, 119, 255, 0.16); color: #fff; }
+    .menu-link:hover, .menu-link:active { background: rgba(var(--primary-rgb), 0.18); color: #fff; }
     .menu-link.copied { color: #34D399; }
     .menu-link.copied svg { color: #34D399; }
 
-    .menu-divider { height: 1px; background: var(--border); margin: 7px 6px; }
+    .menu-divider { height: 1px; background: var(--border); margin: 7px 4px; }
 
     .menu-support {
       display: flex;
@@ -311,20 +386,17 @@
       gap: 8px;
       padding: 10px 12px;
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(22, 119, 255, 0.22), rgba(0, 229, 255, 0.14));
-      border: 1px solid rgba(56, 189, 248, 0.34);
+      background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.24), rgba(var(--accent-rgb), 0.14));
+      border: 1px solid rgba(var(--accent-rgb), 0.34);
       color: #F8FAFC;
       text-decoration: none;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       font-weight: 800;
       transition: background 0.2s, border-color 0.2s;
     }
 
     .menu-support svg { color: var(--neon); flex-shrink: 0; }
-    .menu-support:hover {
-      background: linear-gradient(135deg, rgba(22, 119, 255, 0.34), rgba(0, 229, 255, 0.20));
-      border-color: var(--neon);
-    }
+    .menu-support:hover { border-color: var(--neon); }
 
     /* Hero + Animated Connecting Engine */
     .hero {
@@ -348,9 +420,9 @@
 
     .engine-glow {
       position: absolute;
-      inset: 22px;
+      inset: 20px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 229, 255, 0.34) 0%, rgba(22, 119, 255, 0.18) 45%, transparent 72%);
+      background: radial-gradient(circle, rgba(var(--accent-rgb), 0.34) 0%, rgba(var(--primary-rgb), 0.18) 45%, transparent 72%);
       animation: engineBreathe 2.8s ease-in-out infinite;
       pointer-events: none;
     }
@@ -359,21 +431,14 @@
       position: absolute;
       inset: 38px;
       border-radius: 50%;
-      border: 1.5px solid rgba(0, 229, 255, 0.45);
+      border: 1.5px solid rgba(var(--accent-rgb), 0.48);
       animation: engineWave 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
       pointer-events: none;
     }
 
     .engine-pulse.delay { animation-delay: 1.2s; }
 
-    .engine-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
+    .engine-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .ring-ticks-outer { transform-origin: 100px 100px; animation: spinCW 24s linear infinite; }
     .ring-arc-fast { transform-origin: 100px 100px; animation: spinCW 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; }
     .ring-rotor-ccw { transform-origin: 100px 100px; animation: spinCCW 5.5s linear infinite; }
@@ -385,29 +450,29 @@
       width: 96px;
       height: 96px;
       border-radius: 50%;
-      background: radial-gradient(circle at 32% 28%, #47D7FF 0%, #1677FF 52%, #0B3A99 100%);
-      border: 2px solid rgba(186, 230, 253, 0.45);
+      background: radial-gradient(circle at 32% 28%, var(--neon) 0%, var(--primary) 54%, #0B1938 100%);
+      border: 2px solid rgba(255, 255, 255, 0.38);
       display: grid;
       place-items: center;
       box-shadow:
-        0 0 0 8px rgba(22, 119, 255, 0.12),
-        0 0 38px rgba(0, 229, 255, 0.45),
+        0 0 0 8px rgba(var(--primary-rgb), 0.14),
+        0 0 38px rgba(var(--accent-rgb), 0.45),
         inset 0 2px 10px rgba(255, 255, 255, 0.42),
-        inset 0 -8px 16px rgba(3, 16, 48, 0.65);
+        inset 0 -8px 16px rgba(0, 0, 0, 0.55);
       transition: transform 0.2s ease, box-shadow 0.35s ease, background 0.35s ease;
     }
 
-    .engine-stage:active .engine-core { transform: scale(0.94); }
+    .engine-stage:active .engine-core { transform: scale(0.93); }
 
     .engine-stage.connected .engine-core {
-      background: radial-gradient(circle at 32% 28%, #34D399 0%, #0EA5E9 54%, #1677FF 100%);
+      background: radial-gradient(circle at 32% 28%, #34D399 0%, var(--primary-2) 56%, var(--primary) 100%);
       box-shadow:
         0 0 0 8px rgba(16, 185, 129, 0.14),
         0 0 42px rgba(16, 185, 129, 0.48),
         inset 0 2px 10px rgba(255, 255, 255, 0.42);
     }
 
-    .engine-core svg { color: #ffffff; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35)); }
+    .engine-core svg { color: var(--btn-text); filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.28)); }
 
     .engine-telemetry {
       display: inline-flex;
@@ -417,7 +482,7 @@
       font-weight: 800;
       color: #E2E8F0;
       background: rgba(11, 17, 32, 0.90);
-      border: 1px solid rgba(56, 189, 248, 0.26);
+      border: 1px solid rgba(var(--accent-rgb), 0.28);
       padding: 6px 15px;
       border-radius: 999px;
       margin-bottom: 18px;
@@ -425,11 +490,11 @@
     }
 
     .engine-ping-val {
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       font-weight: 900;
       color: var(--neon);
-      background: rgba(0, 229, 255, 0.10);
-      border: 1px solid rgba(0, 229, 255, 0.28);
+      background: rgba(var(--accent-rgb), 0.12);
+      border: 1px solid rgba(var(--accent-rgb), 0.30);
       padding: 1px 8px;
       border-radius: 999px;
       direction: ltr;
@@ -456,10 +521,7 @@
       flex-shrink: 0;
     }
 
-    .live-dot.connecting {
-      background: var(--neon);
-      box-shadow: 0 0 10px var(--neon);
-    }
+    .live-dot.connecting { background: var(--neon); box-shadow: 0 0 10px var(--neon); }
 
     h1 {
       font-size: clamp(2.1rem, 7.6vw, 3.65rem);
@@ -470,17 +532,12 @@
     }
 
     .accent-grad {
-      background: linear-gradient(95deg, #60A5FA, var(--primary), var(--neon));
+      background: linear-gradient(95deg, var(--cyan), var(--primary), var(--neon));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-desc {
-      color: var(--muted);
-      font-size: 0.95rem;
-      max-width: 560px;
-      margin: 0 auto 26px;
-    }
+    .hero-desc { color: var(--muted); font-size: 0.95rem; max-width: 560px; margin: 0 auto 26px; }
 
     .hero-cta-row {
       display: flex;
@@ -488,7 +545,7 @@
       align-items: center;
       justify-content: center;
       gap: 11px;
-      max-width: 440px;
+      max-width: 460px;
       margin: 0 auto 28px;
     }
 
@@ -500,26 +557,26 @@
       gap: 10px;
       padding: 14px 24px;
       border-radius: 13px;
-      background: linear-gradient(135deg, #1E82FF, #1262D6);
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.98rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: var(--btn-text);
+      font-weight: 900;
+      font-size: 0.97rem;
       text-decoration: none;
       border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 10px 30px rgba(22, 119, 255, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.22);
       transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
     .btn-primary:hover {
       transform: translateY(-2px);
       filter: brightness(1.06);
-      box-shadow: 0 14px 36px rgba(22, 119, 255, 0.48);
+      box-shadow: 0 14px 36px rgba(var(--primary-rgb), 0.50);
     }
 
     .btn-tag {
-      font-size: 0.75rem;
-      font-weight: 800;
-      background: rgba(0, 0, 0, 0.24);
+      font-size: 0.74rem;
+      font-weight: 900;
+      background: rgba(0, 0, 0, 0.22);
       padding: 2px 9px;
       border-radius: 6px;
       direction: ltr;
@@ -543,12 +600,7 @@
       transition: border-color 0.2s, background 0.2s, transform 0.2s;
     }
 
-    .btn-ghost:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-      background: rgba(22, 119, 255, 0.10);
-      transform: translateY(-1px);
-    }
-
+    .btn-ghost:hover { border-color: rgba(var(--accent-rgb), 0.42); background: rgba(var(--primary-rgb), 0.12); transform: translateY(-1px); }
     .btn-ghost svg { color: var(--cyan); flex-shrink: 0; }
 
     /* Trust Strip */
@@ -576,7 +628,7 @@
     .trust-item + .trust-item::before {
       content: "";
       position: absolute;
-      right: 0;
+      inset-inline-start: 0;
       top: 22%;
       bottom: 22%;
       width: 1px;
@@ -586,16 +638,9 @@
     .trust-item svg { color: var(--primary); }
     .trust-item.green svg { color: var(--green); }
     .trust-item.cyan svg { color: var(--cyan); }
+    .trust-label { font-size: 0.76rem; font-weight: 700; color: #CBD5E1; text-align: center; line-height: 1.4; }
 
-    .trust-label {
-      font-size: 0.77rem;
-      font-weight: 700;
-      color: #CBD5E1;
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    /* Surface Panel */
+    /* Surface Panel (Cyber AAA Card) */
     .panel {
       position: relative;
       background: linear-gradient(180deg, rgba(13, 19, 34, 0.92), rgba(8, 12, 23, 0.97));
@@ -603,18 +648,21 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 18px 48px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      transition: border-color 0.25s ease, transform 0.25s ease;
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .panel:hover { border-color: rgba(255, 255, 255, 0.14); }
+    .panel:hover {
+      border-color: rgba(var(--accent-rgb), 0.26);
+      box-shadow: 0 20px 52px rgba(0, 0, 0, 0.54), 0 0 28px rgba(var(--primary-rgb), 0.08);
+    }
 
-    /* Release Download Hub */
+    /* Release Download Hub + Auto Device Banner */
     .release-panel {
-      max-width: 620px;
+      max-width: 640px;
       margin: 0 auto;
       padding: 22px 20px;
-      text-align: right;
-      border-color: rgba(22, 119, 255, 0.28);
+      text-align: start;
+      border-color: rgba(var(--primary-rgb), 0.34);
       scroll-margin-top: 84px;
     }
 
@@ -624,8 +672,36 @@
       top: 0;
       left: 24px;
       right: 24px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--primary), var(--cyan), transparent);
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--primary), var(--neon), transparent);
+    }
+
+    .device-detect {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      background: rgba(var(--primary-rgb), 0.11);
+      border: 1px solid rgba(var(--accent-rgb), 0.25);
+      margin-bottom: 14px;
+      font-size: 0.76rem;
+      color: #E2E8F0;
+    }
+
+    .device-detect-left { display: flex; align-items: center; gap: 8px; }
+    .device-detect svg { color: var(--neon); flex-shrink: 0; }
+
+    .device-badge {
+      font-size: 0.67rem;
+      font-weight: 900;
+      color: #6EE7B7;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.32);
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
     }
 
     .release-head {
@@ -666,8 +742,8 @@
 
     .changelog {
       display: none;
-      background: rgba(22, 119, 255, 0.06);
-      border-right: 2px solid var(--primary);
+      background: rgba(var(--primary-rgb), 0.08);
+      border-inline-start: 2px solid var(--primary);
       border-radius: 10px;
       padding: 10px 13px;
       margin-bottom: 14px;
@@ -694,19 +770,19 @@
     }
 
     .abi-row.recommended {
-      border-color: rgba(22, 119, 255, 0.36);
-      background: linear-gradient(90deg, rgba(22, 119, 255, 0.14), rgba(15, 23, 42, 0.85));
+      border-color: rgba(var(--accent-rgb), 0.40);
+      background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.16), rgba(15, 23, 42, 0.86));
     }
 
-    .abi-row:hover { border-color: var(--primary); background: rgba(22, 119, 255, 0.16); transform: translateY(-1px); }
+    .abi-row:hover { border-color: var(--neon); background: rgba(var(--primary-rgb), 0.20); transform: translateY(-1px); }
     .abi-left { display: flex; align-items: center; gap: 11px; min-width: 0; }
 
     .abi-ico {
       width: 34px;
       height: 34px;
       border-radius: 9px;
-      background: var(--primary-soft);
-      border: 1px solid rgba(22, 119, 255, 0.30);
+      background: rgba(var(--primary-rgb), 0.16);
+      border: 1px solid rgba(var(--accent-rgb), 0.30);
       color: var(--cyan);
       display: grid;
       place-items: center;
@@ -714,8 +790,18 @@
     }
 
     .abi-meta { display: flex; flex-direction: column; line-height: 1.35; }
-    .abi-title { font-size: 0.84rem; font-weight: 800; color: var(--text); }
-    .abi-sub { font-size: 0.72rem; color: var(--muted); direction: ltr; text-align: right; }
+    .abi-title { font-size: 0.84rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .abi-sub { font-size: 0.72rem; color: var(--muted); direction: ltr; text-align: start; }
+
+    .abi-fit-tag {
+      font-size: 0.63rem;
+      font-weight: 900;
+      color: #6EE7B7;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.34);
+      padding: 1px 7px;
+      border-radius: 999px;
+    }
 
     .abi-size {
       font-size: 0.76rem;
@@ -732,7 +818,7 @@
 
     /* Section Header */
     section { padding: 48px 0; scroll-margin-top: 72px; }
-    .sec-head { text-align: center; max-width: 640px; margin: 0 auto 28px; }
+    .sec-head { text-align: center; max-width: 650px; margin: 0 auto 28px; }
 
     .sec-kicker {
       display: inline-block;
@@ -748,188 +834,286 @@
     .sec-head h2 { font-size: clamp(1.45rem, 4.5vw, 2rem); font-weight: 900; letter-spacing: -0.3px; margin-bottom: 8px; }
     .sec-head p { color: var(--muted); font-size: 0.9rem; }
 
-    /* Interactive Live Route Simulator (Global Tech Showcase) */
-    .sim-panel {
-      padding: 20px 18px;
-      margin-bottom: 18px;
-      border-color: rgba(56, 189, 248, 0.24);
+    /* 1. Real-Time Ping & Jitter Radar (Oscilloscope) */
+    .radar-panel {
+      padding: 22px 18px;
+      border-color: rgba(var(--accent-rgb), 0.26);
     }
 
-    .sim-header {
+    .radar-top {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .sim-title-wrap { display: flex; align-items: center; gap: 9px; }
-    .sim-title { font-size: 0.92rem; font-weight: 900; }
+    .radar-title-box { display: flex; align-items: center; gap: 9px; }
+    .radar-title { font-size: 0.96rem; font-weight: 900; }
 
-    .sim-switch {
+    .radar-run-btn {
       display: inline-flex;
-      background: rgba(4, 7, 15, 0.85);
-      border: 1px solid var(--border);
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
       border-radius: 11px;
-      padding: 3px;
-      gap: 4px;
+      border: none;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: var(--btn-text);
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 8px 22px rgba(var(--primary-rgb), 0.34);
+      cursor: pointer;
+      transition: transform 0.16s, filter 0.2s;
     }
 
-    .sim-tab {
-      border: none;
-      background: transparent;
+    .radar-run-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .radar-run-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+    .radar-wave-box {
+      position: relative;
+      height: 138px;
+      border-radius: 15px;
+      background:
+        linear-gradient(rgba(var(--accent-rgb), 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px),
+        rgba(4, 7, 15, 0.86);
+      background-size: 24px 24px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    #ping-canvas { width: 100%; height: 100%; display: block; }
+
+    .radar-overlay-label {
+      position: absolute;
+      top: 9px;
+      inset-inline-start: 12px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--cyan);
+      background: rgba(4, 7, 15, 0.78);
+      border: 1px solid var(--border);
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+
+    .radar-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .radar-metric {
+      background: rgba(4, 7, 15, 0.74);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 11px 10px;
+      text-align: center;
+    }
+
+    .radar-metric-k { font-size: 0.7rem; color: var(--muted); margin-bottom: 3px; }
+    .radar-metric-v { font-size: 1.05rem; font-weight: 900; color: var(--text); }
+    .radar-metric-v.good { color: #34D399; }
+    .radar-metric-v.warn { color: #FBBF24; }
+    .radar-metric-v.bad { color: #F87171; }
+
+    /* 2. Tactical Routing Cyber Map */
+    .map-panel {
+      padding: 20px 18px;
+      border-color: rgba(var(--accent-rgb), 0.22);
+    }
+
+    .map-regions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .region-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(4, 7, 15, 0.78);
       color: var(--muted);
       font-family: inherit;
-      font-size: 0.76rem;
+      font-size: 0.78rem;
       font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
+      transition: all 0.2s;
     }
 
-    .sim-tab.active.pro {
-      background: linear-gradient(135deg, #1E82FF, #0EA5E9);
+    .region-btn.active {
       color: #fff;
-      box-shadow: 0 4px 14px rgba(22, 119, 255, 0.35);
-    }
-
-    .sim-tab.active.std {
-      background: rgba(239, 68, 68, 0.22);
-      color: #FCA5A5;
-      border: 1px solid rgba(239, 68, 68, 0.32);
-    }
-
-    .sim-canvas {
-      position: relative;
-      background: rgba(4, 7, 15, 0.72);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 22px 14px;
-      margin-bottom: 14px;
-      overflow: hidden;
-    }
-
-    .sim-track {
-      display: grid;
-      grid-template-columns: auto 1fr auto 1fr auto;
-      align-items: center;
-      gap: 6px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .sim-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      min-width: 68px;
-    }
-
-    .sim-node-ico {
-      width: 46px;
-      height: 46px;
-      border-radius: 13px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1.5px solid rgba(56, 189, 248, 0.35);
-      color: var(--cyan);
-      display: grid;
-      place-items: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      transition: border-color 0.3s, color 0.3s, box-shadow 0.3s;
-    }
-
-    .sim-node.core .sim-node-ico {
-      width: 54px;
-      height: 54px;
-      border-radius: 15px;
       border-color: var(--neon);
-      color: #fff;
-      background: linear-gradient(145deg, rgba(22, 119, 255, 0.35), rgba(0, 229, 255, 0.16));
-      box-shadow: 0 0 26px rgba(0, 229, 255, 0.28);
+      background: rgba(var(--primary-rgb), 0.20);
+      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.20);
     }
 
-    .sim-panel.is-std .sim-node.core .sim-node-ico {
-      border-color: rgba(239, 68, 68, 0.55);
-      color: #FCA5A5;
-      background: rgba(239, 68, 68, 0.12);
-      box-shadow: 0 0 22px rgba(239, 68, 68, 0.22);
-    }
-
-    .sim-node-label { font-size: 0.72rem; font-weight: 800; color: #E2E8F0; text-align: center; white-space: nowrap; }
-    .sim-node-sub { font-size: 0.64rem; color: var(--muted); direction: ltr; white-space: nowrap; }
-
-    .sim-pipe {
+    .map-stage {
       position: relative;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(56, 189, 248, 0.18);
+      border-radius: 16px;
+      background: radial-gradient(circle at 55% 48%, rgba(var(--primary-rgb), 0.14), rgba(4, 7, 15, 0.92) 72%);
+      border: 1px solid var(--border);
       overflow: hidden;
+      margin-bottom: 14px;
     }
 
-    .sim-panel.is-std .sim-pipe { background: rgba(239, 68, 68, 0.16); }
+    .map-svg { width: 100%; height: auto; display: block; max-height: 290px; }
 
-    .sim-packet {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 34%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, transparent, var(--neon), var(--green));
-      box-shadow: 0 0 12px var(--neon);
-      animation: packetFlowPro 1.45s linear infinite;
+    .laser-route {
+      stroke-dasharray: 8 6;
+      animation: laserDash 1.4s linear infinite;
     }
 
-    .sim-pipe.second .sim-packet { animation-delay: 0.72s; }
-
-    .sim-panel.is-std .sim-packet {
-      width: 22%;
-      background: linear-gradient(90deg, transparent, var(--amber), var(--red));
-      box-shadow: 0 0 10px var(--red);
-      animation: packetFlowStd 2.6s steps(7, end) infinite;
+    @keyframes laserDash {
+      from { stroke-dashoffset: 28; }
+      to { stroke-dashoffset: 0; }
     }
 
-    @keyframes packetFlowPro {
-      0% { right: -36%; opacity: 0.2; }
-      20% { opacity: 1; }
-      85% { opacity: 1; }
-      100% { right: 105%; opacity: 0.2; }
+    .map-node-ring {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: nodePing 2.1s ease-out infinite;
     }
 
-    @keyframes packetFlowStd {
-      0% { right: -24%; opacity: 0.9; }
-      45% { right: 42%; opacity: 0.35; }
-      70% { right: 56%; opacity: 0.85; }
-      100% { right: 105%; opacity: 0.1; }
+    @keyframes nodePing {
+      0% { transform: scale(0.9); opacity: 0.9; }
+      100% { transform: scale(2.4); opacity: 0; }
     }
 
-    .sim-stats {
+    .map-readout {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
+      gap: 10px;
     }
 
-    .sim-stat {
-      background: rgba(4, 7, 15, 0.68);
+    .map-box {
+      background: rgba(4, 7, 15, 0.74);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 10px 8px;
       text-align: center;
     }
 
-    .sim-stat-k { font-size: 0.69rem; color: var(--muted); margin-bottom: 2px; }
-    .sim-stat-v { font-size: 0.82rem; font-weight: 900; color: #34D399; transition: color 0.25s; }
-    .sim-panel.is-std .sim-stat-v { color: #FCA5A5; }
+    .map-box-k { font-size: 0.69rem; color: var(--muted); margin-bottom: 2px; }
+    .map-box-v { font-size: 0.82rem; font-weight: 900; color: var(--cyan); }
+
+    /* 3. Pro Settings Builder (Cyber HUD Configurator) */
+    .builder-panel {
+      padding: 22px 18px;
+      border-color: rgba(var(--accent-rgb), 0.24);
+    }
+
+    .builder-group { margin-bottom: 16px; }
+    .builder-label { font-size: 0.78rem; font-weight: 800; color: var(--muted); margin-bottom: 9px; display: block; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .cfg-pill {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(4, 7, 15, 0.80);
+      color: #CBD5E1;
+      font-family: inherit;
+      font-size: 0.79rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+
+    .cfg-pill.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: var(--btn-text);
+      border-color: transparent;
+      box-shadow: 0 6px 18px rgba(var(--primary-rgb), 0.34);
+    }
+
+    .hud-output {
+      background: rgba(4, 7, 15, 0.84);
+      border: 1px solid rgba(var(--accent-rgb), 0.28);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .hud-out-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hud-out-title { font-size: 0.86rem; font-weight: 900; color: var(--neon); display: flex; align-items: center; gap: 8px; }
+
+    .hud-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(var(--accent-rgb), 0.34);
+      background: rgba(var(--primary-rgb), 0.16);
+      color: #F8FAFC;
+      font-family: inherit;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+
+    .hud-copy-btn:hover { background: rgba(var(--primary-rgb), 0.30); }
+
+    .hud-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .hud-item {
+      background: rgba(12, 18, 34, 0.82);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hud-item-k { font-size: 0.69rem; color: var(--muted); }
+    .hud-item-v { font-size: 0.82rem; font-weight: 900; color: #F8FAFC; }
+    .hud-item-v.on { color: #34D399; }
+    .hud-item-v.off { color: #94A3B8; }
+
+    .hud-tip {
+      font-size: 0.79rem;
+      color: #CBD5E1;
+      background: rgba(var(--primary-rgb), 0.08);
+      border-inline-start: 2px solid var(--neon);
+      border-radius: 8px;
+      padding: 9px 12px;
+    }
 
     /* Comparison Section */
     .compare-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .compare-card { padding: 22px 20px; }
 
     .compare-card.pro {
-      border-color: rgba(22, 119, 255, 0.42);
-      background: linear-gradient(180deg, rgba(22, 119, 255, 0.12), rgba(8, 12, 23, 0.97));
+      border-color: rgba(var(--primary-rgb), 0.45);
+      background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.14), rgba(8, 12, 23, 0.97));
     }
 
     .compare-head {
@@ -960,7 +1144,7 @@
     .meter-track { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
     .meter-fill { height: 100%; border-radius: 999px; }
     .meter-fill.bad { width: 42%; background: linear-gradient(90deg, #DC2626, #F59E0B); }
-    .meter-fill.good { width: 94%; background: linear-gradient(90deg, var(--primary), var(--cyan), var(--green)); }
+    .meter-fill.good { width: 94%; background: linear-gradient(90deg, var(--primary), var(--neon), var(--green)); }
 
     .compare-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .compare-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.84rem; color: #CBD5E1; }
@@ -1009,6 +1193,8 @@
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.44);
       transition: border-color 0.25s ease, transform 0.25s ease;
     }
+
+    html[dir="ltr"] .m-game-card { direction: ltr; }
 
     .m-game-card::before {
       content: "";
@@ -1059,7 +1245,7 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 2px;
-      text-align: right;
+      text-align: start;
     }
 
     .m-game-tag {
@@ -1086,7 +1272,7 @@
       font-weight: 900;
       color: #fff;
       direction: ltr;
-      text-align: right;
+      text-align: start;
       line-height: 1.25;
       white-space: nowrap;
       overflow: hidden;
@@ -1098,15 +1284,15 @@
     /* Bento Grid Capabilities */
     .bento-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .bento-card { padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; }
-    .bento-card:hover { border-color: rgba(22, 119, 255, 0.42); transform: translateY(-2px); }
+    .bento-card:hover { transform: translateY(-2px); }
     .bento-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
     .bento-ico {
       width: 40px;
       height: 40px;
       border-radius: 11px;
-      background: var(--primary-soft);
-      border: 1px solid rgba(22, 119, 255, 0.30);
+      background: rgba(var(--primary-rgb), 0.15);
+      border: 1px solid rgba(var(--accent-rgb), 0.30);
       color: var(--cyan);
       display: grid;
       place-items: center;
@@ -1145,44 +1331,7 @@
       transition: border-color 0.2s, color 0.2s;
     }
 
-    .spec-pill:hover { border-color: var(--primary); color: var(--cyan); }
-
-    /* 3-Step Quick Onboarding */
-    .steps-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-
-    .step-card {
-      padding: 22px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .step-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-
-    .step-num {
-      font-size: 0.76rem;
-      font-weight: 900;
-      color: var(--neon);
-      background: rgba(0, 229, 255, 0.10);
-      border: 1px solid rgba(0, 229, 255, 0.28);
-      padding: 4px 10px;
-      border-radius: 8px;
-      direction: ltr;
-    }
-
-    .step-ico {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      color: #E2E8F0;
-      display: grid;
-      place-items: center;
-    }
-
-    .step-card h3 { font-size: 0.98rem; font-weight: 900; }
-    .step-card p { font-size: 0.83rem; color: var(--muted); }
+    .spec-pill:hover { border-color: var(--neon); color: var(--cyan); }
 
     /* FAQ Accordion */
     .faq-list { max-width: 740px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
@@ -1195,7 +1344,7 @@
       transition: border-color 0.2s;
     }
 
-    details.faq-item[open] { border-color: rgba(22, 119, 255, 0.38); }
+    details.faq-item[open] { border-color: rgba(var(--accent-rgb), 0.36); }
 
     details.faq-item summary {
       list-style: none;
@@ -1216,7 +1365,7 @@
     details.faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--cyan); }
     .faq-body { padding: 12px 18px 16px; font-size: 0.84rem; color: var(--muted); border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
-    /* Footer with Live Infrastructure Status */
+    /* Footer */
     footer {
       position: relative;
       z-index: 2;
@@ -1240,7 +1389,7 @@
       border-radius: 999px;
     }
 
-    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.84rem; font-weight: 600; transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
     .footer-copy { font-size: 0.78rem; color: var(--dim); }
@@ -1253,13 +1402,13 @@
       bottom: 14px;
       max-width: 440px;
       margin: 0 auto;
-      z-index: 55;
-      background: rgba(9, 14, 28, 0.94);
+      z-index: 65;
+      background: rgba(8, 13, 26, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(56, 189, 248, 0.30);
+      border: 1px solid rgba(var(--accent-rgb), 0.34);
       border-radius: 16px;
-      padding: 9px 10px 9px 12px;
+      padding: 9px 11px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1271,28 +1420,22 @@
       transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
     }
 
-    .float-bar.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
+    .float-bar.show { opacity: 1; visibility: visible; transform: translateY(0); }
     .float-info { display: flex; align-items: center; gap: 9px; min-width: 0; }
     .float-text { display: flex; flex-direction: column; line-height: 1.3; min-width: 0; }
     .float-title { font-size: 0.8rem; font-weight: 900; color: var(--text); white-space: nowrap; }
-    .float-sub { font-size: 0.69rem; color: var(--cyan); direction: ltr; text-align: right; white-space: nowrap; }
-
+    .float-sub { font-size: 0.69rem; color: var(--cyan); direction: ltr; text-align: start; white-space: nowrap; }
     .float-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 
     .float-dl {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: linear-gradient(135deg, #1E82FF, #1262D6);
-      color: #fff;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: var(--btn-text);
       text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 800;
+      font-size: 0.77rem;
+      font-weight: 900;
       padding: 8px 13px;
       border-radius: 10px;
       white-space: nowrap;
@@ -1314,22 +1457,23 @@
       .nav-links { display: flex; }
       .nav-cta { display: inline-flex; }
       .hero { padding: 52px 0 40px; }
-      .hero-cta-row { flex-direction: row; max-width: 480px; }
+      .hero-cta-row { flex-direction: row; max-width: 490px; }
       .btn-primary { width: auto; min-width: 245px; }
-      .btn-ghost { width: auto; min-width: 180px; }
+      .btn-ghost { width: auto; min-width: 185px; }
+      .radar-metrics { grid-template-columns: repeat(4, 1fr); }
+      .hud-grid { grid-template-columns: repeat(3, 1fr); }
       .compare-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
       .m-game-card { width: 292px; height: 104px; }
       .m-game-thumb { width: 64px; height: 64px; }
       .bento-grid { grid-template-columns: repeat(6, 1fr); gap: 14px; }
       .bento-span-3 { grid-column: span 3; }
       .bento-span-2 { grid-column: span 2; }
-      .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
-      footer { padding-bottom: 52px; }
-      .footer-inner { flex-direction: row; justify-content: space-between; text-align: right; }
+      footer { padding-bottom: 54px; }
+      .footer-inner { flex-direction: row; justify-content: space-between; text-align: start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .ring-ticks-outer, .ring-arc-fast, .ring-rotor-ccw, .engine-pulse, .engine-glow, .marquee-row, .sim-packet {
+      .ring-ticks-outer, .ring-arc-fast, .ring-rotor-ccw, .engine-pulse, .engine-glow, .marquee-row, .laser-route, .map-node-ring {
         animation: none !important;
       }
       .reveal { opacity: 1; transform: none; transition: none; }
@@ -1352,19 +1496,19 @@
       </a>
 
       <nav class="nav-links">
-        <a href="#download">دانلود</a>
-        <a href="#compare">شبیه‌ساز و مقایسه</a>
-        <a href="#games">بازی‌ها</a>
-        <a href="#features">امکانات</a>
-        <a href="#howto">شروع سریع</a>
-        <a href="#faq">سوالات متداول</a>
+        <a href="#download" data-i18n="nav_download">دانلود</a>
+        <a href="#radar" data-i18n="nav_radar">تست پینگ</a>
+        <a href="#map" data-i18n="nav_map">رادار مسیر</a>
+        <a href="#builder" data-i18n="nav_builder">تنظیمات پرو</a>
+        <a href="#games" data-i18n="nav_games">بازی‌ها</a>
+        <a href="#features" data-i18n="nav_features">امکانات</a>
       </nav>
 
       <div class="nav-right">
-        <a id="nav-download-cta" href="#download" class="nav-cta">دانلود نسخه اندروید</a>
+        <a id="nav-download-cta" href="#download" class="nav-cta" data-i18n="nav_cta">دانلود اندروید</a>
 
         <div class="menu-wrap">
-          <button id="menu-btn" class="menu-btn" type="button" aria-label="باز کردن منو" aria-expanded="false" aria-controls="nav-menu">
+          <button id="menu-btn" class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <circle cx="12" cy="5" r="2"/>
               <circle cx="12" cy="12" r="2"/>
@@ -1374,38 +1518,56 @@
 
           <div id="nav-menu" class="menu-panel" role="menu">
             <div class="menu-head">
-              <span class="menu-head-title">دسترسی سریع</span>
+              <span class="menu-head-title" data-i18n="menu_title">کنترل پنل سریع</span>
               <span id="menu-version" class="menu-ver">Official</span>
+            </div>
+
+            <!-- Live Theme Switcher + FA/EN Bilingual Switch -->
+            <div class="menu-controls">
+              <div class="theme-dots" role="group" aria-label="Theme">
+                <button class="theme-dot active" data-set-theme="blue" type="button" title="Cyber Blue"></button>
+                <button class="theme-dot" data-set-theme="lime" type="button" title="App Lime"></button>
+                <button class="theme-dot" data-set-theme="red" type="button" title="Valorant Red"></button>
+                <button class="theme-dot" data-set-theme="gold" type="button" title="Pro Gold"></button>
+              </div>
+              <div class="lang-toggle" role="group" aria-label="Language">
+                <button class="lang-btn active" data-set-lang="fa" type="button">FA</button>
+                <button class="lang-btn" data-set-lang="en" type="button">EN</button>
+              </div>
             </div>
 
             <div class="menu-list">
               <a class="menu-link" href="#download" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                <span>دانلود آخرین نسخه</span>
+                <span data-i18n="m_download">دانلود آخرین نسخه</span>
               </a>
-              <a class="menu-link" href="#compare" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                <span>شبیه‌ساز و مقایسه شبکه</span>
+              <a class="menu-link" href="#radar" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span data-i18n="m_radar">تست پینگ و جیتر زنده</span>
+              </a>
+              <a class="menu-link" href="#map" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span data-i18n="m_map">نقشه رادار مسیرها</span>
+              </a>
+              <a class="menu-link" href="#builder" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span data-i18n="m_builder">تنظیم‌کننده پروفایل گیم</span>
               </a>
               <a class="menu-link" href="#games" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="13" r="1"/><circle cx="17.5" cy="11" r="1"/></svg>
-                <span>بازی‌های پشتیبانی‌شده</span>
+                <span data-i18n="m_games">بازی‌های پشتیبانی‌شده</span>
               </a>
               <a class="menu-link" href="#features" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                <span>امکانات تخصصی</span>
-              </a>
-              <a class="menu-link" href="#howto" role="menuitem">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                <span>راهنمای شروع سریع</span>
+                <span data-i18n="m_features">امکانات تخصصی</span>
               </a>
               <a class="menu-link" href="#faq" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                <span>سوالات متداول</span>
+                <span data-i18n="m_faq">سوالات متداول</span>
               </a>
               <button id="copy-site-btn" class="menu-link" type="button" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                <span id="copy-site-text">کپی لینک برای هم‌تیمی</span>
+                <span id="copy-site-text" data-i18n="m_share">کپی لینک برای هم‌تیمی</span>
               </button>
             </div>
 
@@ -1413,7 +1575,7 @@
 
             <a id="menu-support" class="menu-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" role="menuitem">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-              <span>پشتیبانی تلگرام</span>
+              <span data-i18n="support_btn">پشتیبانی تلگرام</span>
             </a>
           </div>
         </div>
@@ -1422,10 +1584,10 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- Hero + Interactive Turbo Engine -->
     <div class="container">
       <section class="hero">
-        <div id="engine-stage" class="engine-stage" role="button" tabindex="0" aria-label="شروع انیمیشن موتور اتصال">
+        <div id="engine-stage" class="engine-stage" role="button" tabindex="0" aria-label="Toggle Turbo Engine">
           <div class="engine-glow"></div>
           <div class="engine-pulse"></div>
           <div class="engine-pulse delay"></div>
@@ -1433,15 +1595,15 @@
           <svg class="engine-svg" viewBox="0 0 200 200" fill="none" aria-hidden="true">
             <defs>
               <linearGradient id="engGrad" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#00E5FF"/>
-                <stop offset="55%" stop-color="#1677FF"/>
+                <stop id="eng-stop-1" offset="0%" stop-color="#00E5FF"/>
+                <stop id="eng-stop-2" offset="55%" stop-color="#1677FF"/>
                 <stop offset="100%" stop-color="#10B981"/>
               </linearGradient>
             </defs>
             <circle class="ring-ticks-outer" cx="100" cy="100" r="88" stroke="rgba(148,163,184,0.22)" stroke-width="6" stroke-dasharray="2.5 8.5"/>
             <circle class="ring-arc-fast" cx="100" cy="100" r="88" stroke="url(#engGrad)" stroke-width="6" stroke-linecap="round" stroke-dasharray="95 460"/>
-            <circle class="ring-rotor-ccw" cx="100" cy="100" r="70" stroke="rgba(0,229,255,0.42)" stroke-width="2" stroke-dasharray="28 18 10 18"/>
-            <circle cx="100" cy="100" r="59" stroke="rgba(56,189,248,0.16)" stroke-width="1"/>
+            <circle class="ring-rotor-ccw" cx="100" cy="100" r="70" stroke="currentColor" style="color:var(--neon);opacity:0.45;" stroke-width="2" stroke-dasharray="28 18 10 18"/>
+            <circle cx="100" cy="100" r="59" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
           </svg>
 
           <div class="engine-core">
@@ -1455,31 +1617,24 @@
         <div id="engine-telemetry" class="engine-telemetry">
           <span id="engine-dot" class="live-dot connecting"></span>
           <span id="engine-status-text">موتور در حال یافتن کم‌پینگ‌ترین مسیر...</span>
-          <span id="engine-ping" class="engine-ping-val">SCAN</span>
+          <span id="engine-ping" class="engine-ping-val mono">SCAN</span>
         </div>
 
-        <h1>نسل جدید<br /><span class="accent-grad">کاهش پینگ گیمینگ.</span></h1>
-        <p class="hero-desc">
+        <h1 id="hero-h1">نسل جدید<br /><span class="accent-grad">کاهش پینگ گیمینگ.</span></h1>
+        <p class="hero-desc" data-i18n="hero_desc">
           موتور هوشمند مسیریابی و بهینه‌سازی شبکه برای گیمرها — اتصال پایدار، حداقل تاخیر و کنترل کامل روی هسته اتصال.
         </p>
 
         <div class="hero-cta-row">
           <a id="main-download-btn" href="#download" class="btn-primary">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            <span>دانلود مستقیم اندروید</span>
-            <span id="main-download-ver" class="btn-tag" style="display:none;"></span>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-i18n="hero_dl">دانلود مستقیم اندروید</span>
+            <span id="main-download-ver" class="btn-tag mono" style="display:none;"></span>
           </a>
 
           <a id="hero-support-link" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" class="btn-ghost">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 2L11 13"/>
-              <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
-            </svg>
-            <span>پشتیبانی تلگرام</span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+            <span data-i18n="support_btn">پشتیبانی تلگرام</span>
           </a>
         </div>
 
@@ -1487,185 +1642,293 @@
         <div class="trust-strip">
           <div class="trust-item green">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-            <span class="trust-label">اتصال امن و پایدار</span>
+            <span class="trust-label" data-i18n="trust_1">اتصال امن و پایدار</span>
           </div>
           <div class="trust-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><circle cx="15" cy="13" r="1"/><circle cx="17.5" cy="11" r="1"/></svg>
-            <span class="trust-label">مخصوص گیمرهای رقابتی</span>
+            <span class="trust-label" data-i18n="trust_2">مخصوص گیمرهای رقابتی</span>
           </div>
           <div class="trust-item cyan">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            <span class="trust-label">مسیریابی هوشمند ایران</span>
+            <span class="trust-label" data-i18n="trust_3">مسیریابی هوشمند ایران</span>
           </div>
         </div>
 
-        <!-- Release Download Hub -->
+        <!-- Release Download Hub with Smart Device Auto-Detection -->
         <div id="download" class="panel release-panel reveal">
+          <div id="device-detect" class="device-detect">
+            <div class="device-detect-left">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <span id="device-detect-text">در حال شناسایی دستگاه شما...</span>
+            </div>
+            <span id="device-detect-badge" class="device-badge">AUTO</span>
+          </div>
+
           <div class="release-head">
             <div class="release-title">
               <span class="live-dot"></span>
-              <span>آخرین نسخه رسمی</span>
+              <span data-i18n="rel_title">آخرین نسخه رسمی</span>
             </div>
-            <span id="card-date" class="date-chip">دانلود مستقیم</span>
+            <span id="card-date" class="date-chip" data-i18n="rel_direct">دانلود مستقیم</span>
           </div>
 
           <div class="meta-grid">
             <div class="meta-cell">
-              <div class="meta-k">نسخه</div>
-              <div id="card-ver" class="meta-v">...</div>
+              <div class="meta-k" data-i18n="meta_ver">نسخه</div>
+              <div id="card-ver" class="meta-v mono">...</div>
             </div>
             <div class="meta-cell">
-              <div class="meta-k">حجم فایل</div>
-              <div id="card-size" class="meta-v">...</div>
+              <div class="meta-k" data-i18n="meta_size">حجم فایل</div>
+              <div id="card-size" class="meta-v mono">...</div>
             </div>
             <div class="meta-cell">
-              <div class="meta-k">سیستم‌عامل</div>
-              <div class="meta-v">Android 8+</div>
+              <div class="meta-k" data-i18n="meta_os">سیستم‌عامل</div>
+              <div class="meta-v mono">Android 8+</div>
             </div>
           </div>
 
           <div id="latest-notes" class="changelog">
-            <div class="changelog-k">تغییرات این نسخه</div>
+            <div class="changelog-k" data-i18n="rel_notes">تغییرات این نسخه</div>
             <div id="latest-notes-body"></div>
           </div>
 
           <div id="latest-abis" class="abi-stack">
-            <div style="text-align:center;color:var(--muted);font-size:0.84rem;padding:10px 0;">در حال دریافت لینک‌های دانلود...</div>
+            <div style="text-align:center;color:var(--muted);font-size:0.84rem;padding:10px 0;" data-i18n="rel_loading">در حال دریافت لینک‌های دانلود...</div>
           </div>
         </div>
       </section>
 
-      <!-- Live Interactive Route Simulator + Comparison -->
-      <section id="compare" class="reveal">
+      <!-- 1. Real-Time Ping & Jitter Radar (Live Oscilloscope) -->
+      <section id="radar" class="reveal">
         <div class="sec-head">
-          <span class="sec-kicker">LIVE NETWORK ARCHITECTURE</span>
-          <h2>تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span></h2>
-          <p>حالت مسیر را تغییر دهید تا عملکرد موتور مسیریابی هوشمند را در برابر اینترنت معمولی ببینید</p>
+          <span class="sec-kicker">REAL-TIME TELEMETRY</span>
+          <h2 data-i18n="radar_h2">رادار زنده تست پینگ و جیتر</h2>
+          <p data-i18n="radar_p">همین الان تاخیر و نوسان واقعی اتصال اینترنت خود را با نمودار موجی زنده بررسی کنید</p>
         </div>
 
-        <!-- Interactive Route Visualizer -->
-        <div id="sim-panel" class="panel sim-panel">
-          <div class="sim-header">
-            <div class="sim-title-wrap">
-              <span id="sim-dot" class="live-dot"></span>
-              <span class="sim-title">شبیه‌ساز زنده مسیر پکت‌های بازی</span>
+        <div class="panel radar-panel">
+          <div class="radar-top">
+            <div class="radar-title-box">
+              <span id="radar-live-dot" class="live-dot"></span>
+              <span class="radar-title" data-i18n="radar_box_title">اسیلوسکوپ شبکه (۱۰ پکت زنده)</span>
             </div>
-            <div class="sim-switch" role="tablist" aria-label="انتخاب حالت شبیه‌ساز">
-              <button id="sim-btn-pro" class="sim-tab active pro" type="button" role="tab" aria-selected="true">موتور بلوچ پینگ</button>
-              <button id="sim-btn-std" class="sim-tab std" type="button" role="tab" aria-selected="false">مسیر عادی</button>
+            <button id="radar-run-btn" class="radar-run-btn" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span id="radar-btn-text" data-i18n="radar_start">شروع تست واقعی</span>
+            </button>
+          </div>
+
+          <div class="radar-wave-box">
+            <span id="radar-overlay" class="radar-overlay-label mono">READY • STANDBY</span>
+            <canvas id="ping-canvas"></canvas>
+          </div>
+
+          <div class="radar-metrics">
+            <div class="radar-metric">
+              <div class="radar-metric-k" data-i18n="rm_avg">میانگین پینگ</div>
+              <div id="rm-avg-val" class="radar-metric-v mono">-- ms</div>
+            </div>
+            <div class="radar-metric">
+              <div class="radar-metric-k" data-i18n="rm_jitter">نوسان (Jitter)</div>
+              <div id="rm-jitter-val" class="radar-metric-v mono">-- ms</div>
+            </div>
+            <div class="radar-metric">
+              <div class="radar-metric-k" data-i18n="rm_min">بهترین پکت</div>
+              <div id="rm-min-val" class="radar-metric-v mono">-- ms</div>
+            </div>
+            <div class="radar-metric">
+              <div class="radar-metric-k" data-i18n="rm_grade">وضعیت گیمینگ</div>
+              <div id="rm-grade-val" class="radar-metric-v" data-i18n="rm_idle">آماده تست</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Tactical Routing Cyber Map -->
+      <section id="map" class="reveal">
+        <div class="sec-head">
+          <span class="sec-kicker">TACTICAL ROUTING RADAR</span>
+          <h2 data-i18n="map_h2">نقشه راداری مسیرهای گیمینگ</h2>
+          <p data-i18n="map_p">هر ریجن را انتخاب کنید تا مسیر بهینه و پروفایل گیمینگ آن روی رادار نمایش داده شود</p>
+        </div>
+
+        <div class="panel map-panel">
+          <div class="map-regions" role="tablist">
+            <button class="region-btn active" data-region="uae" type="button" data-i18n="reg_uae">خاورمیانه (دبی)</button>
+            <button class="region-btn" data-region="tr" type="button" data-i18n="reg_tr">ترکیه (استانبول)</button>
+            <button class="region-btn" data-region="de" type="button" data-i18n="reg_de">آلمان (فرانکفورت)</button>
+            <button class="region-btn" data-region="nl" type="button" data-i18n="reg_nl">اروپا (آمستردام)</button>
+          </div>
+
+          <div class="map-stage">
+            <svg class="map-svg" viewBox="0 0 680 300" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop id="map-stop-1" offset="0%" stop-color="#10B981"/>
+                  <stop id="map-stop-2" offset="50%" stop-color="#00E5FF"/>
+                  <stop id="map-stop-3" offset="100%" stop-color="#1677FF"/>
+                </linearGradient>
+                <pattern id="radarDots" width="18" height="18" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1" fill="rgba(148,163,184,0.16)"/>
+                </pattern>
+              </defs>
+
+              <rect width="680" height="300" fill="url(#radarDots)"/>
+              <!-- Concentric Radar Sweeps -->
+              <circle cx="515" cy="185" r="75" stroke="rgba(148,163,184,0.10)" stroke-dasharray="4 6"/>
+              <circle cx="515" cy="185" r="165" stroke="rgba(148,163,184,0.08)" stroke-dasharray="4 6"/>
+              <circle cx="515" cy="185" r="265" stroke="rgba(148,163,184,0.06)" stroke-dasharray="4 6"/>
+              <circle cx="515" cy="185" r="365" stroke="rgba(148,163,184,0.05)" stroke-dasharray="4 6"/>
+
+              <!-- Stylized Vector Continent Contours (Europe / Middle East) -->
+              <path d="M90 120 L145 78 L210 66 L275 88 L335 128 L390 144 L455 130 L545 142 L590 198 L538 242 L470 230 L422 192 L352 178 L280 156 L195 162 L120 152 Z" fill="rgba(30,41,59,0.34)" stroke="rgba(148,163,184,0.14)" stroke-width="1.2"/>
+
+              <!-- Standby Background Routes -->
+              <path d="M515 185 Q525 225 538 242" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
+              <path d="M515 185 Q435 135 352 152" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
+              <path d="M515 185 Q370 92 225 112" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
+              <path d="M515 185 Q340 60 158 92" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
+
+              <!-- Active Animated Laser Route -->
+              <path id="active-laser" class="laser-route" d="M515 185 Q525 225 538 242" stroke="url(#laserGrad)" stroke-width="3.2" stroke-linecap="round"/>
+
+              <!-- Origin Node (User) -->
+              <circle class="map-node-ring" cx="515" cy="185" r="8" fill="none" stroke="#10B981" stroke-width="1.6"/>
+              <circle cx="515" cy="185" r="6" fill="#10B981"/>
+              <text x="515" y="169" text-anchor="middle" fill="#A7F3D0" font-size="11" font-weight="800" font-family="system-ui">YOU</text>
+
+              <!-- Target Nodes -->
+              <g id="node-uae">
+                <circle class="map-node-ring" cx="538" cy="242" r="7" fill="none" stroke="var(--neon)" stroke-width="1.5"/>
+                <circle cx="538" cy="242" r="5.5" fill="var(--neon)"/>
+                <text x="538" y="264" text-anchor="middle" fill="#E2E8F0" font-size="11" font-weight="800" font-family="system-ui">UAE • DXB</text>
+              </g>
+              <g id="node-tr" opacity="0.55">
+                <circle cx="352" cy="152" r="5" fill="#94A3B8"/>
+                <text x="352" y="138" text-anchor="middle" fill="#CBD5E1" font-size="11" font-weight="700" font-family="system-ui">TURKEY • IST</text>
+              </g>
+              <g id="node-de" opacity="0.55">
+                <circle cx="225" cy="112" r="5" fill="#94A3B8"/>
+                <text x="225" y="96" text-anchor="middle" fill="#CBD5E1" font-size="11" font-weight="700" font-family="system-ui">GERMANY • FRA</text>
+              </g>
+              <g id="node-nl" opacity="0.55">
+                <circle cx="158" cy="92" r="5" fill="#94A3B8"/>
+                <text x="158" y="76" text-anchor="middle" fill="#CBD5E1" font-size="11" font-weight="700" font-family="system-ui">EUROPE • AMS</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="map-readout">
+            <div class="map-box">
+              <div class="map-box-k" data-i18n="map_k1">بهترین برای</div>
+              <div id="map-v1" class="map-box-v">PUBG • CODM • Free Fire</div>
+            </div>
+            <div class="map-box">
+              <div class="map-box-k" data-i18n="map_k2">حالت پیشنهادی هسته</div>
+              <div id="map-v2" class="map-box-v mono">Hybrid + UDP Frag</div>
+            </div>
+            <div class="map-box">
+              <div class="map-box-k" data-i18n="map_k3">اولویت مسیر</div>
+              <div id="map-v3" class="map-box-v">کمترین فاصله و پینگ</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Pro Settings Builder (Cyber HUD Configurator) -->
+      <section id="builder" class="reveal">
+        <div class="sec-head">
+          <span class="sec-kicker">PRO SETTINGS BUILDER</span>
+          <h2 data-i18n="bld_h2">تنظیم‌کننده هوشمند پروفایل گیمینگ</h2>
+          <p data-i18n="bld_p">اپراتور اینترنت و بازی خود را انتخاب کنید تا بهترین تنظیمات داخل برنامه بلوچ پینگ به شما پیشنهاد شود</p>
+        </div>
+
+        <div class="panel builder-panel">
+          <div class="builder-group">
+            <span class="builder-label" data-i18n="bld_isp">۱. اپراتور اینترنت شما:</span>
+            <div class="pill-row" id="isp-pills">
+              <button class="cfg-pill active" data-isp="irancell" type="button" data-i18n="isp_irancell">ایرانسل (4G / 5G)</button>
+              <button class="cfg-pill" data-isp="mci" type="button" data-i18n="isp_mci">همراه اول</button>
+              <button class="cfg-pill" data-isp="rightel" type="button" data-i18n="isp_rightel">رایتل / شاتل موبایل</button>
+              <button class="cfg-pill" data-isp="wifi" type="button" data-i18n="isp_wifi">وای‌فای / ADSL / فیبر</button>
             </div>
           </div>
 
-          <div class="sim-canvas">
-            <div class="sim-track">
-              <div class="sim-node">
-                <div class="sim-node-ico">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                </div>
-                <span class="sim-node-label">گوشی شما</span>
-                <span class="sim-node-sub">CLIENT</span>
-              </div>
-
-              <div class="sim-pipe"><div class="sim-packet"></div></div>
-
-              <div class="sim-node core">
-                <div class="sim-node-ico">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                </div>
-                <span id="sim-mid-label" class="sim-node-label">هسته ترکیبی</span>
-                <span id="sim-mid-sub" class="sim-node-sub">UDP FRAGMENT</span>
-              </div>
-
-              <div class="sim-pipe second"><div class="sim-packet"></div></div>
-
-              <div class="sim-node">
-                <div class="sim-node-ico">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-                </div>
-                <span class="sim-node-label">سرور بازی</span>
-                <span class="sim-node-sub">GAME NODE</span>
-              </div>
+          <div class="builder-group">
+            <span class="builder-label" data-i18n="bld_game">۲. بازی اصلی شما:</span>
+            <div class="pill-row" id="game-pills">
+              <button class="cfg-pill active" data-game="pubg" type="button">PUBG Mobile</button>
+              <button class="cfg-pill" data-game="codm" type="button">COD Mobile</button>
+              <button class="cfg-pill" data-game="ff" type="button">Free Fire</button>
+              <button class="cfg-pill" data-game="efootball" type="button">eFootball</button>
+              <button class="cfg-pill" data-game="pc" type="button">Valorant / CS2 (PC)</button>
             </div>
           </div>
 
-          <div class="sim-stats">
-            <div class="sim-stat">
-              <div class="sim-stat-k">پایداری پکت‌ها</div>
-              <div id="sim-stat-1" class="sim-stat-v">حداکثر ثبات</div>
+          <div class="hud-output">
+            <div class="hud-out-head">
+              <span class="hud-out-title">
+                <span class="live-dot"></span>
+                <span id="hud-preset-title">پروفایل پیشنهادی Baloch Ping</span>
+              </span>
+              <button id="hud-copy-btn" class="hud-copy-btn" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span id="hud-copy-txt" data-i18n="bld_copy">کپی تنظیمات</span>
+              </button>
             </div>
-            <div class="sim-stat">
-              <div class="sim-stat-k">نوسان (Jitter)</div>
-              <div id="sim-stat-2" class="sim-stat-v">بسیار پایین</div>
-            </div>
-            <div class="sim-stat">
-              <div class="sim-stat-k">عبور از محدودیت</div>
-              <div id="sim-stat-3" class="sim-stat-v">بهینه‌سازی شده</div>
-            </div>
+
+            <div id="hud-grid" class="hud-grid"></div>
+            <div id="hud-tip" class="hud-tip"></div>
           </div>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section id="compare" class="reveal">
+        <div class="sec-head">
+          <span class="sec-kicker">NETWORK ARCHITECTURE</span>
+          <h2 data-i18n="cmp_h2">تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span></h2>
+          <p data-i18n="cmp_p">چرا مسیریابی هوشمند و مهندسی پکت در فایت‌های حساس نتیجه بازی را عوض می‌کند</p>
         </div>
 
         <div class="compare-grid">
           <div class="panel compare-card">
             <div class="compare-head">
-              <h3>اتصال عادی اینترنت</h3>
-              <span class="cmp-badge bad">مسیر غیربهینه</span>
+              <h3 data-i18n="cmp_bad_t">اتصال عادی اینترنت</h3>
+              <span class="cmp-badge bad" data-i18n="cmp_bad_b">مسیر غیربهینه</span>
             </div>
             <div class="signal-meter">
               <div class="meter-row">
-                <span>پایداری مسیر و پکت‌ها</span>
-                <span>نوسان بالا</span>
+                <span data-i18n="cmp_meter">پایداری مسیر و پکت‌ها</span>
+                <span data-i18n="cmp_bad_m">نوسان بالا</span>
               </div>
               <div class="meter-track"><div class="meter-fill bad"></div></div>
             </div>
             <ul class="compare-list bad">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                <span>نوسان شدید پینگ و تاخیر در ثبت فرمان‌ها هنگام درگیری حساس</span>
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                <span>قطع شدن ناگهانی بازی هنگام جابه‌جایی بین وای‌فای و اینترنت همراه</span>
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                <span>محدودیت DPI روی بسته‌های UDP و کندی در ورود به لابی بازی</span>
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                <span>بدون کنترل روی DNS، اندازه MTU یا تفکیک سرویس‌های داخلی</span>
-              </li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span data-i18n="cb1">نوسان شدید پینگ و تاخیر در ثبت فرمان‌ها هنگام درگیری حساس</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span data-i18n="cb2">قطع شدن ناگهانی بازی هنگام جابه‌جایی بین وای‌فای و اینترنت همراه</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span data-i18n="cb3">محدودیت DPI روی بسته‌های UDP و کندی در ورود به لابی بازی</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span data-i18n="cb4">بدون کنترل روی DNS، اندازه MTU یا تفکیک سرویس‌های داخلی</span></li>
             </ul>
           </div>
 
           <div class="panel compare-card pro">
             <div class="compare-head">
-              <h3>موتور شبکه <span class="ltr">Baloch Ping</span></h3>
-              <span class="cmp-badge good">بهینه‌سازی گیمینگ</span>
+              <h3 data-i18n="cmp_pro_t">موتور شبکه <span class="ltr">Baloch Ping</span></h3>
+              <span class="cmp-badge good" data-i18n="cmp_pro_b">بهینه‌سازی گیمینگ</span>
             </div>
             <div class="signal-meter">
               <div class="meter-row">
-                <span>پایداری مسیر و پکت‌ها</span>
-                <span style="color:#6EE7B7;">حداکثر پایداری</span>
+                <span data-i18n="cmp_meter">پایداری مسیر و پکت‌ها</span>
+                <span style="color:#6EE7B7;" data-i18n="cmp_pro_m">حداکثر پایداری</span>
               </div>
               <div class="meter-track"><div class="meter-fill good"></div></div>
             </div>
             <ul class="compare-list good">
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>هسته ترکیبی با تکه‌تکه‌سازی UDP و TLS برای عبور بدون اختلال از محدودیت‌ها</span>
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>بازسازی فوری تونل حین تغییر شبکه و سوییچ خودکار روی کم‌پینگ‌ترین سرور</span>
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>موتور DNS اختصاصی با استراتژی IPv4 و پرس‌وجوی موازی برای اتصال سریع‌تر</span>
-              </li>
-              <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>مسیریابی هوشمند ایران (GeoIP/GeoSite) و مسدودسازی تبلیغات مزاحم</span>
-              </li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cg1">هسته ترکیبی با تکه‌تکه‌سازی UDP و TLS برای عبور بدون اختلال از محدودیت‌ها</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cg2">بازسازی فوری تونل حین تغییر شبکه و سوییچ خودکار روی کم‌پینگ‌ترین سرور</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cg3">موتور DNS اختصاصی با استراتژی IPv4 و پرس‌وجوی موازی برای اتصال سریع‌تر</span></li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="cg4">مسیریابی هوشمند ایران (GeoIP/GeoSite) و مسدودسازی تبلیغات مزاحم</span></li>
             </ul>
           </div>
         </div>
@@ -1677,12 +1940,12 @@
       <div class="container">
         <div class="sec-head">
           <span class="sec-kicker">SUPPORTED GAMES</span>
-          <h2>بهینه‌سازی‌شده برای محبوب‌ترین بازی‌های آنلاین</h2>
-          <p>کاهش تاخیر و پکت‌لاس روی بازی‌های رقابتی موبایل و پی‌سی</p>
+          <h2 data-i18n="games_h2">بهینه‌سازی‌شده برای محبوب‌ترین بازی‌های آنلاین</h2>
+          <p data-i18n="games_p">کاهش تاخیر و پکت‌لاس روی بازی‌های رقابتی موبایل و پی‌سی</p>
         </div>
       </div>
 
-      <div class="marquee-shell" aria-label="لیست بازی‌های پشتیبانی‌شده">
+      <div class="marquee-shell" aria-label="Supported games">
         <div id="games-row-1" class="marquee-row forward"></div>
         <div id="games-row-2" class="marquee-row reverse"></div>
       </div>
@@ -1693,71 +1956,61 @@
       <section id="features" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">ENGINE CAPABILITIES</span>
-          <h2>امکانات تخصصی زیر کاپوت <span class="ltr">Baloch Ping</span></h2>
-          <p>طراحی‌شده با کنترل کامل روی هسته اتصال، ترافیک، DNS و شخصی‌سازی محیط برنامه</p>
+          <h2 data-i18n="feat_h2">امکانات تخصصی زیر کاپوت <span class="ltr">Baloch Ping</span></h2>
+          <p data-i18n="feat_p">طراحی‌شده با کنترل کامل روی هسته اتصال، ترافیک، DNS و شخصی‌سازی محیط برنامه</p>
         </div>
 
         <div class="bento-grid">
           <div class="panel bento-card bento-span-3">
             <div class="bento-top">
-              <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              </div>
+              <div class="bento-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
               <span class="bento-tag">HYBRID CORE</span>
             </div>
-            <h3>هسته ترکیبی و بهینه‌سازی پکت بازی</h3>
-            <p>انتخاب خودکار هسته متناسب با پروتکل همراه با تکه‌تکه‌سازی UDP و TLS، قابلیت Multiplex (MUX)، Multipath TCP، TCP Fast Open، مسدودسازی QUIC و تنظیم دقیق MTU تونل.</p>
+            <h3 data-i18n="f1_t">هسته ترکیبی و بهینه‌سازی پکت بازی</h3>
+            <p data-i18n="f1_p">انتخاب خودکار هسته متناسب با پروتکل همراه با تکه‌تکه‌سازی UDP و TLS، قابلیت Multiplex (MUX)، Multipath TCP، TCP Fast Open، مسدودسازی QUIC و تنظیم دقیق MTU تونل.</p>
           </div>
 
           <div class="panel bento-card bento-span-3">
             <div class="bento-top">
-              <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-              </div>
+              <div class="bento-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
               <span class="bento-tag">AUTO SELECT</span>
             </div>
-            <h3>تست پینگ واقعی و سوییچ هوشمند</h3>
-            <p>تست همزمان سرورها با متد HTTP GET و انتخاب بهترین نتیجه، حذف خودکار سرورهای خراب پس از تست و انتخاب خودکار کم‌پینگ‌ترین مسیر بر اساس آستانه تحمل تاخیر.</p>
+            <h3 data-i18n="f2_t">تست پینگ واقعی و سوییچ هوشمند</h3>
+            <p data-i18n="f2_p">تست همزمان سرورها با متد HTTP GET و انتخاب بهترین نتیجه، حذف خودکار سرورهای خراب پس از تست و انتخاب خودکار کم‌پینگ‌ترین مسیر بر اساس آستانه تحمل تاخیر.</p>
           </div>
 
           <div class="panel bento-card bento-span-2">
             <div class="bento-top">
-              <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-              </div>
+              <div class="bento-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
               <span class="bento-tag">ZERO DROP</span>
             </div>
-            <h3>پایداری حین تغییر شبکه</h3>
-            <p>بازسازی سریع تونل هنگام جابه‌جایی بین وای‌فای و اینترنت همراه، اتصال خودکار پس از روشن شدن گوشی و نمایش سرعت لحظه‌ای در نوار اعلان.</p>
+            <h3 data-i18n="f3_t">پایداری حین تغییر شبکه</h3>
+            <p data-i18n="f3_p">بازسازی سریع تونل هنگام جابه‌جایی بین وای‌فای و اینترنت همراه، اتصال خودکار پس از روشن شدن گوشی و نمایش سرعت لحظه‌ای در نوار اعلان.</p>
           </div>
 
           <div class="panel bento-card bento-span-2">
             <div class="bento-top">
-              <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-              </div>
+              <div class="bento-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
               <span class="bento-tag">DNS &amp; GEO</span>
             </div>
-            <h3>مسیریابی ایران و موتور DNS</h3>
-            <p>جداسازی هوشمند سایت‌های ایرانی، حذف تبلیغات مزاحم و DNS اختصاصی روی HTTPS با استراتژی IPv4، پرس‌وجوی موازی و بازنویسی Hosts.</p>
+            <h3 data-i18n="f4_t">مسیریابی ایران و موتور DNS</h3>
+            <p data-i18n="f4_p">جداسازی هوشمند سایت‌های ایرانی، حذف تبلیغات مزاحم و DNS اختصاصی روی HTTPS با استراتژی IPv4، پرس‌وجوی موازی و بازنویسی Hosts.</p>
           </div>
 
           <div class="panel bento-card bento-span-2">
             <div class="bento-top">
-              <div class="bento-ico">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
+              <div class="bento-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
               <span class="bento-tag">LAN SHARE</span>
             </div>
-            <h3>اشتراک‌گذاری و شخصی‌سازی</h3>
-            <p>پروکسی محلی SOCKS5/HTTP با احراز هویت برای کامپیوتر، رابط تمام‌فارسی با انتخاب نوع دکمه اتصال، آیکون تیره/روشن و بررسی خودکار آپدیت‌ها.</p>
+            <h3 data-i18n="f5_t">اشتراک‌گذاری و شخصی‌سازی</h3>
+            <p data-i18n="f5_p">پروکسی محلی SOCKS5/HTTP با احراز هویت برای کامپیوتر، رابط تمام‌فارسی با انتخاب نوع دکمه اتصال، آیکون تیره/روشن و بررسی خودکار آپدیت‌ها.</p>
           </div>
         </div>
 
         <div class="panel specs-bar">
           <div class="specs-label">
             <span class="live-dot"></span>
-            <span>پروتکل‌ها و ماژول‌های داخلی هسته</span>
+            <span data-i18n="specs_title">پروتکل‌ها و ماژول‌های داخلی هسته</span>
           </div>
           <div class="specs-wrap">
             <span class="spec-pill">Hybrid Core</span>
@@ -1778,97 +2031,45 @@
         </div>
       </section>
 
-      <!-- 3-Step Quick Onboarding -->
-      <section id="howto" class="reveal">
-        <div class="sec-head">
-          <span class="sec-kicker">QUICK START</span>
-          <h2>راه‌اندازی در ۳۰ ثانیه</h2>
-          <p>بدون نیاز به تنظیمات پیچیده؛ در سه گام کوتاه آماده رقابت شوید</p>
-        </div>
-
-        <div class="steps-grid">
-          <div class="panel step-card">
-            <div class="step-top">
-              <span class="step-num">STEP 01</span>
-              <div class="step-ico">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              </div>
-            </div>
-            <h3>دانلود مستقیم و نصب</h3>
-            <p>نسخه پیشنهادی <span class="ltr">arm64-v8a</span> را مستقیم از بالای صفحه دریافت و بدون نیاز به فیلترشکن روی گوشی اندرویدی خود نصب کنید.</p>
-          </div>
-
-          <div class="panel step-card">
-            <div class="step-top">
-              <span class="step-num">STEP 02</span>
-              <div class="step-ico">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/></svg>
-              </div>
-            </div>
-            <h3>تست پینگ و انتخاب خودکار</h3>
-            <p>برنامه به‌صورت خودکار سرورها را همزمان بررسی می‌کند و کم‌پینگ‌ترین مسیر را برای اپراتور اینترنت شما آماده نگه می‌دارد.</p>
-          </div>
-
-          <div class="panel step-card">
-            <div class="step-top">
-              <span class="step-num">STEP 03</span>
-              <div class="step-ico">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
-              </div>
-            </div>
-            <h3>اتصال و ورود به بازی</h3>
-            <p>دکمه اتصال را لمس کنید و وارد بازی شوید؛ سرویس‌های داخلی ایران همچنان مستقیم باز می‌شوند و حین تعویض شبکه قطع نخواهید شد.</p>
-          </div>
-        </div>
-      </section>
-
       <!-- FAQ Section -->
       <section id="faq" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">FAQ &amp; SETUP</span>
-          <h2>سوالات متداول</h2>
-          <p>پاسخ کوتاه به پرسش‌های پرتکرار پیش از نصب و استفاده از برنامه</p>
+          <h2 data-i18n="faq_h2">سوالات متداول</h2>
+          <p data-i18n="faq_p">پاسخ کوتاه به پرسش‌های پرتکرار پیش از نصب و استفاده از برنامه</p>
         </div>
 
         <div class="faq-list">
           <details class="faq-item">
             <summary>
-              <span>کدام فایل نصبی را دانلود کنم؛ <span class="ltr">arm64</span> یا <span class="ltr">armeabi-v7a</span>؟</span>
+              <span data-i18n="q1">کدام فایل نصبی را دانلود کنم؛ arm64 یا armeabi-v7a؟</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-body">
-              برای بیش از ۹۰ درصد گوشی‌های اندرویدی جدید، نسخه <span class="ltr">arm64-v8a</span> بهترین و سریع‌ترین انتخاب است (دکمه اصلی بالای صفحه نیز همین نسخه را دانلود می‌کند). تنها اگر گوشی شما خیلی قدیمی است و حین نصب خطا داد، نسخه <span class="ltr">armeabi-v7a</span> را نصب کنید.
-            </div>
+            <div class="faq-body" data-i18n="a1">برای بیش از ۹۰ درصد گوشی‌های اندرویدی جدید، نسخه arm64-v8a بهترین و سریع‌ترین انتخاب است (دکمه اصلی بالای صفحه نیز همین نسخه را دانلود می‌کند). تنها اگر گوشی شما خیلی قدیمی است و حین نصب خطا داد، نسخه armeabi-v7a را نصب کنید.</div>
           </details>
 
           <details class="faq-item">
             <summary>
-              <span>آیا هنگام روشن بودن برنامه، سایت‌ها و برنامه‌های ایرانی باز می‌شوند؟</span>
+              <span data-i18n="q2">آیا هنگام روشن بودن برنامه، سایت‌ها و برنامه‌های ایرانی باز می‌شوند؟</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-body">
-              بله. با فعال بودن فایل‌های منابع جغرافیایی ایران (<span class="ltr">geoip-ir</span> و <span class="ltr">geosite-ir</span>) در بخش تنظیمات برنامه، ترافیک سرویس‌های داخلی به‌صورت مستقیم عبور می‌کند و نیازی به قطع اتصال نیست.
-            </div>
+            <div class="faq-body" data-i18n="a2">بله. با فعال بودن فایل‌های منابع جغرافیایی ایران (geoip-ir و geosite-ir) در بخش تنظیمات برنامه، ترافیک سرویس‌های داخلی به‌صورت مستقیم عبور می‌کند و نیازی به قطع اتصال نیست.</div>
           </details>
 
           <details class="faq-item">
             <summary>
-              <span>آیا می‌توان اتصال بهینه‌شده گوشی را روی کامپیوتر هم استفاده کرد؟</span>
+              <span data-i18n="q3">آیا می‌توان اتصال بهینه‌شده گوشی را روی کامپیوتر هم استفاده کرد؟</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-body">
-              بله. در تنظیمات برنامه کافیست گزینه «اجازه اتصال از شبکه محلی» را فعال کنید تا از طریق پورت‌های محلی <span class="ltr">SOCKS5 (10808)</span> و <span class="ltr">HTTP (10809)</span> روی کامپیوتر یا دستگاه دوم هم به همان اتصال متصل شوید.
-            </div>
+            <div class="faq-body" data-i18n="a3">بله. در تنظیمات برنامه کافیست گزینه «اجازه اتصال از شبکه محلی» را فعال کنید تا از طریق پورت‌های محلی SOCKS5 (10808) و HTTP (10809) روی کامپیوتر یا دستگاه دوم هم به همان اتصال متصل شوید.</div>
           </details>
 
           <details class="faq-item">
             <summary>
-              <span>آپدیت‌های بعدی برنامه چطور انجام می‌شود؟</span>
+              <span data-i18n="q4">آپدیت‌های بعدی برنامه چطور انجام می‌شود؟</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-body">
-              برنامه دارای سیستم بررسی خودکار به‌روزرسانی است و هر نسخه جدید همزمان بدون نیاز به فیلترشکن در همین صفحه برای دانلود مستقیم منتشر می‌شود.
-            </div>
+            <div class="faq-body" data-i18n="a4">برنامه دارای سیستم بررسی خودکار به‌روزرسانی است و هر نسخه جدید همزمان بدون نیاز به فیلترشکن در همین صفحه برای دانلود مستقیم منتشر می‌شود.</div>
           </details>
         </div>
       </section>
@@ -1886,24 +2087,23 @@
           </div>
           <span class="brand-title">BALOCH PING</span>
         </div>
-        <span class="status-pill"><span class="live-dot"></span><span>وضعیت زیرساخت و سرور دانلود: فعال</span></span>
+        <span class="status-pill"><span class="live-dot"></span><span data-i18n="footer_status">وضعیت زیرساخت و سرور دانلود: فعال</span></span>
       </div>
 
       <div class="footer-links">
-        <a href="#download">دانلود</a>
-        <a href="#compare">مقایسه</a>
-        <a href="#games">بازی‌ها</a>
-        <a href="#features">امکانات</a>
-        <a href="#howto">شروع سریع</a>
-        <a id="footer-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener">پشتیبانی تلگرام</a>
+        <a href="#download" data-i18n="nav_download">دانلود</a>
+        <a href="#radar" data-i18n="nav_radar">تست پینگ</a>
+        <a href="#map" data-i18n="nav_map">رادار مسیر</a>
+        <a href="#builder" data-i18n="nav_builder">تنظیمات پرو</a>
+        <a id="footer-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" data-i18n="support_btn">پشتیبانی تلگرام</a>
       </div>
 
-      <p class="footer-copy">© <span class="ltr">Baloch Ping</span> — تمامی حقوق محفوظ است</p>
+      <p class="footer-copy" data-i18n="footer_copy">© Baloch Ping — تمامی حقوق محفوظ است</p>
     </div>
   </footer>
 
-  <!-- Smart Floating Bottom Download Bar -->
-  <div id="float-bar" class="float-bar" aria-label="دسترسی سریع دانلود">
+  <!-- Floating Bottom Download Bar -->
+  <div id="float-bar" class="float-bar" aria-label="Quick Download">
     <div class="float-info">
       <div class="brand-mark" style="width:32px;height:32px;" aria-hidden="true">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
@@ -1912,23 +2112,128 @@
       </div>
       <div class="float-text">
         <span class="float-title">Baloch Ping</span>
-        <span id="float-ver" class="float-sub">Android 8+</span>
+        <span id="float-ver" class="float-sub mono">Android 8+</span>
       </div>
     </div>
 
     <div class="float-actions">
       <a id="float-dl-btn" class="float-dl" href="#download">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span>دانلود مستقیم</span>
+        <span data-i18n="float_dl">دانلود مستقیم</span>
       </a>
-      <button id="float-close" class="float-close" type="button" aria-label="بستن نوار دانلود">
+      <button id="float-close" class="float-close" type="button" aria-label="Close">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
   </div>
 
   <script>
-    /* 0. Scroll Progress, Floating Download Bar & Smooth Reveal */
+    const haptic = (ms = 18) => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch {} };
+
+    /* ===== i18n Dictionary (Full FA / EN Bilingual Engine) ===== */
+    const I18N = {
+      fa: {
+        nav_download: "دانلود", nav_radar: "تست پینگ", nav_map: "رادار مسیر", nav_builder: "تنظیمات پرو", nav_games: "بازی‌ها", nav_features: "امکانات", nav_cta: "دانلود اندروید",
+        menu_title: "کنترل پنل سریع", m_download: "دانلود آخرین نسخه", m_radar: "تست پینگ و جیتر زنده", m_map: "نقشه رادار مسیرها", m_builder: "تنظیم‌کننده پروفایل گیم", m_games: "بازی‌های پشتیبانی‌شده", m_features: "امکانات تخصصی", m_faq: "سوالات متداول", m_share: "کپی لینک برای هم‌تیمی", m_copied: "لینک سایت کپی شد", support_btn: "پشتیبانی تلگرام",
+        hero_h1: `نسل جدید<br /><span class="accent-grad">کاهش پینگ گیمینگ.</span>`,
+        hero_desc: "موتور هوشمند مسیریابی و بهینه‌سازی شبکه برای گیمرها — اتصال پایدار، حداقل تاخیر و کنترل کامل روی هسته اتصال.",
+        hero_dl: "دانلود مستقیم اندروید", trust_1: "اتصال امن و پایدار", trust_2: "مخصوص گیمرهای رقابتی", trust_3: "مسیریابی هوشمند ایران",
+        rel_title: "آخرین نسخه رسمی", rel_direct: "دانلود مستقیم", meta_ver: "نسخه", meta_size: "حجم فایل", meta_os: "سیستم‌عامل", rel_notes: "تغییرات این نسخه", rel_loading: "در حال دریافت لینک‌های دانلود...",
+        radar_h2: "رادار زنده تست پینگ و جیتر", radar_p: "همین الان تاخیر و نوسان واقعی اتصال اینترنت خود را با نمودار موجی زنده بررسی کنید", radar_box_title: "اسیلوسکوپ شبکه (۱۰ پکت زنده)", radar_start: "شروع تست واقعی", radar_testing: "در حال تست...", rm_avg: "میانگین پینگ", rm_jitter: "نوسان (Jitter)", rm_min: "بهترین پکت", rm_grade: "وضعیت گیمینگ", rm_idle: "آماده تست",
+        map_h2: "نقشه راداری مسیرهای گیمینگ", map_p: "هر ریجن را انتخاب کنید تا مسیر بهینه و پروفایل گیمینگ آن روی رادار نمایش داده شود", reg_uae: "خاورمیانه (دبی)", reg_tr: "ترکیه (استانبول)", reg_de: "آلمان (فرانکفورت)", reg_nl: "اروپا (آمستردام)", map_k1: "بهترین برای", map_k2: "حالت پیشنهادی هسته", map_k3: "اولویت مسیر",
+        bld_h2: "تنظیم‌کننده هوشمند پروفایل گیمینگ", bld_p: "اپراتور اینترنت و بازی خود را انتخاب کنید تا بهترین تنظیمات داخل برنامه بلوچ پینگ به شما پیشنهاد شود", bld_isp: "۱. اپراتور اینترنت شما:", bld_game: "۲. بازی اصلی شما:", isp_irancell: "ایرانسل (4G / 5G)", isp_mci: "همراه اول", isp_rightel: "رایتل / شاتل موبایل", isp_wifi: "وای‌فای / ADSL / فیبر", bld_copy: "کپی تنظیمات", bld_copied: "تنظیمات کپی شد",
+        cmp_h2: `تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span>`, cmp_p: "چرا مسیریابی هوشمند و مهندسی پکت در فایت‌های حساس نتیجه بازی را عوض می‌کند", cmp_bad_t: "اتصال عادی اینترنت", cmp_bad_b: "مسیر غیربهینه", cmp_pro_t: `موتور شبکه <span class="ltr">Baloch Ping</span>`, cmp_pro_b: "بهینه‌سازی گیمینگ", cmp_meter: "پایداری مسیر و پکت‌ها", cmp_bad_m: "نوسان بالا", cmp_pro_m: "حداکثر پایداری",
+        cb1: "نوسان شدید پینگ و تاخیر در ثبت فرمان‌ها هنگام درگیری حساس", cb2: "قطع شدن ناگهانی بازی هنگام جابه‌جایی بین وای‌فای و اینترنت همراه", cb3: "محدودیت DPI روی بسته‌های UDP و کندی در ورود به لابی بازی", cb4: "بدون کنترل روی DNS، اندازه MTU یا تفکیک سرویس‌های داخلی",
+        cg1: "هسته ترکیبی با تکه‌تکه‌سازی UDP و TLS برای عبور بدون اختلال از محدودیت‌ها", cg2: "بازسازی فوری تونل حین تغییر شبکه و سوییچ خودکار روی کم‌پینگ‌ترین سرور", cg3: "موتور DNS اختصاصی با استراتژی IPv4 و پرس‌وجوی موازی برای اتصال سریع‌تر", cg4: "مسیریابی هوشمند ایران (GeoIP/GeoSite) و مسدودسازی تبلیغات مزاحم",
+        games_h2: "بهینه‌سازی‌شده برای محبوب‌ترین بازی‌های آنلاین", games_p: "کاهش تاخیر و پکت‌لاس روی بازی‌های رقابتی موبایل و پی‌سی",
+        feat_h2: `امکانات تخصصی زیر کاپوت <span class="ltr">Baloch Ping</span>`, feat_p: "طراحی‌شده با کنترل کامل روی هسته اتصال، ترافیک، DNS و شخصی‌سازی محیط برنامه",
+        f1_t: "هسته ترکیبی و بهینه‌سازی پکت بازی", f1_p: "انتخاب خودکار هسته متناسب با پروتکل همراه با تکه‌تکه‌سازی UDP و TLS، قابلیت Multiplex (MUX)، Multipath TCP، TCP Fast Open، مسدودسازی QUIC و تنظیم دقیق MTU تونل.",
+        f2_t: "تست پینگ واقعی و سوییچ هوشمند", f2_p: "تست همزمان سرورها با متد HTTP GET و انتخاب بهترین نتیجه، حذف خودکار سرورهای خراب پس از تست و انتخاب خودکار کم‌پینگ‌ترین مسیر بر اساس آستانه تحمل تاخیر.",
+        f3_t: "پایداری حین تغییر شبکه", f3_p: "بازسازی سریع تونل هنگام جابه‌جایی بین وای‌فای و اینترنت همراه، اتصال خودکار پس از روشن شدن گوشی و نمایش سرعت لحظه‌ای در نوار اعلان.",
+        f4_t: "مسیریابی ایران و موتور DNS", f4_p: "جداسازی هوشمند سایت‌های ایرانی، حذف تبلیغات مزاحم و DNS اختصاصی روی HTTPS با استراتژی IPv4، پرس‌وجوی موازی و بازنویسی Hosts.",
+        f5_t: "اشتراک‌گذاری و شخصی‌سازی", f5_p: "پروکسی محلی SOCKS5/HTTP با احراز هویت برای کامپیوتر، رابط تمام‌فارسی با انتخاب نوع دکمه اتصال، آیکون تیره/روشن و بررسی خودکار آپدیت‌ها.",
+        specs_title: "پروتکل‌ها و ماژول‌های داخلی هسته", faq_h2: "سوالات متداول", faq_p: "پاسخ کوتاه به پرسش‌های پرتکرار پیش از نصب و استفاده از برنامه",
+        q1: "کدام فایل نصبی را دانلود کنم؛ arm64 یا armeabi-v7a؟", a1: "برای بیش از ۹۰ درصد گوشی‌های اندرویدی جدید، نسخه arm64-v8a بهترین و سریع‌ترین انتخاب است (دکمه اصلی بالای صفحه نیز همین نسخه را دانلود می‌کند). تنها اگر گوشی شما خیلی قدیمی است و حین نصب خطا داد، نسخه armeabi-v7a را نصب کنید.",
+        q2: "آیا هنگام روشن بودن برنامه، سایت‌ها و برنامه‌های ایرانی باز می‌شوند؟", a2: "بله. با فعال بودن فایل‌های منابع جغرافیایی ایران (geoip-ir و geosite-ir) در بخش تنظیمات برنامه، ترافیک سرویس‌های داخلی به‌صورت مستقیم عبور می‌کند و نیازی به قطع اتصال نیست.",
+        q3: "آیا می‌توان اتصال بهینه‌شده گوشی را روی کامپیوتر هم استفاده کرد؟", a3: "بله. در تنظیمات برنامه کافیست گزینه «اجازه اتصال از شبکه محلی» را فعال کنید تا از طریق پورت‌های محلی SOCKS5 (10808) و HTTP (10809) روی کامپیوتر یا دستگاه دوم هم به همان اتصال متصل شوید.",
+        q4: "آپدیت‌های بعدی برنامه چطور انجام می‌شود؟", a4: "برنامه دارای سیستم بررسی خودکار به‌روزرسانی است و هر نسخه جدید همزمان بدون نیاز به فیلترشکن در همین صفحه برای دانلود مستقیم منتشر می‌شود.",
+        footer_status: "وضعیت زیرساخت و سرور دانلود: فعال", footer_copy: "© Baloch Ping — تمامی حقوق محفوظ است", float_dl: "دانلود مستقیم"
+      },
+      en: {
+        nav_download: "Download", nav_radar: "Ping Radar", nav_map: "Routing Map", nav_builder: "Pro Preset", nav_games: "Games", nav_features: "Engine", nav_cta: "Get Android APK",
+        menu_title: "Quick Command", m_download: "Latest Release", m_radar: "Live Ping & Jitter Radar", m_map: "Tactical Routing Map", m_builder: "Pro Settings Builder", m_games: "Supported Games", m_features: "Engine Capabilities", m_faq: "FAQ & Setup", m_share: "Copy Link for Squad", m_copied: "Link Copied", support_btn: "Telegram Support",
+        hero_h1: `Next-Gen <span class="accent-grad">Gaming</span><br />Ping <span class="accent-grad">Engine.</span>`,
+        hero_desc: "Intelligent gaming network optimization client — stable routing, minimal jitter, and full control over your connection core.",
+        hero_dl: "Direct Android Download", trust_1: "Secure & Stable Tunnel", trust_2: "Built for Competitive Play", trust_3: "Smart Geo-Routing",
+        rel_title: "Official Latest Build", rel_direct: "Direct Mirror", meta_ver: "Version", meta_size: "File Size", meta_os: "Platform", rel_notes: "Release Changelog", rel_loading: "Fetching direct download links...",
+        radar_h2: "Live Ping & Jitter Radar", radar_p: "Measure your real-time connection latency and jitter right now on a live network oscilloscope", radar_box_title: "Network Oscilloscope (10 Live Probes)", radar_start: "Run Live Test", radar_testing: "Scanning...", rm_avg: "Average Ping", rm_jitter: "Jitter", rm_min: "Best Packet", rm_grade: "Gaming Grade", rm_idle: "Ready",
+        map_h2: "Tactical Routing Radar Map", map_p: "Select any gaming region to inspect the optimized laser route and core profile", reg_uae: "Middle East (Dubai)", reg_tr: "Turkey (Istanbul)", reg_de: "Germany (Frankfurt)", reg_nl: "Europe (Amsterdam)", map_k1: "Best For", map_k2: "Recommended Core", map_k3: "Route Priority",
+        bld_h2: "Pro Gaming Settings Builder", bld_p: "Select your network type and main title to generate the exact recommended Baloch Ping configuration", bld_isp: "1. Your Network / ISP:", bld_game: "2. Main Game:", isp_irancell: "Irancell (4G / 5G)", isp_mci: "MCI (Hamrah Aval)", isp_rightel: "Rightel / Mobile", isp_wifi: "Wi-Fi / ADSL / Fiber", bld_copy: "Copy Preset", bld_copied: "Preset Copied",
+        cmp_h2: `Standard Network vs <span class="ltr">Baloch Ping</span>`, cmp_p: "Why packet engineering and intelligent routing make the difference in competitive matches", cmp_bad_t: "Standard Connection", cmp_bad_b: "Unoptimized Route", cmp_pro_t: `<span class="ltr">Baloch Ping</span> Engine`, cmp_pro_b: "Gaming Optimized", cmp_meter: "Route & Packet Stability", cmp_bad_m: "High Jitter", cmp_pro_m: "Peak Stability",
+        cb1: "Severe ping spikes and input delay during close-range engagements", cb2: "Sudden disconnects when switching between Wi-Fi and mobile data", cb3: "DPI throttling on UDP game packets and slow lobby matchmaking", cb4: "Zero control over DNS strategy, MTU sizing, or local traffic split",
+        cg1: "Hybrid core with UDP & TLS fragmentation for uninterrupted game packets", cg2: "Instant tunnel rebuild on network switch and smart lowest-ping auto-select", cg3: "Dedicated DoH DNS engine with IPv4-only strategy and parallel lookup", cg4: "Smart local GeoIP/GeoSite split-tunneling and built-in ad-blocking rules",
+        games_h2: "Optimized for Top Competitive Titles", games_p: "Engineered to minimize latency and packet loss across mobile and PC titles",
+        feat_h2: `Under the Hood of <span class="ltr">Baloch Ping</span>`, feat_p: "Full engineering control over connection core, packet transport, DNS, and UI customization",
+        f1_t: "Hybrid Core & Packet Engineering", f1_p: "Automatic protocol-aware core with UDP & TLS fragmentation, Multiplex (MUX), Multipath TCP, TCP Fast Open, QUIC blocking, and custom MTU.",
+        f2_t: "Real Ping Testing & Auto Select", f2_p: "Concurrent HTTP GET latency probing, automatic dead-node cleanup, and smart auto-switching based on your latency threshold.",
+        f3_t: "Zero-Drop Network Handover", f3_p: "Instant tunnel rebuild when moving between Wi-Fi and cellular data, auto-connect on boot, and live speed meter in notifications.",
+        f4_t: "Geo-Routing & Pro DNS Engine", f4_p: "Automatic local traffic bypass, category ad-blocking, DoH with IPv4-only filtering, parallel queries, and custom Hosts rewrite.",
+        f5_t: "LAN Proxy Share & Custom UI", f5_p: "Share your optimized connection to PC via authenticated SOCKS5/HTTP LAN proxy, custom connect styles, light/dark icons, and auto-updates.",
+        specs_title: "Built-in Core Modules & Protocols", faq_h2: "Frequently Asked Questions", faq_p: "Quick answers before installing and tuning Baloch Ping",
+        q1: "Which APK should I install: arm64-v8a or armeabi-v7a?", a1: "Over 90% of modern Android devices run arm64-v8a (used by the primary download button). Only choose armeabi-v7a if you have an older 32-bit device.",
+        q2: "Do local banking apps and regional sites work while connected?", a2: "Yes. With GeoIP and GeoSite routing files enabled in settings, local traffic goes direct automatically without needing to disconnect.",
+        q3: "Can I share my optimized phone connection to my PC?", a3: "Yes. Enable 'Allow LAN Connections' in settings to connect your PC via local SOCKS5 (10808) or HTTP (10809) proxy.",
+        q4: "How do future app updates work?", a4: "Baloch Ping includes built-in automatic update checks, and every new official release is published right here for direct download.",
+        footer_status: "Infrastructure & Direct Mirror: Operational", footer_copy: "© Baloch Ping — All rights reserved", float_dl: "Direct APK"
+      }
+    };
+
+    const THEME_STOPS = {
+      blue: ["#00E5FF", "#1677FF"],
+      lime: ["#CCFF00", "#84CC16"],
+      red: ["#FF5E6C", "#E11D48"],
+      gold: ["#FDE047", "#F59E0B"]
+    };
+
+    let currentLang = localStorage.getItem("bp_lang") || "fa";
+    let currentTheme = localStorage.getItem("bp_theme") || "blue";
+
+    function applyTheme(theme) {
+      if (!THEME_STOPS[theme]) theme = "blue";
+      currentTheme = theme;
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("bp_theme", theme);
+      document.querySelectorAll(".theme-dot").forEach((b) => b.classList.toggle("active", b.dataset.setTheme === theme));
+      const [c1, c2] = THEME_STOPS[theme];
+      const s1 = document.getElementById("eng-stop-1");
+      const s2 = document.getElementById("eng-stop-2");
+      const m2 = document.getElementById("map-stop-2");
+      const m3 = document.getElementById("map-stop-3");
+      if (s1) s1.setAttribute("stop-color", c1);
+      if (s2) s2.setAttribute("stop-color", c2);
+      if (m2) m2.setAttribute("stop-color", c1);
+      if (m3) m3.setAttribute("stop-color", c2);
+    }
+
+    function applyLang(lang) {
+      if (!I18N[lang]) lang = "fa";
+      currentLang = lang;
+      localStorage.setItem("bp_lang", lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
+      const dict = I18N[lang];
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const k = el.getAttribute("data-i18n");
+        if (dict[k] !== undefined) el.innerHTML = dict[k];
+      });
+      document.getElementById("hero-h1").innerHTML = dict.hero_h1;
+      document.querySelectorAll(".lang-btn").forEach((b) => b.classList.toggle("active", b.dataset.setLang === lang));
+
+      if (window.__refreshDynamicUI) window.__refreshDynamicUI();
+    }
+
+    /* ===== 0. Scroll Progress, Floating Bar & Reveal ===== */
     (() => {
       const bar = document.getElementById("scroll-bar");
       const floatBar = document.getElementById("float-bar");
@@ -1944,9 +2249,7 @@
         const y = window.scrollY || document.documentElement.scrollTop;
         const max = document.documentElement.scrollHeight - window.innerHeight;
         bar.style.width = max > 0 ? Math.min(100, (y / max) * 100) + "%" : "0%";
-        if (!dismissed) {
-          floatBar.classList.toggle("show", y > 560);
-        }
+        if (!dismissed) floatBar.classList.toggle("show", y > 560);
       }
 
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -1955,10 +2258,7 @@
       if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver((entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("is-visible");
-              io.unobserve(e.target);
-            }
+            if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
           });
         }, { threshold: 0.08 });
         document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
@@ -1967,7 +2267,7 @@
       }
     })();
 
-    /* 1. Three-Dot Quick Menu + Share Copy Link */
+    /* ===== 1. Three-Dot Command Panel + Theme + Language + Share ===== */
     (() => {
       const btn = document.getElementById("menu-btn");
       const panel = document.getElementById("nav-menu");
@@ -1981,61 +2281,68 @@
 
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
+        haptic(12);
         setOpen(!panel.classList.contains("open"));
       });
 
-      panel.querySelectorAll("a").forEach((a) => {
-        a.addEventListener("click", () => setOpen(false));
+      panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+
+      document.querySelectorAll(".theme-dot").forEach((d) => {
+        d.addEventListener("click", () => { haptic(14); applyTheme(d.dataset.setTheme); });
+      });
+
+      document.querySelectorAll(".lang-btn").forEach((b) => {
+        b.addEventListener("click", () => { haptic(14); applyLang(b.dataset.setLang); });
       });
 
       copyBtn.addEventListener("click", async () => {
+        haptic(18);
         const url = window.location.origin + "/";
-        try {
-          await navigator.clipboard.writeText(url);
-        } catch {
+        try { await navigator.clipboard.writeText(url); }
+        catch {
           const t = document.createElement("textarea");
-          t.value = url;
-          document.body.appendChild(t);
-          t.select();
-          document.execCommand("copy");
-          t.remove();
+          t.value = url; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
         }
         copyBtn.classList.add("copied");
-        copyTxt.textContent = "لینک سایت کپی شد";
+        copyTxt.textContent = I18N[currentLang].m_copied;
         setTimeout(() => {
           copyBtn.classList.remove("copied");
-          copyTxt.textContent = "کپی لینک برای هم‌تیمی";
-        }, 1900);
+          copyTxt.textContent = I18N[currentLang].m_share;
+        }, 1800);
       });
 
       document.addEventListener("click", (e) => {
         if (!panel.contains(e.target) && !btn.contains(e.target)) setOpen(false);
       });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") setOpen(false);
-      });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
     })();
 
-    /* 2. Interactive Live Connecting Engine Animation */
+    /* ===== 2. Interactive Live Connecting Engine ===== */
+    let engineStepIdx = 0;
     (() => {
       const stage = document.getElementById("engine-stage");
       const telemetry = document.getElementById("engine-telemetry");
       const dot = document.getElementById("engine-dot");
       const statusText = document.getElementById("engine-status-text");
       const pingEl = document.getElementById("engine-ping");
-
-      const steps = [
-        { text: "موتور در حال یافتن کم‌پینگ‌ترین مسیر...", badge: "SCAN", ok: false, ms: 2100 },
-        { text: "بهینه‌سازی پکت‌های UDP و هسته ترکیبی...", badge: "SYNC", ok: false, ms: 2100 },
-        { text: "مسیر گیمینگ قفل شد • اتصال پایدار", badge: "OPTIMIZED", ok: true, ms: 3800 }
-      ];
-
-      let idx = 0;
       let timer = null;
 
+      const STEPS = {
+        fa: [
+          { text: "موتور در حال یافتن کم‌پینگ‌ترین مسیر...", badge: "SCAN", ok: false, ms: 2100 },
+          { text: "بهینه‌سازی پکت‌های UDP و هسته ترکیبی...", badge: "SYNC", ok: false, ms: 2100 },
+          { text: "مسیر گیمینگ قفل شد • اتصال پایدار", badge: "OPTIMIZED", ok: true, ms: 3800 }
+        ],
+        en: [
+          { text: "Scanning lowest-latency gaming route...", badge: "SCAN", ok: false, ms: 2100 },
+          { text: "Tuning UDP packets & hybrid core...", badge: "SYNC", ok: false, ms: 2100 },
+          { text: "Gaming route locked • Connection stable", badge: "OPTIMIZED", ok: true, ms: 3800 }
+        ]
+      };
+
       function applyStep(i) {
-        const s = steps[i];
+        engineStepIdx = i;
+        const s = STEPS[currentLang][i];
         statusText.textContent = s.text;
         pingEl.textContent = s.badge;
         stage.classList.toggle("connected", s.ok);
@@ -2043,59 +2350,339 @@
         dot.classList.toggle("connecting", !s.ok);
 
         clearTimeout(timer);
-        timer = setTimeout(() => {
-          idx = (i + 1) % steps.length;
-          applyStep(idx);
-        }, s.ms);
+        timer = setTimeout(() => applyStep((i + 1) % 3), s.ms);
       }
 
-      stage.addEventListener("click", () => { idx = 0; applyStep(0); });
+      stage.addEventListener("click", () => { haptic(24); applyStep(0); });
+      window.__refreshEngineText = () => {
+        const s = STEPS[currentLang][engineStepIdx];
+        statusText.textContent = s.text;
+      };
       applyStep(0);
     })();
 
-    /* 3. Interactive Live Route Simulator */
+    /* ===== 3. Real-Time Ping & Jitter Radar (Live Oscilloscope) ===== */
     (() => {
-      const simPanel = document.getElementById("sim-panel");
-      const btnPro = document.getElementById("sim-btn-pro");
-      const btnStd = document.getElementById("sim-btn-std");
-      const midLabel = document.getElementById("sim-mid-label");
-      const midSub = document.getElementById("sim-mid-sub");
-      const s1 = document.getElementById("sim-stat-1");
-      const s2 = document.getElementById("sim-stat-2");
-      const s3 = document.getElementById("sim-stat-3");
-      const simDot = document.getElementById("sim-dot");
+      const canvas = document.getElementById("ping-canvas");
+      const ctx = canvas.getContext("2d");
+      const runBtn = document.getElementById("radar-run-btn");
+      const btnText = document.getElementById("radar-btn-text");
+      const overlay = document.getElementById("radar-overlay");
+      const avgEl = document.getElementById("rm-avg-val");
+      const jitEl = document.getElementById("rm-jitter-val");
+      const minEl = document.getElementById("rm-min-val");
+      const gradeEl = document.getElementById("rm-grade-val");
 
-      function setMode(isStd) {
-        simPanel.classList.toggle("is-std", isStd);
-        btnPro.classList.toggle("active", !isStd);
-        btnStd.classList.toggle("active", isStd);
-        btnPro.setAttribute("aria-selected", !isStd ? "true" : "false");
-        btnStd.setAttribute("aria-selected", isStd ? "true" : "false");
+      let samples = [];
+      let running = false;
 
-        if (isStd) {
-          midLabel.textContent = "مسیر شلوغ اپراتور";
-          midSub.textContent = "HIGH JITTER";
-          s1.textContent = "پکت‌لاس و افت";
-          s2.textContent = "نوسان شدید";
-          s3.textContent = "محدودیت DPI";
-          simDot.style.background = "#EF4444";
-          simDot.style.boxShadow = "0 0 10px #EF4444";
-        } else {
-          midLabel.textContent = "هسته ترکیبی";
-          midSub.textContent = "UDP FRAGMENT";
-          s1.textContent = "حداکثر ثبات";
-          s2.textContent = "بسیار پایین";
-          s3.textContent = "بهینه‌سازی شده";
-          simDot.style.background = "#10B981";
-          simDot.style.boxShadow = "0 0 10px #10B981";
+      function drawWave() {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = Math.max(280, Math.floor(rect.width));
+        const h = Math.max(120, Math.floor(rect.height));
+        if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+          canvas.width = w * dpr;
+          canvas.height = h * dpr;
         }
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+
+        const accent = getComputedStyle(document.documentElement).getPropertyValue("--neon").trim() || "#00E5FF";
+
+        if (!samples.length) {
+          ctx.beginPath();
+          ctx.moveTo(0, h * 0.55);
+          ctx.lineTo(w, h * 0.55);
+          ctx.strokeStyle = "rgba(148, 163, 184, 0.25)";
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([6, 6]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          return;
+        }
+
+        const maxVal = Math.max(140, ...samples) * 1.18;
+        const stepX = w / 9;
+
+        // Area fill
+        ctx.beginPath();
+        samples.forEach((v, i) => {
+          const x = i * stepX;
+          const y = h - 18 - (v / maxVal) * (h - 42);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.lineTo((samples.length - 1) * stepX, h);
+        ctx.lineTo(0, h);
+        ctx.closePath();
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, accent + "44");
+        grad.addColorStop(1, "transparent");
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Neon waveform line
+        ctx.beginPath();
+        samples.forEach((v, i) => {
+          const x = i * stepX;
+          const y = h - 18 - (v / maxVal) * (h - 42);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 2.6;
+        ctx.lineJoin = "round";
+        ctx.stroke();
+
+        // Data points
+        samples.forEach((v, i) => {
+          const x = i * stepX;
+          const y = h - 18 - (v / maxVal) * (h - 42);
+          ctx.beginPath();
+          ctx.arc(x, y, 3.6, 0, Math.PI * 2);
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fill();
+          ctx.strokeStyle = accent;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        });
       }
 
-      btnPro.addEventListener("click", () => setMode(false));
-      btnStd.addEventListener("click", () => setMode(true));
+      async function probeOnce() {
+        const t0 = performance.now();
+        try {
+          await fetch(window.location.pathname + "?_p=" + Date.now() + Math.random(), { method: "HEAD", cache: "no-store" });
+        } catch {}
+        return Math.max(8, Math.round(performance.now() - t0));
+      }
+
+      runBtn.addEventListener("click", async () => {
+        if (running) return;
+        running = true;
+        haptic(25);
+        samples = [];
+        runBtn.disabled = true;
+        btnText.textContent = I18N[currentLang].radar_testing;
+        gradeEl.className = "radar-metric-v";
+        gradeEl.textContent = "...";
+        drawWave();
+
+        // Warmup request (DNS/TLS handshake excluded from gaming RTT)
+        await probeOnce();
+
+        for (let i = 0; i < 10; i++) {
+          const ms = await probeOnce();
+          samples.push(ms);
+          overlay.textContent = `PROBE ${i + 1}/10 • ${ms} ms`;
+          drawWave();
+
+          const avg = Math.round(samples.reduce((a, b) => a + b, 0) / samples.length);
+          const min = Math.min(...samples);
+          let jit = 0;
+          if (samples.length > 1) {
+            let diffs = 0;
+            for (let j = 1; j < samples.length; j++) diffs += Math.abs(samples[j] - samples[j - 1]);
+            jit = Math.round(diffs / (samples.length - 1));
+          }
+
+          avgEl.textContent = avg + " ms";
+          jitEl.textContent = jit + " ms";
+          minEl.textContent = min + " ms";
+          await new Promise((r) => setTimeout(r, 140));
+        }
+
+        const finalAvg = Math.round(samples.reduce((a, b) => a + b, 0) / samples.length);
+        const finalJit = parseInt(jitEl.textContent, 10) || 0;
+
+        if (finalAvg <= 85 && finalJit <= 18) {
+          gradeEl.className = "radar-metric-v good";
+          gradeEl.textContent = currentLang === "fa" ? "عالی (رقابتی)" : "EXCELLENT";
+        } else if (finalAvg <= 155 && finalJit <= 35) {
+          gradeEl.className = "radar-metric-v warn";
+          gradeEl.textContent = currentLang === "fa" ? "نیاز به بهینه‌سازی" : "NEEDS TUNING";
+        } else {
+          gradeEl.className = "radar-metric-v bad";
+          gradeEl.textContent = currentLang === "fa" ? "پینگ و نوسان بالا" : "HIGH LATENCY";
+        }
+
+        overlay.textContent = `COMPLETE • AVG ${finalAvg}ms / JITTER ${finalJit}ms`;
+        haptic([15, 40, 15]);
+        runBtn.disabled = false;
+        btnText.textContent = I18N[currentLang].radar_start;
+        running = false;
+      });
+
+      window.addEventListener("resize", drawWave, { passive: true });
+      drawWave();
     })();
 
-    /* 4. Dual-Row Smooth Scrolling Game Cards */
+    /* ===== 4. Tactical Routing Cyber Map ===== */
+    let activeRegion = "uae";
+    (() => {
+      const REGIONS = {
+        uae: {
+          path: "M515 185 Q525 225 538 242",
+          nodeId: "node-uae",
+          fa: ["PUBG • CODM • Free Fire", "Hybrid + UDP Frag", "کمترین فاصله و پینگ"],
+          en: ["PUBG • CODM • Free Fire", "Hybrid + UDP Frag", "Shortest Middle East Hop"]
+        },
+        tr: {
+          path: "M515 185 Q435 135 352 152",
+          nodeId: "node-tr",
+          fa: ["Valorant • CS2 • PUBG", "Hybrid + TCP Fast Open", "توازن پینگ و پایداری"],
+          en: ["Valorant • CS2 • PUBG", "Hybrid + TCP Fast Open", "Balanced Ping & Stability"]
+        },
+        de: {
+          path: "M515 185 Q370 92 225 112",
+          nodeId: "node-de",
+          fa: ["eFootball • Apex • Warzone", "Hybrid + Custom MTU", "مسیر مستقیم سرورهای اروپا"],
+          en: ["eFootball • Apex • Warzone", "Hybrid + Custom MTU", "Direct Central EU Backbone"]
+        },
+        nl: {
+          path: "M515 185 Q340 60 158 92",
+          nodeId: "node-nl",
+          fa: ["EA FC • Clash • Mobile Legends", "Hybrid + Parallel DNS", "پایداری حداکثری و بدون قطعی"],
+          en: ["EA FC • Clash • Mobile Legends", "Hybrid + Parallel DNS", "Maximum Zero-Drop Stability"]
+        }
+      };
+
+      const laser = document.getElementById("active-laser");
+      const v1 = document.getElementById("map-v1");
+      const v2 = document.getElementById("map-v2");
+      const v3 = document.getElementById("map-v3");
+
+      function selectRegion(key) {
+        activeRegion = key;
+        const r = REGIONS[key];
+        laser.setAttribute("d", r.path);
+
+        document.querySelectorAll(".region-btn").forEach((b) => b.classList.toggle("active", b.dataset.region === key));
+        Object.keys(REGIONS).forEach((k) => {
+          const g = document.getElementById(REGIONS[k].nodeId);
+          if (!g) return;
+          g.setAttribute("opacity", k === key ? "1" : "0.45");
+          const dots = g.querySelectorAll("circle");
+          const last = dots[dots.length - 1];
+          if (last) last.setAttribute("fill", k === key ? "var(--neon)" : "#94A3B8");
+        });
+
+        const vals = r[currentLang];
+        v1.textContent = vals[0];
+        v2.textContent = vals[1];
+        v3.textContent = vals[2];
+      }
+
+      document.querySelectorAll(".region-btn").forEach((b) => {
+        b.addEventListener("click", () => { haptic(14); selectRegion(b.dataset.region); });
+      });
+
+      window.__refreshMap = () => selectRegion(activeRegion);
+      selectRegion("uae");
+    })();
+
+    /* ===== 5. Pro Settings Builder (Cyber HUD Configurator) ===== */
+    let selIsp = "irancell";
+    let selGame = "pubg";
+    (() => {
+      const grid = document.getElementById("hud-grid");
+      const tipEl = document.getElementById("hud-tip");
+      const copyBtn = document.getElementById("hud-copy-btn");
+      const copyTxt = document.getElementById("hud-copy-txt");
+
+      function computePreset() {
+        const isMobileNet = selIsp !== "wifi";
+        const isPC = selGame === "pc";
+        const isUDPHeavy = selGame === "pubg" || selGame === "codm" || selGame === "ff";
+        const mtu = selIsp === "mci" ? "1380" : (selIsp === "irancell" ? "1420" : (selIsp === "wifi" ? "1480" : "1400"));
+        const udpFrag = isUDPHeavy || selIsp === "mci";
+        const tlsFrag = selIsp === "mci" || selIsp === "rightel";
+        const quicBlock = true;
+        const ipv4Only = true;
+
+        if (currentLang === "en") {
+          return {
+            items: [
+              { k: "Connection Core", v: "Hybrid (Auto)", state: "on" },
+              { k: "Tunnel MTU", v: mtu, state: "on" },
+              { k: "UDP Fragmentation", v: udpFrag ? "ENABLED" : "OPTIONAL", state: udpFrag ? "on" : "off" },
+              { k: "Block QUIC (UDP/443)", v: quicBlock ? "ENABLED" : "OFF", state: "on" },
+              { k: "IPv4 Only & Parallel DNS", v: ipv4Only ? "ENABLED" : "OFF", state: "on" },
+              { k: isPC ? "LAN Proxy (SOCKS5)" : "TLS Fragmentation", v: isPC ? "PORT 10808 (ON)" : (tlsFrag ? "ENABLED" : "OFF"), state: (isPC || tlsFrag) ? "on" : "off" }
+            ],
+            tip: isPC
+              ? "Enable 'Allow LAN Connections' in Baloch Ping settings and configure your PC proxy to SOCKS5 on port 10808 for stable EU routing."
+              : (isMobileNet
+                ? "Keep 'Reconnect on Network Change' enabled so switching between 4G/5G towers or Wi-Fi never drops your match."
+                : "On Wi-Fi/Fiber, disable MUX for shooting titles to keep UDP packet delivery raw and minimal-jitter.")
+          };
+        }
+
+        return {
+          items: [
+            { k: "هسته اتصال", v: "ترکیبی (خودکار)", state: "on" },
+            { k: "مقدار MTU تونل", v: mtu, state: "on" },
+            { k: "تکه‌تکه‌سازی UDP", v: udpFrag ? "روشن (توصیه‌شده)" : "اختیاری", state: udpFrag ? "on" : "off" },
+            { k: "مسدود کردن QUIC", v: quicBlock ? "روشن" : "خاموش", state: "on" },
+            { k: "فقط IPv4 + پرس‌وجوی موازی", v: ipv4Only ? "روشن" : "خاموش", state: "on" },
+            { k: isPC ? "اشتراک شبکه محلی (SOCKS5)" : "تکه‌تکه‌سازی TLS", v: isPC ? "روشن (پورت 10808)" : (tlsFrag ? "روشن" : "خاموش"), state: (isPC || tlsFrag) ? "on" : "off" }
+          ],
+          tip: isPC
+            ? "در تنظیمات بلوچ پینگ گزینه «اجازه اتصال از شبکه محلی» را روشن کنید و در کامپیوتر پروکسی SOCKS5 روی پورت 10808 را ست کنید."
+            : (isMobileNet
+              ? "برای اینترنت سیم‌کارت، گزینه «اتصال مجدد هنگام تغییر شبکه» را روشن نگه دارید و Multiplex (MUX) را در بازی‌های شوتر خاموش بگذارید."
+              : "روی وای‌فای و فیبر نوری، گزینه Multiplex (MUX) را خاموش کنید تا بسته‌های UDP بازی با کمترین تاخیر ارسال شوند.")
+        };
+      }
+
+      function renderPreset() {
+        const p = computePreset();
+        grid.innerHTML = p.items.map((it) => `
+          <div class="hud-item">
+            <span class="hud-item-k">${it.k}</span>
+            <span class="hud-item-v ${it.state}">${it.v}</span>
+          </div>
+        `).join("");
+        tipEl.textContent = p.tip;
+      }
+
+      document.querySelectorAll("#isp-pills .cfg-pill").forEach((b) => {
+        b.addEventListener("click", () => {
+          haptic(12);
+          selIsp = b.dataset.isp;
+          document.querySelectorAll("#isp-pills .cfg-pill").forEach((x) => x.classList.toggle("active", x === b));
+          renderPreset();
+        });
+      });
+
+      document.querySelectorAll("#game-pills .cfg-pill").forEach((b) => {
+        b.addEventListener("click", () => {
+          haptic(12);
+          selGame = b.dataset.game;
+          document.querySelectorAll("#game-pills .cfg-pill").forEach((x) => x.classList.toggle("active", x === b));
+          renderPreset();
+        });
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        haptic(18);
+        const p = computePreset();
+        const text = `Baloch Ping Pro Preset (${selIsp.toUpperCase()} / ${selGame.toUpperCase()}):\n` +
+          p.items.map((i) => `- ${i.k}: ${i.v}`).join("\n");
+        try { await navigator.clipboard.writeText(text); }
+        catch {
+          const t = document.createElement("textarea");
+          t.value = text; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
+        }
+        copyTxt.textContent = I18N[currentLang].bld_copied;
+        setTimeout(() => { copyTxt.textContent = I18N[currentLang].bld_copy; }, 1800);
+      });
+
+      window.__refreshBuilder = renderPreset;
+      renderPreset();
+    })();
+
+    /* ===== 6. Dual-Row Smooth Scrolling Game Cards ===== */
     (() => {
       const EMBLEMS = {
         valorant: `<svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" fill="#180A10"/><path d="M12 18v14.5L27.5 51H39L12 18z" fill="#FF4655"/><path d="M52 18v14.5L42.5 44H31L52 18z" fill="#FF4655"/></svg>`,
@@ -2108,73 +2695,109 @@
       };
 
       const ROW_1 = [
-        { name: "PUBG MOBILE", fa: "پابجی موبایل • پینگ ثابت", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", pos: "50% 40%", svg: EMBLEMS.freefire },
-        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "30% 25%", svg: EMBLEMS.cs2 },
-        { name: "FREE FIRE", fa: "فری فایر • مسیر سریع", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", img: "", svg: EMBLEMS.freefire },
-        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1665460/3d7cad698741287226458a67e9b8f3fede2ba154/capsule_616x353.jpg", pos: "50% 35%", svg: EMBLEMS.fc },
-        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", img: "", svg: EMBLEMS.valorant },
-        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", tag: "FAST DNS", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "", svg: EMBLEMS.clash }
+        { name: "PUBG MOBILE", fa: "پابجی موبایل • پینگ ثابت", en: "Battle Royale • Stable Ping", tag: "UDP TURBO", accent: "#F59E0B", glow: "rgba(245,158,11,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/578080/3c8895a8ff87fb18d50ff17842511514d4200437/capsule_616x353.jpg", pos: "50% 40%", svg: EMBLEMS.freefire },
+        { name: "COD MOBILE", fa: "کالاف دیوتی موبایل • بدون دیلی", en: "Multiplayer • Low Jitter", tag: "LOW JITTER", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "30% 25%", svg: EMBLEMS.cs2 },
+        { name: "FREE FIRE", fa: "فری فایر • مسیر سریع", en: "Fast Matchmaking Route", tag: "FAST ROUTE", accent: "#F97316", glow: "rgba(249,115,22,0.32)", img: "", svg: EMBLEMS.freefire },
+        { name: "eFOOTBALL", fa: "ای‌فوتبال • پاس‌کاری روان", en: "Smooth Online Matches", tag: "DIRECT ROUTE", accent: "#3B82F6", glow: "rgba(59,130,246,0.34)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1665460/3d7cad698741287226458a67e9b8f3fede2ba154/capsule_616x353.jpg", pos: "50% 35%", svg: EMBLEMS.fc },
+        { name: "VALORANT", fa: "ولورانت • سرورهای اروپا", en: "EU Servers via LAN Proxy", tag: "LAN / PC", accent: "#FF4655", glow: "rgba(255,70,85,0.34)", img: "", svg: EMBLEMS.valorant },
+        { name: "CLASH ROYALE", fa: "کلش رویال • پاسخ‌دهی فوری", en: "Instant Card Response", tag: "FAST DNS", accent: "#38BDF8", glow: "rgba(56,189,248,0.32)", img: "", svg: EMBLEMS.clash }
       ];
 
       const ROW_2 = [
-        { name: "WARZONE", fa: "وارزون • اتصال پایدار", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "25% 25%", svg: EMBLEMS.cs2 },
-        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", img: "", svg: EMBLEMS.mlbb },
-        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/2195250/header.jpg", pos: "50% 25%", svg: EMBLEMS.fc },
-        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • کمترین تاخیر", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg", pos: "68% 30%", svg: EMBLEMS.cs2 },
-        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/6cf04767652d703b6050da84b82cfb1194258d7d/header.jpg", pos: "72% 28%", svg: EMBLEMS.valorant },
-        { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", tag: "ZERO LOSS", accent: "#C084FC", glow: "rgba(192,132,252,0.32)", img: "", svg: EMBLEMS.brawl }
+        { name: "WARZONE", fa: "وارزون • اتصال پایدار", en: "Zero Packet Drop", tag: "UDP BOOST", accent: "#10B981", glow: "rgba(16,185,129,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1938090/92ccb7361b211707481c2aed296790cbe323e578/capsule_616x353.jpg", pos: "25% 25%", svg: EMBLEMS.cs2 },
+        { name: "MOBILE LEGENDS", fa: "موبایل لجندز • فایت تیمی روان", en: "MOBA Optimized Path", tag: "MOBA ROUTE", accent: "#60A5FA", glow: "rgba(96,165,250,0.32)", img: "", svg: EMBLEMS.mlbb },
+        { name: "EA FC MOBILE", fa: "اف‌سی موبایل • رقابت بدون لگ", en: "Lag-Free Head-to-Head", tag: "STABLE PING", accent: "#22C55E", glow: "rgba(34,197,94,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/2195250/header.jpg", pos: "50% 25%", svg: EMBLEMS.fc },
+        { name: "COUNTER-STRIKE 2", fa: "کانتر استرایک ۲ • کمترین تاخیر", en: "Competitive EU Routing", tag: "PC / SOCKS5", accent: "#EAB308", glow: "rgba(234,179,8,0.32)", img: "https://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg", pos: "68% 30%", svg: EMBLEMS.cs2 },
+        { name: "APEX LEGENDS", fa: "ای‌پکس لجندز • پکت‌لاس صفر", en: "Multi-Path Stability", tag: "MULTI-PATH", accent: "#EF4444", glow: "rgba(239,68,68,0.32)", img: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1172470/6cf04767652d703b6050da84b82cfb1194258d7d/header.jpg", pos: "72% 28%", svg: EMBLEMS.valorant },
+        { name: "BRAWL STARS", fa: "براول استارز • واکنش سریع", en: "Ultra-Low Response", tag: "ZERO LOSS", accent: "#C084FC", glow: "rgba(192,132,252,0.32)", img: "", svg: EMBLEMS.brawl }
       ];
 
       function buildThumb(g) {
         if (!g.img) return g.svg;
-        const pos = g.pos || "50% 50%";
-        return `<img src="${g.img}" alt="${g.name}" style="object-position:${pos};" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML=this.parentElement.dataset.svg">`;
+        return `<img src="${g.img}" alt="${g.name}" style="object-position:${g.pos || "50% 50%"};" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML=this.parentElement.dataset.svg">`;
       }
 
       function buildCard(g) {
         const safeSvg = g.svg.replace(/"/g, "&quot;");
+        const sub = currentLang === "en" ? g.en : g.fa;
         return `
           <div class="m-game-card" style="--g-accent:${g.accent};--g-glow:${g.glow};">
             <div class="m-game-thumb" data-svg="${safeSvg}">${buildThumb(g)}</div>
             <div class="m-game-info">
               <span class="m-game-tag"><span class="m-game-dot"></span>${g.tag}</span>
               <div class="m-game-title">${g.name}</div>
-              <div class="m-game-fa">${g.fa}</div>
+              <div class="m-game-fa">${sub}</div>
             </div>
           </div>
         `;
       }
 
-      function mountRow(elId, list) {
-        const html = `<div class="marquee-group">${list.map(buildCard).join("")}</div>`;
-        document.getElementById(elId).innerHTML = html + html;
+      function renderGames() {
+        const h1 = `<div class="marquee-group">${ROW_1.map(buildCard).join("")}</div>`;
+        const h2 = `<div class="marquee-group">${ROW_2.map(buildCard).join("")}</div>`;
+        document.getElementById("games-row-1").innerHTML = h1 + h1;
+        document.getElementById("games-row-2").innerHTML = h2 + h2;
       }
 
-      mountRow("games-row-1", ROW_1);
-      mountRow("games-row-2", ROW_2);
+      window.__refreshGames = renderGames;
+      renderGames();
     })();
 
-    /* 5. Dynamic Latest Release & Support Link Integration */
+    /* ===== 7. Auto Device Detection + Dynamic Latest Release Integration ===== */
     const FALLBACK_SUPPORT = "https://t.me/BalochpingSuport";
     const DOWNLOAD_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+    let cachedReleases = [];
+
+    const ua = navigator.userAgent || "";
+    const isAndroid = /Android/i.test(ua);
+    const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+    function renderDeviceBanner() {
+      const txt = document.getElementById("device-detect-text");
+      const badge = document.getElementById("device-detect-badge");
+      if (currentLang === "en") {
+        if (isAndroid) {
+          txt.textContent = "Android detected — arm64-v8a build is highlighted for your phone";
+          badge.textContent = "ANDROID OK";
+        } else if (isIOS) {
+          txt.textContent = "iOS detected — Current official build is for Android 8+ devices";
+          badge.textContent = "ANDROID APK";
+        } else {
+          txt.textContent = "Desktop PC detected — Install on Android & share via SOCKS5 (10808)";
+          badge.textContent = "PC LAN READY";
+        }
+      } else {
+        if (isAndroid) {
+          txt.textContent = "گوشی اندروید شناسایی شد — نسخه سازگار (arm64-v8a) برای شما آماده است";
+          badge.textContent = "سازگار با گوشی شما";
+        } else if (isIOS) {
+          txt.textContent = "دستگاه iOS شناسایی شد — نسخه رسمی فعلی مخصوص اندروید ۸ به بالاست";
+          badge.textContent = "نسخه اندروید";
+        } else {
+          txt.textContent = "کامپیوتر شناسایی شد — روی گوشی نصب و با SOCKS5 (پورت 10808) به PC وصل شوید";
+          badge.textContent = "اتصال به PC";
+        }
+      }
+    }
 
     const esc = (s) => String(s || "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
     const isSafeUrl = (u) => typeof u === "string" && /^(https?:\/\/|tg:\/\/)/i.test(u.trim());
     const proxyUrl = (url) => "/download?url=" + encodeURIComponent(url);
     const fmtSize = (bytes) => bytes ? (bytes / (1024 * 1024)).toFixed(1) + " MB" : "—";
     const fmtDate = (iso) => {
-      if (!iso) return "دانلود مستقیم";
-      try { return new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium" }).format(new Date(iso)); }
-      catch { return "دانلود مستقیم"; }
+      if (!iso) return I18N[currentLang].rel_direct;
+      try { return new Intl.DateTimeFormat(currentLang === "fa" ? "fa-IR" : "en-US", { dateStyle: "medium" }).format(new Date(iso)); }
+      catch { return I18N[currentLang].rel_direct; }
     };
 
     function abiMeta(name) {
       const n = name.toLowerCase();
-      if (n.includes("universal")) return { label: "نسخه کامل برای همه گوشی‌ها", arch: "Universal APK", rec: true };
-      if (n.includes("arm64")) return { label: "گوشی‌های جدید (پیشنهادی)", arch: "arm64-v8a", rec: true };
-      if (n.includes("armeabi")) return { label: "گوشی‌های قدیمی‌تر", arch: "armeabi-v7a", rec: false };
-      if (n.includes("x86_64")) return { label: "شبیه‌ساز کامپیوتر", arch: "x86_64", rec: false };
-      return { label: "نسخه اندروید", arch: name, rec: false };
+      const en = currentLang === "en";
+      if (n.includes("universal")) return { label: en ? "Universal Build (All Devices)" : "نسخه کامل برای همه گوشی‌ها", arch: "Universal APK", rec: true };
+      if (n.includes("arm64")) return { label: en ? "Modern Phones (Recommended)" : "گوشی‌های جدید (پیشنهادی)", arch: "arm64-v8a", rec: true };
+      if (n.includes("armeabi")) return { label: en ? "Older 32-bit Phones" : "گوشی‌های قدیمی‌تر", arch: "armeabi-v7a", rec: false };
+      if (n.includes("x86_64")) return { label: en ? "PC Emulators" : "شبیه‌ساز کامپیوتر", arch: "x86_64", rec: false };
+      return { label: en ? "Android Package" : "نسخه اندروید", arch: name, rec: false };
     }
 
     function pickBestAsset(assets) {
@@ -2185,16 +2808,17 @@
     }
 
     function renderLatestRelease(releases) {
+      cachedReleases = releases || [];
       const container = document.getElementById("latest-abis");
 
-      if (!releases || !releases.length) {
-        document.getElementById("card-ver").textContent = "به زودی";
+      if (!cachedReleases.length) {
+        document.getElementById("card-ver").textContent = currentLang === "en" ? "Soon" : "به زودی";
         document.getElementById("card-size").textContent = "—";
-        container.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:0.84rem;">نسخه‌ای برای دانلود یافت نشد.</div>`;
+        container.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:0.84rem;">${currentLang === "en" ? "No release found." : "نسخه‌ای برای دانلود یافت نشد."}</div>`;
         return;
       }
 
-      const latest = releases[0];
+      const latest = cachedReleases[0];
       const best = pickBestAsset(latest.assets);
       const verText = latest.tag || latest.name;
 
@@ -2221,20 +2845,36 @@
 
       container.innerHTML = (latest.assets || []).map((a) => {
         const meta = abiMeta(a.name);
+        const fitTag = (isAndroid && meta.rec)
+          ? `<span class="abi-fit-tag">${currentLang === "en" ? "Best Match" : "سازگار"}</span>`
+          : "";
         return `
           <a class="abi-row ${meta.rec ? "recommended" : ""}" href="${esc(proxyUrl(a.url))}">
             <div class="abi-left">
               <div class="abi-ico">${DOWNLOAD_SVG}</div>
               <div class="abi-meta">
-                <span class="abi-title">${esc(meta.label)}</span>
+                <span class="abi-title">${esc(meta.label)} ${fitTag}</span>
                 <span class="abi-sub">${esc(meta.arch)}</span>
               </div>
             </div>
-            <span class="abi-size">${esc(fmtSize(a.size))}</span>
+            <span class="abi-size mono">${esc(fmtSize(a.size))}</span>
           </a>
         `;
       }).join("");
     }
+
+    window.__refreshDynamicUI = () => {
+      renderDeviceBanner();
+      if (window.__refreshEngineText) window.__refreshEngineText();
+      if (window.__refreshMap) window.__refreshMap();
+      if (window.__refreshBuilder) window.__refreshBuilder();
+      if (window.__refreshGames) window.__refreshGames();
+      if (cachedReleases.length) renderLatestRelease(cachedReleases);
+    };
+
+    applyTheme(currentTheme);
+    applyLang(currentLang);
+    renderDeviceBanner();
 
     (async () => {
       try {
