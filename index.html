@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Baloch Ping | نسل جدید کاهش پینگ گیمینگ</title>
-  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping — موتور هوشمند مسیریابی، تست پینگ زنده، هسته ترکیبی و دانلود مستقیم آخرین نسخه اندروید." />
+  <meta name="description" content="وب‌سایت رسمی اپلیکیشن گیمینگ Baloch Ping — موتور هوشمند مسیریابی، تست واقعی پینگ و سرعت، هسته ترکیبی و دانلود مستقیم آخرین نسخه اندروید." />
   <meta name="theme-color" content="#04070F" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 38'%3E%3Crect width='38' height='38' rx='10' fill='%2312141A'/%3E%3Cg transform='translate(6.65 7.5)'%3E%3Cpath fill='%23ffffff' fill-rule='evenodd' clip-rule='evenodd' d='M5 3h9.2c2.8 0 4.8 1.6 4.8 4.2 0 1.8-.9 3.1-2.4 3.7 1.9.6 3.1 2.1 3.1 4.2 0 3-2.2 4.9-5.3 4.9H5V3zm4.2 3.4v3.4h4.2c1.1 0 1.8-.6 1.8-1.7s-.7-1.7-1.8-1.7H9.2zm0 6.8v3.4h4.7c1.2 0 2-.7 2-1.7s-.8-1.7-2-1.7H9.2z'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -90,16 +90,7 @@
       display: inline-block;
     }
 
-    /* Top Scroll Progress Bar */
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      z-index: 120;
-      pointer-events: none;
-    }
+    .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 120; pointer-events: none; }
 
     .scroll-progress-bar {
       height: 100%;
@@ -109,7 +100,6 @@
       transition: width 0.08s linear;
     }
 
-    /* Dynamic Cyber Grid Backdrop */
     .bg-grid {
       position: fixed;
       inset: 0;
@@ -127,16 +117,8 @@
       background-size: auto, auto, auto, auto, cover, 44px 44px, 44px 44px, auto;
     }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1060px;
-      margin: 0 auto;
-      padding: 0 18px;
-    }
+    .container { position: relative; z-index: 2; width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 18px; }
 
-    /* Scroll Reveal */
     .reveal {
       opacity: 0;
       transform: translateY(18px);
@@ -156,21 +138,8 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      gap: 14px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
-    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 14px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
 
     .brand-mark {
       width: 34px;
@@ -184,17 +153,10 @@
       flex-shrink: 0;
     }
 
-    .brand-title {
-      font-weight: 900;
-      font-size: 0.98rem;
-      letter-spacing: 0.8px;
-      direction: ltr;
-    }
-
+    .brand-title { font-weight: 900; font-size: 0.98rem; letter-spacing: 0.8px; direction: ltr; }
     .nav-links { display: none; align-items: center; gap: 20px; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
-
     .nav-right { display: flex; align-items: center; gap: 10px; }
 
     .nav-cta {
@@ -214,7 +176,7 @@
 
     .nav-cta:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-    /* Three-Dot Quick Command Panel */
+    /* Three-Dot Command Panel */
     .menu-wrap { position: relative; }
 
     .menu-btn {
@@ -261,12 +223,7 @@
       z-index: 90;
     }
 
-    html[dir="ltr"] .menu-panel {
-      left: auto;
-      right: 0;
-      transform-origin: top right;
-    }
-
+    html[dir="ltr"] .menu-panel { left: auto; right: 0; transform-origin: top right; }
     .menu-panel.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
 
     .menu-head {
@@ -293,7 +250,6 @@
       white-space: nowrap;
     }
 
-    /* Controls inside 3-dot Menu (Lang + Live Themes) */
     .menu-controls {
       display: flex;
       align-items: center;
@@ -324,33 +280,9 @@
     .theme-dot[data-set-theme="red"] { background: #FF4655; color: #FF4655; }
     .theme-dot[data-set-theme="gold"] { background: #F59E0B; color: #FDE047; }
 
-    .lang-toggle {
-      display: inline-flex;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 2px;
-      gap: 2px;
-      direction: ltr;
-    }
-
-    .lang-btn {
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      font-size: 0.69rem;
-      font-weight: 900;
-      padding: 3px 8px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.18s, color 0.18s;
-    }
-
-    .lang-btn.active {
-      background: var(--primary);
-      color: var(--btn-text);
-    }
-
+    .lang-toggle { display: inline-flex; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 2px; gap: 2px; direction: ltr; }
+    .lang-btn { border: none; background: transparent; color: var(--muted); font-size: 0.69rem; font-weight: 900; padding: 3px 8px; border-radius: 6px; cursor: pointer; transition: background 0.18s, color 0.18s; }
+    .lang-btn.active { background: var(--primary); color: var(--btn-text); }
     .menu-list { display: flex; flex-direction: column; gap: 2px; }
 
     .menu-link {
@@ -376,7 +308,6 @@
     .menu-link:hover, .menu-link:active { background: rgba(var(--primary-rgb), 0.18); color: #fff; }
     .menu-link.copied { color: #34D399; }
     .menu-link.copied svg { color: #34D399; }
-
     .menu-divider { height: 1px; background: var(--border); margin: 7px 4px; }
 
     .menu-support {
@@ -399,12 +330,7 @@
     .menu-support:hover { border-color: var(--neon); }
 
     /* Hero + Animated Connecting Engine */
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 34px 0 34px;
-      overflow: hidden;
-    }
+    .hero { position: relative; text-align: center; padding: 34px 0 34px; overflow: hidden; }
 
     .engine-stage {
       position: relative;
@@ -437,7 +363,6 @@
     }
 
     .engine-pulse.delay { animation-delay: 1.2s; }
-
     .engine-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .ring-ticks-outer { transform-origin: 100px 100px; animation: spinCW 24s linear infinite; }
     .ring-arc-fast { transform-origin: 100px 100px; animation: spinCW 2.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; }
@@ -466,10 +391,7 @@
 
     .engine-stage.connected .engine-core {
       background: radial-gradient(circle at 32% 28%, #34D399 0%, var(--primary-2) 56%, var(--primary) 100%);
-      box-shadow:
-        0 0 0 8px rgba(16, 185, 129, 0.14),
-        0 0 42px rgba(16, 185, 129, 0.48),
-        inset 0 2px 10px rgba(255, 255, 255, 0.42);
+      box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.14), 0 0 42px rgba(16, 185, 129, 0.48), inset 0 2px 10px rgba(255, 255, 255, 0.42);
     }
 
     .engine-core svg { color: var(--btn-text); filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.28)); }
@@ -501,35 +423,17 @@
       white-space: nowrap;
     }
 
-    .engine-telemetry.ok .engine-ping-val {
-      color: #34D399;
-      background: rgba(16, 185, 129, 0.12);
-      border-color: rgba(16, 185, 129, 0.32);
-    }
+    .engine-telemetry.ok .engine-ping-val { color: #34D399; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.32); }
 
     @keyframes spinCW { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes spinCCW { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
     @keyframes engineBreathe { 0%, 100% { transform: scale(0.95); opacity: 0.78; } 50% { transform: scale(1.08); opacity: 1; } }
     @keyframes engineWave { 0% { transform: scale(0.86); opacity: 0.72; } 100% { transform: scale(1.52); opacity: 0; } }
 
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px var(--green);
-      flex-shrink: 0;
-    }
-
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); flex-shrink: 0; }
     .live-dot.connecting { background: var(--neon); box-shadow: 0 0 10px var(--neon); }
 
-    h1 {
-      font-size: clamp(2.1rem, 7.6vw, 3.65rem);
-      font-weight: 900;
-      line-height: 1.24;
-      letter-spacing: -0.6px;
-      margin-bottom: 14px;
-    }
+    h1 { font-size: clamp(2.1rem, 7.6vw, 3.65rem); font-weight: 900; line-height: 1.24; letter-spacing: -0.6px; margin-bottom: 14px; }
 
     .accent-grad {
       background: linear-gradient(95deg, var(--cyan), var(--primary), var(--neon));
@@ -538,16 +442,7 @@
     }
 
     .hero-desc { color: var(--muted); font-size: 0.95rem; max-width: 560px; margin: 0 auto 26px; }
-
-    .hero-cta-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 11px;
-      max-width: 460px;
-      margin: 0 auto 28px;
-    }
+    .hero-cta-row { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 11px; max-width: 460px; margin: 0 auto 28px; }
 
     .btn-primary {
       width: 100%;
@@ -567,21 +462,8 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow: 0 14px 36px rgba(var(--primary-rgb), 0.50);
-    }
-
-    .btn-tag {
-      font-size: 0.74rem;
-      font-weight: 900;
-      background: rgba(0, 0, 0, 0.22);
-      padding: 2px 9px;
-      border-radius: 6px;
-      direction: ltr;
-      white-space: nowrap;
-    }
+    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 14px 36px rgba(var(--primary-rgb), 0.50); }
+    .btn-tag { font-size: 0.74rem; font-weight: 900; background: rgba(0, 0, 0, 0.22); padding: 2px 9px; border-radius: 6px; direction: ltr; white-space: nowrap; }
 
     .btn-ghost {
       width: 100%;
@@ -603,7 +485,6 @@
     .btn-ghost:hover { border-color: rgba(var(--accent-rgb), 0.42); background: rgba(var(--primary-rgb), 0.12); transform: translateY(-1px); }
     .btn-ghost svg { color: var(--cyan); flex-shrink: 0; }
 
-    /* Trust Strip */
     .trust-strip {
       max-width: 680px;
       margin: 0 auto 36px;
@@ -616,31 +497,13 @@
       overflow: hidden;
     }
 
-    .trust-item {
-      padding: 14px 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      position: relative;
-    }
-
-    .trust-item + .trust-item::before {
-      content: "";
-      position: absolute;
-      inset-inline-start: 0;
-      top: 22%;
-      bottom: 22%;
-      width: 1px;
-      background: var(--border);
-    }
-
+    .trust-item { padding: 14px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; position: relative; }
+    .trust-item + .trust-item::before { content: ""; position: absolute; inset-inline-start: 0; top: 22%; bottom: 22%; width: 1px; background: var(--border); }
     .trust-item svg { color: var(--primary); }
     .trust-item.green svg { color: var(--green); }
     .trust-item.cyan svg { color: var(--cyan); }
     .trust-label { font-size: 0.76rem; font-weight: 700; color: #CBD5E1; text-align: center; line-height: 1.4; }
 
-    /* Surface Panel (Cyber AAA Card) */
     .panel {
       position: relative;
       background: linear-gradient(180deg, rgba(13, 19, 34, 0.92), rgba(8, 12, 23, 0.97));
@@ -651,30 +514,11 @@
       transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .panel:hover {
-      border-color: rgba(var(--accent-rgb), 0.26);
-      box-shadow: 0 20px 52px rgba(0, 0, 0, 0.54), 0 0 28px rgba(var(--primary-rgb), 0.08);
-    }
+    .panel:hover { border-color: rgba(var(--accent-rgb), 0.26); box-shadow: 0 20px 52px rgba(0, 0, 0, 0.54), 0 0 28px rgba(var(--primary-rgb), 0.08); }
 
-    /* Release Download Hub + Auto Device Banner */
-    .release-panel {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 22px 20px;
-      text-align: start;
-      border-color: rgba(var(--primary-rgb), 0.34);
-      scroll-margin-top: 84px;
-    }
-
-    .release-panel::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 24px;
-      right: 24px;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, var(--primary), var(--neon), transparent);
-    }
+    /* Release Download Hub */
+    .release-panel { max-width: 640px; margin: 0 auto; padding: 22px 20px; text-align: start; border-color: rgba(var(--primary-rgb), 0.34); scroll-margin-top: 84px; }
+    .release-panel::before { content: ""; position: absolute; top: 0; left: 24px; right: 24px; height: 1.5px; background: linear-gradient(90deg, transparent, var(--primary), var(--neon), transparent); }
 
     .device-detect {
       display: flex;
@@ -692,51 +536,14 @@
 
     .device-detect-left { display: flex; align-items: center; gap: 8px; }
     .device-detect svg { color: var(--neon); flex-shrink: 0; }
+    .device-badge { font-size: 0.67rem; font-weight: 900; color: #6EE7B7; background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.32); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 
-    .device-badge {
-      font-size: 0.67rem;
-      font-weight: 900;
-      color: #6EE7B7;
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(16, 185, 129, 0.32);
-      padding: 2px 8px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
-    .release-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding-bottom: 14px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .release-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
     .release-title { display: flex; align-items: center; gap: 8px; font-size: 0.94rem; font-weight: 800; }
-
-    .date-chip {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--green);
-      background: rgba(16, 185, 129, 0.10);
-      border: 1px solid rgba(16, 185, 129, 0.28);
-      padding: 3px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
+    .date-chip { font-size: 0.72rem; font-weight: 700; color: var(--green); background: rgba(16, 185, 129, 0.10); border: 1px solid rgba(16, 185, 129, 0.28); padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
 
     .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
-
-    .meta-cell {
-      background: rgba(4, 7, 15, 0.74);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 8px;
-      text-align: center;
-    }
-
+    .meta-cell { background: rgba(4, 7, 15, 0.74); border: 1px solid var(--border); border-radius: 12px; padding: 10px 8px; text-align: center; }
     .meta-k { font-size: 0.7rem; color: var(--muted); margin-bottom: 2px; }
     .meta-v { font-size: 0.9rem; font-weight: 800; color: var(--text); direction: ltr; white-space: nowrap; }
 
@@ -769,11 +576,7 @@
       transition: border-color 0.2s, background 0.2s, transform 0.16s;
     }
 
-    .abi-row.recommended {
-      border-color: rgba(var(--accent-rgb), 0.40);
-      background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.16), rgba(15, 23, 42, 0.86));
-    }
-
+    .abi-row.recommended { border-color: rgba(var(--accent-rgb), 0.40); background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.16), rgba(15, 23, 42, 0.86)); }
     .abi-row:hover { border-color: var(--neon); background: rgba(var(--primary-rgb), 0.20); transform: translateY(-1px); }
     .abi-left { display: flex; align-items: center; gap: 11px; min-width: 0; }
 
@@ -792,75 +595,52 @@
     .abi-meta { display: flex; flex-direction: column; line-height: 1.35; }
     .abi-title { font-size: 0.84rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .abi-sub { font-size: 0.72rem; color: var(--muted); direction: ltr; text-align: start; }
+    .abi-fit-tag { font-size: 0.63rem; font-weight: 900; color: #6EE7B7; background: rgba(16, 185, 129, 0.14); border: 1px solid rgba(16, 185, 129, 0.34); padding: 1px 7px; border-radius: 999px; }
+    .abi-size { font-size: 0.76rem; font-weight: 800; color: #E2E8F0; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); padding: 4px 10px; border-radius: 8px; direction: ltr; white-space: nowrap; flex-shrink: 0; }
 
-    .abi-fit-tag {
-      font-size: 0.63rem;
-      font-weight: 900;
-      color: #6EE7B7;
-      background: rgba(16, 185, 129, 0.14);
-      border: 1px solid rgba(16, 185, 129, 0.34);
-      padding: 1px 7px;
-      border-radius: 999px;
-    }
-
-    .abi-size {
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: #E2E8F0;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: 8px;
-      direction: ltr;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* Section Header */
     section { padding: 48px 0; scroll-margin-top: 72px; }
-    .sec-head { text-align: center; max-width: 650px; margin: 0 auto 28px; }
-
-    .sec-kicker {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 6px;
-      direction: ltr;
-    }
-
+    .sec-head { text-align: center; max-width: 660px; margin: 0 auto 28px; }
+    .sec-kicker { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); margin-bottom: 6px; direction: ltr; }
     .sec-head h2 { font-size: clamp(1.45rem, 4.5vw, 2rem); font-weight: 900; letter-spacing: -0.3px; margin-bottom: 8px; }
     .sec-head p { color: var(--muted); font-size: 0.9rem; }
 
-    /* 1. Real-Time Ping & Jitter Radar (Oscilloscope) */
-    .radar-panel {
-      padding: 22px 18px;
-      border-color: rgba(var(--accent-rgb), 0.26);
-    }
+    /* ===== REAL SPEEDTEST & HARDWARE PING BENCHMARK ===== */
+    .radar-panel { padding: 22px 18px; border-color: rgba(var(--accent-rgb), 0.30); }
 
-    .radar-top {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    .st-conn-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
       margin-bottom: 16px;
     }
 
+    .st-conn-box {
+      background: rgba(4, 7, 15, 0.76);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 8px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .st-conn-k { font-size: 0.66rem; color: var(--muted); margin-bottom: 2px; }
+    .st-conn-v { font-size: 0.78rem; font-weight: 800; color: var(--cyan); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .radar-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
     .radar-title-box { display: flex; align-items: center; gap: 9px; }
-    .radar-title { font-size: 0.96rem; font-weight: 900; }
+    .radar-title { font-size: 0.94rem; font-weight: 900; }
+
+    .st-btn-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     .radar-run-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
+      gap: 7px;
+      padding: 9px 15px;
       border-radius: 11px;
       border: none;
       font-family: inherit;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 900;
       color: var(--btn-text);
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
@@ -869,17 +649,24 @@
       transition: transform 0.16s, filter 0.2s;
     }
 
+    .radar-run-btn.secondary {
+      background: rgba(15, 23, 42, 0.92);
+      color: #E2E8F0;
+      border: 1px solid rgba(var(--accent-rgb), 0.32);
+      box-shadow: none;
+    }
+
     .radar-run-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
-    .radar-run-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    .radar-run-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
     .radar-wave-box {
       position: relative;
-      height: 138px;
+      height: 142px;
       border-radius: 15px;
       background:
         linear-gradient(rgba(var(--accent-rgb), 0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px),
-        rgba(4, 7, 15, 0.86);
+        rgba(4, 7, 15, 0.88);
       background-size: 24px 24px;
       border: 1px solid var(--border);
       overflow: hidden;
@@ -895,17 +682,33 @@
       font-size: 0.68rem;
       font-weight: 800;
       color: var(--cyan);
-      background: rgba(4, 7, 15, 0.78);
+      background: rgba(4, 7, 15, 0.82);
       border: 1px solid var(--border);
       padding: 2px 9px;
       border-radius: 999px;
     }
 
-    .radar-metrics {
+    .st-primary-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
+      margin-bottom: 10px;
     }
+
+    .st-speed-card {
+      background: rgba(4, 7, 15, 0.82);
+      border: 1px solid rgba(var(--accent-rgb), 0.20);
+      border-radius: 14px;
+      padding: 13px 12px;
+      text-align: center;
+    }
+
+    .st-speed-k { font-size: 0.72rem; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px; }
+    .st-speed-v { font-size: 1.25rem; font-weight: 900; color: var(--text); }
+    .st-speed-v.dl { color: var(--neon); }
+    .st-speed-v.ul { color: #A78BFA; }
+
+    .radar-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
     .radar-metric {
       background: rgba(4, 7, 15, 0.74);
@@ -916,24 +719,21 @@
     }
 
     .radar-metric-k { font-size: 0.7rem; color: var(--muted); margin-bottom: 3px; }
-    .radar-metric-v { font-size: 1.05rem; font-weight: 900; color: var(--text); }
+    .radar-metric-v { font-size: 1rem; font-weight: 900; color: var(--text); }
     .radar-metric-v.good { color: #34D399; }
     .radar-metric-v.warn { color: #FBBF24; }
     .radar-metric-v.bad { color: #F87171; }
 
-    /* 2. Tactical Routing Cyber Map */
-    .map-panel {
-      padding: 20px 18px;
-      border-color: rgba(var(--accent-rgb), 0.22);
+    .st-note {
+      margin-top: 12px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
     }
 
-    .map-regions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
+    /* Tactical Routing Cyber Map */
+    .map-panel { padding: 20px 18px; border-color: rgba(var(--accent-rgb), 0.22); }
+    .map-regions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px; }
 
     .region-btn {
       display: inline-flex;
@@ -951,12 +751,7 @@
       transition: all 0.2s;
     }
 
-    .region-btn.active {
-      color: #fff;
-      border-color: var(--neon);
-      background: rgba(var(--primary-rgb), 0.20);
-      box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.20);
-    }
+    .region-btn.active { color: #fff; border-color: var(--neon); background: rgba(var(--primary-rgb), 0.20); box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.20); }
 
     .map-stage {
       position: relative;
@@ -968,54 +763,20 @@
     }
 
     .map-svg { width: 100%; height: auto; display: block; max-height: 290px; }
+    .laser-route { stroke-dasharray: 8 6; animation: laserDash 1.4s linear infinite; }
+    @keyframes laserDash { from { stroke-dashoffset: 28; } to { stroke-dashoffset: 0; } }
+    .map-node-ring { transform-box: fill-box; transform-origin: center; animation: nodePing 2.1s ease-out infinite; }
+    @keyframes nodePing { 0% { transform: scale(0.9); opacity: 0.9; } 100% { transform: scale(2.4); opacity: 0; } }
 
-    .laser-route {
-      stroke-dasharray: 8 6;
-      animation: laserDash 1.4s linear infinite;
-    }
-
-    @keyframes laserDash {
-      from { stroke-dashoffset: 28; }
-      to { stroke-dashoffset: 0; }
-    }
-
-    .map-node-ring {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: nodePing 2.1s ease-out infinite;
-    }
-
-    @keyframes nodePing {
-      0% { transform: scale(0.9); opacity: 0.9; }
-      100% { transform: scale(2.4); opacity: 0; }
-    }
-
-    .map-readout {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .map-box {
-      background: rgba(4, 7, 15, 0.74);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 8px;
-      text-align: center;
-    }
-
+    .map-readout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .map-box { background: rgba(4, 7, 15, 0.74); border: 1px solid var(--border); border-radius: 12px; padding: 10px 8px; text-align: center; }
     .map-box-k { font-size: 0.69rem; color: var(--muted); margin-bottom: 2px; }
     .map-box-v { font-size: 0.82rem; font-weight: 900; color: var(--cyan); }
 
-    /* 3. Pro Settings Builder (Cyber HUD Configurator) */
-    .builder-panel {
-      padding: 22px 18px;
-      border-color: rgba(var(--accent-rgb), 0.24);
-    }
-
+    /* Pro Settings Builder */
+    .builder-panel { padding: 22px 18px; border-color: rgba(var(--accent-rgb), 0.24); }
     .builder-group { margin-bottom: 16px; }
     .builder-label { font-size: 0.78rem; font-weight: 800; color: var(--muted); margin-bottom: 9px; display: block; }
-
     .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
 
     .cfg-pill {
@@ -1031,31 +792,9 @@
       transition: all 0.18s;
     }
 
-    .cfg-pill.active {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: var(--btn-text);
-      border-color: transparent;
-      box-shadow: 0 6px 18px rgba(var(--primary-rgb), 0.34);
-    }
-
-    .hud-output {
-      background: rgba(4, 7, 15, 0.84);
-      border: 1px solid rgba(var(--accent-rgb), 0.28);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .hud-out-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding-bottom: 12px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .cfg-pill.active { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: var(--btn-text); border-color: transparent; box-shadow: 0 6px 18px rgba(var(--primary-rgb), 0.34); }
+    .hud-output { background: rgba(4, 7, 15, 0.84); border: 1px solid rgba(var(--accent-rgb), 0.28); border-radius: 16px; padding: 16px; }
+    .hud-out-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 12px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
     .hud-out-title { font-size: 0.86rem; font-weight: 900; color: var(--neon); display: flex; align-items: center; gap: 8px; }
 
     .hud-copy-btn {
@@ -1075,77 +814,29 @@
     }
 
     .hud-copy-btn:hover { background: rgba(var(--primary-rgb), 0.30); }
-
-    .hud-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 9px;
-      margin-bottom: 12px;
-    }
-
-    .hud-item {
-      background: rgba(12, 18, 34, 0.82);
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      padding: 10px 11px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
+    .hud-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 9px; margin-bottom: 12px; }
+    .hud-item { background: rgba(12, 18, 34, 0.82); border: 1px solid var(--border); border-radius: 11px; padding: 10px 11px; display: flex; flex-direction: column; gap: 2px; }
     .hud-item-k { font-size: 0.69rem; color: var(--muted); }
     .hud-item-v { font-size: 0.82rem; font-weight: 900; color: #F8FAFC; }
     .hud-item-v.on { color: #34D399; }
     .hud-item-v.off { color: #94A3B8; }
-
-    .hud-tip {
-      font-size: 0.79rem;
-      color: #CBD5E1;
-      background: rgba(var(--primary-rgb), 0.08);
-      border-inline-start: 2px solid var(--neon);
-      border-radius: 8px;
-      padding: 9px 12px;
-    }
+    .hud-tip { font-size: 0.79rem; color: #CBD5E1; background: rgba(var(--primary-rgb), 0.08); border-inline-start: 2px solid var(--neon); border-radius: 8px; padding: 9px 12px; }
 
     /* Comparison Section */
     .compare-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .compare-card { padding: 22px 20px; }
-
-    .compare-card.pro {
-      border-color: rgba(var(--primary-rgb), 0.45);
-      background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.14), rgba(8, 12, 23, 0.97));
-    }
-
-    .compare-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .compare-card.pro { border-color: rgba(var(--primary-rgb), 0.45); background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.14), rgba(8, 12, 23, 0.97)); }
+    .compare-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
     .compare-head h3 { font-size: 1rem; font-weight: 900; }
-
     .cmp-badge { font-size: 0.7rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
     .cmp-badge.bad { color: #FCA5A5; background: rgba(239, 68, 68, 0.10); border: 1px solid rgba(239, 68, 68, 0.26); }
     .cmp-badge.good { color: #6EE7B7; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.30); }
-
-    .signal-meter {
-      margin-bottom: 16px;
-      background: rgba(4, 7, 15, 0.72);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-    }
-
+    .signal-meter { margin-bottom: 16px; background: rgba(4, 7, 15, 0.72); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
     .meter-row { display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--muted); margin-bottom: 7px; }
     .meter-track { height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); overflow: hidden; }
     .meter-fill { height: 100%; border-radius: 999px; }
     .meter-fill.bad { width: 42%; background: linear-gradient(90deg, #DC2626, #F59E0B); }
     .meter-fill.good { width: 94%; background: linear-gradient(90deg, var(--primary), var(--neon), var(--green)); }
-
     .compare-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .compare-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 0.84rem; color: #CBD5E1; }
     .compare-list li svg { flex-shrink: 0; margin-top: 4px; }
@@ -1195,27 +886,8 @@
     }
 
     html[dir="ltr"] .m-game-card { direction: ltr; }
-
-    .m-game-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(190px 120px at 95% 50%, var(--g-glow, rgba(22, 119, 255, 0.26)), transparent 74%);
-      pointer-events: none;
-    }
-
-    .m-game-card::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 16px;
-      right: 16px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--g-accent, #38BDF8), transparent);
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
+    .m-game-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(190px 120px at 95% 50%, var(--g-glow, rgba(22, 119, 255, 0.26)), transparent 74%); pointer-events: none; }
+    .m-game-card::after { content: ""; position: absolute; top: 0; left: 16px; right: 16px; height: 2px; background: linear-gradient(90deg, transparent, var(--g-accent, #38BDF8), transparent); opacity: 0.85; pointer-events: none; }
     .m-game-card:hover { border-color: var(--g-accent, #38BDF8); transform: translateY(-2px); }
 
     .m-game-thumb {
@@ -1235,50 +907,10 @@
 
     .m-game-thumb img { position: relative; z-index: 2; width: 100%; height: 100%; object-fit: cover; display: block; }
     .m-game-thumb svg { width: 100%; height: 100%; display: block; }
-
-    .m-game-info {
-      position: relative;
-      z-index: 2;
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-      text-align: start;
-    }
-
-    .m-game-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.61rem;
-      font-weight: 800;
-      color: #E2E8F0;
-      background: rgba(5, 8, 17, 0.78);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      padding: 2px 7px;
-      border-radius: 999px;
-      direction: ltr;
-      white-space: nowrap;
-      margin-bottom: 2px;
-    }
-
+    .m-game-info { position: relative; z-index: 2; flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: start; }
+    .m-game-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 0.61rem; font-weight: 800; color: #E2E8F0; background: rgba(5, 8, 17, 0.78); border: 1px solid rgba(255, 255, 255, 0.10); padding: 2px 7px; border-radius: 999px; direction: ltr; white-space: nowrap; margin-bottom: 2px; }
     .m-game-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--g-accent, #10B981); box-shadow: 0 0 7px var(--g-accent, #10B981); }
-
-    .m-game-title {
-      width: 100%;
-      font-size: 0.88rem;
-      font-weight: 900;
-      color: #fff;
-      direction: ltr;
-      text-align: start;
-      line-height: 1.25;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
+    .m-game-title { width: 100%; font-size: 0.88rem; font-weight: 900; color: #fff; direction: ltr; text-align: start; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .m-game-fa { width: 100%; font-size: 0.71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     /* Bento Grid Capabilities */
@@ -1286,115 +918,37 @@
     .bento-card { padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; }
     .bento-card:hover { transform: translateY(-2px); }
     .bento-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-
-    .bento-ico {
-      width: 40px;
-      height: 40px;
-      border-radius: 11px;
-      background: rgba(var(--primary-rgb), 0.15);
-      border: 1px solid rgba(var(--accent-rgb), 0.30);
-      color: var(--cyan);
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-    }
-
-    .bento-tag {
-      font-size: 0.67rem;
-      font-weight: 800;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      padding: 3px 9px;
-      border-radius: 6px;
-      direction: ltr;
-      white-space: nowrap;
-    }
-
+    .bento-ico { width: 40px; height: 40px; border-radius: 11px; background: rgba(var(--primary-rgb), 0.15); border: 1px solid rgba(var(--accent-rgb), 0.30); color: var(--cyan); display: grid; place-items: center; flex-shrink: 0; }
+    .bento-tag { font-size: 0.67rem; font-weight: 800; color: var(--muted); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); padding: 3px 9px; border-radius: 6px; direction: ltr; white-space: nowrap; }
     .bento-card h3 { font-size: 1rem; font-weight: 900; color: var(--text); }
     .bento-card p { font-size: 0.84rem; color: var(--muted); }
 
-    /* Engine Specs Strip */
     .specs-bar { margin-top: 14px; padding: 18px; text-align: center; }
     .specs-label { font-size: 0.78rem; font-weight: 800; color: #CBD5E1; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px; }
     .specs-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; direction: ltr; }
-
-    .spec-pill {
-      font-size: 0.73rem;
-      font-weight: 700;
-      color: #CBD5E1;
-      background: rgba(4, 7, 15, 0.78);
-      border: 1px solid var(--border);
-      padding: 5px 11px;
-      border-radius: 8px;
-      white-space: nowrap;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
+    .spec-pill { font-size: 0.73rem; font-weight: 700; color: #CBD5E1; background: rgba(4, 7, 15, 0.78); border: 1px solid var(--border); padding: 5px 11px; border-radius: 8px; white-space: nowrap; transition: border-color 0.2s, color 0.2s; }
     .spec-pill:hover { border-color: var(--neon); color: var(--cyan); }
 
-    /* FAQ Accordion */
+    /* FAQ */
     .faq-list { max-width: 740px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-
-    details.faq-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
+    details.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; transition: border-color 0.2s; }
     details.faq-item[open] { border-color: rgba(var(--accent-rgb), 0.36); }
-
-    details.faq-item summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 16px 18px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      user-select: none;
-    }
-
+    details.faq-item summary { list-style: none; cursor: pointer; padding: 16px 18px; font-size: 0.9rem; font-weight: 800; color: var(--text); display: flex; align-items: center; justify-content: space-between; gap: 14px; user-select: none; }
     details.faq-item summary::-webkit-details-marker { display: none; }
     .faq-chevron { color: var(--muted); transition: transform 0.22s ease, color 0.22s ease; flex-shrink: 0; }
     details.faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--cyan); }
     .faq-body { padding: 12px 18px 16px; font-size: 0.84rem; color: var(--muted); border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
     /* Footer */
-    footer {
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid var(--border);
-      padding: 36px 0 92px;
-      margin-top: 24px;
-    }
-
+    footer { position: relative; z-index: 2; border-top: 1px solid var(--border); padding: 36px 0 92px; margin-top: 24px; }
     .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #A7F3D0;
-      background: rgba(16, 185, 129, 0.09);
-      border: 1px solid rgba(16, 185, 129, 0.26);
-      padding: 5px 13px;
-      border-radius: 999px;
-    }
-
+    .status-pill { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 700; color: #A7F3D0; background: rgba(16, 185, 129, 0.09); border: 1px solid rgba(16, 185, 129, 0.26); padding: 5px 13px; border-radius: 999px; }
     .footer-links { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.84rem; font-weight: 600; transition: color 0.2s; }
     .footer-links a:hover { color: var(--text); }
     .footer-copy { font-size: 0.78rem; color: var(--dim); }
 
-    /* Floating Smart Bottom Download Pill */
+    /* Floating Bar */
     .float-bar {
       position: fixed;
       left: 14px;
@@ -1426,32 +980,8 @@
     .float-title { font-size: 0.8rem; font-weight: 900; color: var(--text); white-space: nowrap; }
     .float-sub { font-size: 0.69rem; color: var(--cyan); direction: ltr; text-align: start; white-space: nowrap; }
     .float-actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
-
-    .float-dl {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: var(--btn-text);
-      text-decoration: none;
-      font-size: 0.77rem;
-      font-weight: 900;
-      padding: 8px 13px;
-      border-radius: 10px;
-      white-space: nowrap;
-    }
-
-    .float-close {
-      width: 30px;
-      height: 30px;
-      border-radius: 9px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--muted);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-    }
+    .float-dl { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: var(--btn-text); text-decoration: none; font-size: 0.77rem; font-weight: 900; padding: 8px 13px; border-radius: 10px; white-space: nowrap; }
+    .float-close { width: 30px; height: 30px; border-radius: 9px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.04); color: var(--muted); display: grid; place-items: center; cursor: pointer; }
 
     @media (min-width: 720px) {
       .nav-links { display: flex; }
@@ -1497,7 +1027,7 @@
 
       <nav class="nav-links">
         <a href="#download" data-i18n="nav_download">دانلود</a>
-        <a href="#radar" data-i18n="nav_radar">تست پینگ</a>
+        <a href="#radar" data-i18n="nav_radar">اسپیدتست و پینگ</a>
         <a href="#map" data-i18n="nav_map">رادار مسیر</a>
         <a href="#builder" data-i18n="nav_builder">تنظیمات پرو</a>
         <a href="#games" data-i18n="nav_games">بازی‌ها</a>
@@ -1522,7 +1052,6 @@
               <span id="menu-version" class="menu-ver">Official</span>
             </div>
 
-            <!-- Live Theme Switcher + FA/EN Bilingual Switch -->
             <div class="menu-controls">
               <div class="theme-dots" role="group" aria-label="Theme">
                 <button class="theme-dot active" data-set-theme="blue" type="button" title="Cyber Blue"></button>
@@ -1543,7 +1072,7 @@
               </a>
               <a class="menu-link" href="#radar" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                <span data-i18n="m_radar">تست پینگ و جیتر زنده</span>
+                <span data-i18n="m_radar">اسپیدتست و تست پینگ واقعی</span>
               </a>
               <a class="menu-link" href="#map" role="menuitem">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -1584,8 +1113,8 @@
   </header>
 
   <main>
-    <!-- Hero + Interactive Turbo Engine -->
     <div class="container">
+      <!-- Hero -->
       <section class="hero">
         <div id="engine-stage" class="engine-stage" role="button" tabindex="0" aria-label="Toggle Turbo Engine">
           <div class="engine-glow"></div>
@@ -1638,7 +1167,6 @@
           </a>
         </div>
 
-        <!-- 3-Item Trust Strip -->
         <div class="trust-strip">
           <div class="trust-item green">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
@@ -1654,7 +1182,7 @@
           </div>
         </div>
 
-        <!-- Release Download Hub with Smart Device Auto-Detection -->
+        <!-- Release Download Hub -->
         <div id="download" class="panel release-panel reveal">
           <div id="device-detect" class="device-detect">
             <div class="device-detect-left">
@@ -1698,35 +1226,77 @@
         </div>
       </section>
 
-      <!-- 1. Real-Time Ping & Jitter Radar (Live Oscilloscope) -->
+      <!-- REAL SPEEDTEST & HARDWARE 1-RTT PING BENCHMARK -->
       <section id="radar" class="reveal">
         <div class="sec-head">
-          <span class="sec-kicker">REAL-TIME TELEMETRY</span>
-          <h2 data-i18n="radar_h2">رادار زنده تست پینگ و جیتر</h2>
-          <p data-i18n="radar_p">همین الان تاخیر و نوسان واقعی اتصال اینترنت خود را با نمودار موجی زنده بررسی کنید</p>
+          <span class="sec-kicker">REAL NETWORK BENCHMARK</span>
+          <h2 data-i18n="radar_h2">اسپیدتست و تست پینگ واقعی شبکه</h2>
+          <p data-i18n="radar_p">اندازه‌گیری دقیق ۱-RTT پینگ، جیتر، پکت‌لاس و سرعت دانلود/آپلود متصل به شبکه جهانی کلودفلر</p>
         </div>
 
         <div class="panel radar-panel">
+          <!-- Real Connected IP / Datacenter / Protocol Readout -->
+          <div class="st-conn-strip">
+            <div class="st-conn-box">
+              <div class="st-conn-k" data-i18n="st_k_ip">آی‌پی فعلی شما</div>
+              <div id="st-ip" class="st-conn-v mono">...</div>
+            </div>
+            <div class="st-conn-box">
+              <div class="st-conn-k" data-i18n="st_k_colo">سرور لبه (Edge)</div>
+              <div id="st-colo" class="st-conn-v mono">...</div>
+            </div>
+            <div class="st-conn-box">
+              <div class="st-conn-k" data-i18n="st_k_proto">پروتکل اتصال</div>
+              <div id="st-proto" class="st-conn-v mono">...</div>
+            </div>
+          </div>
+
           <div class="radar-top">
             <div class="radar-title-box">
               <span id="radar-live-dot" class="live-dot"></span>
-              <span class="radar-title" data-i18n="radar_box_title">اسیلوسکوپ شبکه (۱۰ پکت زنده)</span>
+              <span class="radar-title" data-i18n="radar_box_title">اسیلوسکوپ پینگ خالص (۱۶ پکت)</span>
             </div>
-            <button id="radar-run-btn" class="radar-run-btn" type="button">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span id="radar-btn-text" data-i18n="radar_start">شروع تست واقعی</span>
-            </button>
+            <div class="st-btn-group">
+              <button id="st-run-full" class="radar-run-btn" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span id="st-full-txt" data-i18n="st_full">تست کامل (پینگ + سرعت)</span>
+              </button>
+              <button id="st-run-ping" class="radar-run-btn secondary" type="button">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span id="st-ping-txt" data-i18n="st_ping_only">فقط پینگ</span>
+              </button>
+            </div>
           </div>
 
           <div class="radar-wave-box">
-            <span id="radar-overlay" class="radar-overlay-label mono">READY • STANDBY</span>
+            <span id="radar-overlay" class="radar-overlay-label mono">READY • EDGE ENGINE</span>
             <canvas id="ping-canvas"></canvas>
           </div>
 
+          <!-- Real Download & Upload Speed (Mbps) -->
+          <div class="st-primary-row">
+            <div class="st-speed-card">
+              <div class="st-speed-k">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span data-i18n="st_dl_k">سرعت دانلود واقعی</span>
+              </div>
+              <div id="rm-down-val" class="st-speed-v dl mono">-- Mbps</div>
+            </div>
+
+            <div class="st-speed-card">
+              <div class="st-speed-k">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span data-i18n="st_ul_k">سرعت آپلود واقعی</span>
+              </div>
+              <div id="rm-up-val" class="st-speed-v ul mono">-- Mbps</div>
+            </div>
+          </div>
+
+          <!-- Real Ping, Jitter, Best Packet, Loss/Grade -->
           <div class="radar-metrics">
             <div class="radar-metric">
-              <div class="radar-metric-k" data-i18n="rm_avg">میانگین پینگ</div>
-              <div id="rm-avg-val" class="radar-metric-v mono">-- ms</div>
+              <div class="radar-metric-k" data-i18n="rm_ping">پینگ واقعی (میانه)</div>
+              <div id="rm-ping-val" class="radar-metric-v mono">-- ms</div>
             </div>
             <div class="radar-metric">
               <div class="radar-metric-k" data-i18n="rm_jitter">نوسان (Jitter)</div>
@@ -1737,14 +1307,16 @@
               <div id="rm-min-val" class="radar-metric-v mono">-- ms</div>
             </div>
             <div class="radar-metric">
-              <div class="radar-metric-k" data-i18n="rm_grade">وضعیت گیمینگ</div>
+              <div class="radar-metric-k" data-i18n="rm_grade">وضعیت / پکت‌لاس</div>
               <div id="rm-grade-val" class="radar-metric-v" data-i18n="rm_idle">آماده تست</div>
             </div>
           </div>
+
+          <p class="st-note" data-i18n="st_note">تست پینگ با تایمر سخت‌افزاری مرورگر (1-RTT خالص روی سرور لبه کلودفلر) و تست سرعت با موتور Cloudflare Speed انجام می‌شود.</p>
         </div>
       </section>
 
-      <!-- 2. Tactical Routing Cyber Map -->
+      <!-- Tactical Routing Cyber Map -->
       <section id="map" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">TACTICAL ROUTING RADAR</span>
@@ -1774,30 +1346,24 @@
               </defs>
 
               <rect width="680" height="300" fill="url(#radarDots)"/>
-              <!-- Concentric Radar Sweeps -->
               <circle cx="515" cy="185" r="75" stroke="rgba(148,163,184,0.10)" stroke-dasharray="4 6"/>
               <circle cx="515" cy="185" r="165" stroke="rgba(148,163,184,0.08)" stroke-dasharray="4 6"/>
               <circle cx="515" cy="185" r="265" stroke="rgba(148,163,184,0.06)" stroke-dasharray="4 6"/>
               <circle cx="515" cy="185" r="365" stroke="rgba(148,163,184,0.05)" stroke-dasharray="4 6"/>
 
-              <!-- Stylized Vector Continent Contours (Europe / Middle East) -->
               <path d="M90 120 L145 78 L210 66 L275 88 L335 128 L390 144 L455 130 L545 142 L590 198 L538 242 L470 230 L422 192 L352 178 L280 156 L195 162 L120 152 Z" fill="rgba(30,41,59,0.34)" stroke="rgba(148,163,184,0.14)" stroke-width="1.2"/>
 
-              <!-- Standby Background Routes -->
               <path d="M515 185 Q525 225 538 242" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
               <path d="M515 185 Q435 135 352 152" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
               <path d="M515 185 Q370 92 225 112" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
               <path d="M515 185 Q340 60 158 92" stroke="rgba(148,163,184,0.18)" stroke-width="1.5"/>
 
-              <!-- Active Animated Laser Route -->
               <path id="active-laser" class="laser-route" d="M515 185 Q525 225 538 242" stroke="url(#laserGrad)" stroke-width="3.2" stroke-linecap="round"/>
 
-              <!-- Origin Node (User) -->
               <circle class="map-node-ring" cx="515" cy="185" r="8" fill="none" stroke="#10B981" stroke-width="1.6"/>
               <circle cx="515" cy="185" r="6" fill="#10B981"/>
               <text x="515" y="169" text-anchor="middle" fill="#A7F3D0" font-size="11" font-weight="800" font-family="system-ui">YOU</text>
 
-              <!-- Target Nodes -->
               <g id="node-uae">
                 <circle class="map-node-ring" cx="538" cy="242" r="7" fill="none" stroke="var(--neon)" stroke-width="1.5"/>
                 <circle cx="538" cy="242" r="5.5" fill="var(--neon)"/>
@@ -1835,7 +1401,7 @@
         </div>
       </section>
 
-      <!-- 3. Pro Settings Builder (Cyber HUD Configurator) -->
+      <!-- Pro Settings Builder -->
       <section id="builder" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">PRO SETTINGS BUILDER</span>
@@ -2031,7 +1597,7 @@
         </div>
       </section>
 
-      <!-- FAQ Section -->
+      <!-- FAQ -->
       <section id="faq" class="reveal">
         <div class="sec-head">
           <span class="sec-kicker">FAQ &amp; SETUP</span>
@@ -2092,7 +1658,7 @@
 
       <div class="footer-links">
         <a href="#download" data-i18n="nav_download">دانلود</a>
-        <a href="#radar" data-i18n="nav_radar">تست پینگ</a>
+        <a href="#radar" data-i18n="nav_radar">اسپیدتست و پینگ</a>
         <a href="#map" data-i18n="nav_map">رادار مسیر</a>
         <a href="#builder" data-i18n="nav_builder">تنظیمات پرو</a>
         <a id="footer-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" data-i18n="support_btn">پشتیبانی تلگرام</a>
@@ -2102,7 +1668,7 @@
     </div>
   </footer>
 
-  <!-- Floating Bottom Download Bar -->
+  <!-- Floating Bar -->
   <div id="float-bar" class="float-bar" aria-label="Quick Download">
     <div class="float-info">
       <div class="brand-mark" style="width:32px;height:32px;" aria-hidden="true">
@@ -2130,16 +1696,21 @@
   <script>
     const haptic = (ms = 18) => { try { if (navigator.vibrate) navigator.vibrate(ms); } catch {} };
 
-    /* ===== i18n Dictionary (Full FA / EN Bilingual Engine) ===== */
+    /* ===== i18n Dictionary (FA / EN) ===== */
     const I18N = {
       fa: {
-        nav_download: "دانلود", nav_radar: "تست پینگ", nav_map: "رادار مسیر", nav_builder: "تنظیمات پرو", nav_games: "بازی‌ها", nav_features: "امکانات", nav_cta: "دانلود اندروید",
-        menu_title: "کنترل پنل سریع", m_download: "دانلود آخرین نسخه", m_radar: "تست پینگ و جیتر زنده", m_map: "نقشه رادار مسیرها", m_builder: "تنظیم‌کننده پروفایل گیم", m_games: "بازی‌های پشتیبانی‌شده", m_features: "امکانات تخصصی", m_faq: "سوالات متداول", m_share: "کپی لینک برای هم‌تیمی", m_copied: "لینک سایت کپی شد", support_btn: "پشتیبانی تلگرام",
+        nav_download: "دانلود", nav_radar: "اسپیدتست و پینگ", nav_map: "رادار مسیر", nav_builder: "تنظیمات پرو", nav_games: "بازی‌ها", nav_features: "امکانات", nav_cta: "دانلود اندروید",
+        menu_title: "کنترل پنل سریع", m_download: "دانلود آخرین نسخه", m_radar: "اسپیدتست و تست پینگ واقعی", m_map: "نقشه رادار مسیرها", m_builder: "تنظیم‌کننده پروفایل گیم", m_games: "بازی‌های پشتیبانی‌شده", m_features: "امکانات تخصصی", m_faq: "سوالات متداول", m_share: "کپی لینک برای هم‌تیمی", m_copied: "لینک سایت کپی شد", support_btn: "پشتیبانی تلگرام",
         hero_h1: `نسل جدید<br /><span class="accent-grad">کاهش پینگ گیمینگ.</span>`,
         hero_desc: "موتور هوشمند مسیریابی و بهینه‌سازی شبکه برای گیمرها — اتصال پایدار، حداقل تاخیر و کنترل کامل روی هسته اتصال.",
         hero_dl: "دانلود مستقیم اندروید", trust_1: "اتصال امن و پایدار", trust_2: "مخصوص گیمرهای رقابتی", trust_3: "مسیریابی هوشمند ایران",
         rel_title: "آخرین نسخه رسمی", rel_direct: "دانلود مستقیم", meta_ver: "نسخه", meta_size: "حجم فایل", meta_os: "سیستم‌عامل", rel_notes: "تغییرات این نسخه", rel_loading: "در حال دریافت لینک‌های دانلود...",
-        radar_h2: "رادار زنده تست پینگ و جیتر", radar_p: "همین الان تاخیر و نوسان واقعی اتصال اینترنت خود را با نمودار موجی زنده بررسی کنید", radar_box_title: "اسیلوسکوپ شبکه (۱۰ پکت زنده)", radar_start: "شروع تست واقعی", radar_testing: "در حال تست...", rm_avg: "میانگین پینگ", rm_jitter: "نوسان (Jitter)", rm_min: "بهترین پکت", rm_grade: "وضعیت گیمینگ", rm_idle: "آماده تست",
+        radar_h2: "اسپیدتست و تست پینگ واقعی شبکه", radar_p: "اندازه‌گیری دقیق ۱-RTT پینگ، جیتر، پکت‌لاس و سرعت دانلود/آپلود متصل به شبکه جهانی کلودفلر",
+        st_k_ip: "آی‌پی فعلی شما", st_k_colo: "سرور لبه (Edge)", st_k_proto: "پروتکل اتصال",
+        radar_box_title: "اسیلوسکوپ پینگ خالص (۱۶ پکت)", st_full: "تست کامل (پینگ + سرعت)", st_ping_only: "فقط پینگ", st_running: "در حال سنجش...",
+        st_dl_k: "سرعت دانلود واقعی", st_ul_k: "سرعت آپلود واقعی",
+        rm_ping: "پینگ واقعی (میانه)", rm_jitter: "نوسان (Jitter)", rm_min: "بهترین پکت", rm_grade: "وضعیت / پکت‌لاس", rm_idle: "آماده تست",
+        st_note: "تست پینگ با تایمر سخت‌افزاری مرورگر (1-RTT خالص روی سرور لبه کلودفلر) و تست سرعت با موتور Cloudflare Speed انجام می‌شود.",
         map_h2: "نقشه راداری مسیرهای گیمینگ", map_p: "هر ریجن را انتخاب کنید تا مسیر بهینه و پروفایل گیمینگ آن روی رادار نمایش داده شود", reg_uae: "خاورمیانه (دبی)", reg_tr: "ترکیه (استانبول)", reg_de: "آلمان (فرانکفورت)", reg_nl: "اروپا (آمستردام)", map_k1: "بهترین برای", map_k2: "حالت پیشنهادی هسته", map_k3: "اولویت مسیر",
         bld_h2: "تنظیم‌کننده هوشمند پروفایل گیمینگ", bld_p: "اپراتور اینترنت و بازی خود را انتخاب کنید تا بهترین تنظیمات داخل برنامه بلوچ پینگ به شما پیشنهاد شود", bld_isp: "۱. اپراتور اینترنت شما:", bld_game: "۲. بازی اصلی شما:", isp_irancell: "ایرانسل (4G / 5G)", isp_mci: "همراه اول", isp_rightel: "رایتل / شاتل موبایل", isp_wifi: "وای‌فای / ADSL / فیبر", bld_copy: "کپی تنظیمات", bld_copied: "تنظیمات کپی شد",
         cmp_h2: `تفاوت اتصال عادی با <span class="ltr">Baloch Ping</span>`, cmp_p: "چرا مسیریابی هوشمند و مهندسی پکت در فایت‌های حساس نتیجه بازی را عوض می‌کند", cmp_bad_t: "اتصال عادی اینترنت", cmp_bad_b: "مسیر غیربهینه", cmp_pro_t: `موتور شبکه <span class="ltr">Baloch Ping</span>`, cmp_pro_b: "بهینه‌سازی گیمینگ", cmp_meter: "پایداری مسیر و پکت‌ها", cmp_bad_m: "نوسان بالا", cmp_pro_m: "حداکثر پایداری",
@@ -2160,13 +1731,18 @@
         footer_status: "وضعیت زیرساخت و سرور دانلود: فعال", footer_copy: "© Baloch Ping — تمامی حقوق محفوظ است", float_dl: "دانلود مستقیم"
       },
       en: {
-        nav_download: "Download", nav_radar: "Ping Radar", nav_map: "Routing Map", nav_builder: "Pro Preset", nav_games: "Games", nav_features: "Engine", nav_cta: "Get Android APK",
-        menu_title: "Quick Command", m_download: "Latest Release", m_radar: "Live Ping & Jitter Radar", m_map: "Tactical Routing Map", m_builder: "Pro Settings Builder", m_games: "Supported Games", m_features: "Engine Capabilities", m_faq: "FAQ & Setup", m_share: "Copy Link for Squad", m_copied: "Link Copied", support_btn: "Telegram Support",
+        nav_download: "Download", nav_radar: "Speedtest", nav_map: "Routing Map", nav_builder: "Pro Preset", nav_games: "Games", nav_features: "Engine", nav_cta: "Get Android APK",
+        menu_title: "Quick Command", m_download: "Latest Release", m_radar: "Real Speedtest & Ping", m_map: "Tactical Routing Map", m_builder: "Pro Settings Builder", m_games: "Supported Games", m_features: "Engine Capabilities", m_faq: "FAQ & Setup", m_share: "Copy Link for Squad", m_copied: "Link Copied", support_btn: "Telegram Support",
         hero_h1: `Next-Gen <span class="accent-grad">Gaming</span><br />Ping <span class="accent-grad">Engine.</span>`,
         hero_desc: "Intelligent gaming network optimization client — stable routing, minimal jitter, and full control over your connection core.",
         hero_dl: "Direct Android Download", trust_1: "Secure & Stable Tunnel", trust_2: "Built for Competitive Play", trust_3: "Smart Geo-Routing",
         rel_title: "Official Latest Build", rel_direct: "Direct Mirror", meta_ver: "Version", meta_size: "File Size", meta_os: "Platform", rel_notes: "Release Changelog", rel_loading: "Fetching direct download links...",
-        radar_h2: "Live Ping & Jitter Radar", radar_p: "Measure your real-time connection latency and jitter right now on a live network oscilloscope", radar_box_title: "Network Oscilloscope (10 Live Probes)", radar_start: "Run Live Test", radar_testing: "Scanning...", rm_avg: "Average Ping", rm_jitter: "Jitter", rm_min: "Best Packet", rm_grade: "Gaming Grade", rm_idle: "Ready",
+        radar_h2: "Real Network Speedtest & Ping", radar_p: "True 1-RTT hardware-timed ping, jitter, packet loss, and real download/upload speed powered by Cloudflare Edge",
+        st_k_ip: "Your Public IP", st_k_colo: "Edge Datacenter", st_k_proto: "Protocol",
+        radar_box_title: "Pure 1-RTT Oscilloscope (16 Probes)", st_full: "Full Speedtest", st_ping_only: "Ping Only", st_running: "Testing...",
+        st_dl_k: "Real Download Speed", st_ul_k: "Real Upload Speed",
+        rm_ping: "Real Ping (Median)", rm_jitter: "Jitter", rm_min: "Best Packet", rm_grade: "Grade / Loss", rm_idle: "Ready",
+        st_note: "Ping uses Resource Timing 1-RTT against the nearest Cloudflare edge node; throughput uses official Cloudflare Speed endpoints.",
         map_h2: "Tactical Routing Radar Map", map_p: "Select any gaming region to inspect the optimized laser route and core profile", reg_uae: "Middle East (Dubai)", reg_tr: "Turkey (Istanbul)", reg_de: "Germany (Frankfurt)", reg_nl: "Europe (Amsterdam)", map_k1: "Best For", map_k2: "Recommended Core", map_k3: "Route Priority",
         bld_h2: "Pro Gaming Settings Builder", bld_p: "Select your network type and main title to generate the exact recommended Baloch Ping configuration", bld_isp: "1. Your Network / ISP:", bld_game: "2. Main Game:", isp_irancell: "Irancell (4G / 5G)", isp_mci: "MCI (Hamrah Aval)", isp_rightel: "Rightel / Mobile", isp_wifi: "Wi-Fi / ADSL / Fiber", bld_copy: "Copy Preset", bld_copied: "Preset Copied",
         cmp_h2: `Standard Network vs <span class="ltr">Baloch Ping</span>`, cmp_p: "Why packet engineering and intelligent routing make the difference in competitive matches", cmp_bad_t: "Standard Connection", cmp_bad_b: "Unoptimized Route", cmp_pro_t: `<span class="ltr">Baloch Ping</span> Engine`, cmp_pro_b: "Gaming Optimized", cmp_meter: "Route & Packet Stability", cmp_bad_m: "High Jitter", cmp_pro_m: "Peak Stability",
@@ -2222,14 +1798,12 @@
       document.documentElement.lang = lang;
       document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
       const dict = I18N[lang];
-
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const k = el.getAttribute("data-i18n");
         if (dict[k] !== undefined) el.innerHTML = dict[k];
       });
       document.getElementById("hero-h1").innerHTML = dict.hero_h1;
       document.querySelectorAll(".lang-btn").forEach((b) => b.classList.toggle("active", b.dataset.setLang === lang));
-
       if (window.__refreshDynamicUI) window.__refreshDynamicUI();
     }
 
@@ -2240,10 +1814,7 @@
       const floatClose = document.getElementById("float-close");
       let dismissed = false;
 
-      floatClose.addEventListener("click", () => {
-        dismissed = true;
-        floatBar.classList.remove("show");
-      });
+      floatClose.addEventListener("click", () => { dismissed = true; floatBar.classList.remove("show"); });
 
       function onScroll() {
         const y = window.scrollY || document.documentElement.scrollTop;
@@ -2279,12 +1850,7 @@
         btn.setAttribute("aria-expanded", state ? "true" : "false");
       }
 
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        haptic(12);
-        setOpen(!panel.classList.contains("open"));
-      });
-
+      btn.addEventListener("click", (e) => { e.stopPropagation(); haptic(12); setOpen(!panel.classList.contains("open")); });
       panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
 
       document.querySelectorAll(".theme-dot").forEach((d) => {
@@ -2305,15 +1871,10 @@
         }
         copyBtn.classList.add("copied");
         copyTxt.textContent = I18N[currentLang].m_copied;
-        setTimeout(() => {
-          copyBtn.classList.remove("copied");
-          copyTxt.textContent = I18N[currentLang].m_share;
-        }, 1800);
+        setTimeout(() => { copyBtn.classList.remove("copied"); copyTxt.textContent = I18N[currentLang].m_share; }, 1800);
       });
 
-      document.addEventListener("click", (e) => {
-        if (!panel.contains(e.target) && !btn.contains(e.target)) setOpen(false);
-      });
+      document.addEventListener("click", (e) => { if (!panel.contains(e.target) && !btn.contains(e.target)) setOpen(false); });
       document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
     })();
 
@@ -2354,27 +1915,68 @@
       }
 
       stage.addEventListener("click", () => { haptic(24); applyStep(0); });
-      window.__refreshEngineText = () => {
-        const s = STEPS[currentLang][engineStepIdx];
-        statusText.textContent = s.text;
-      };
+      window.__refreshEngineText = () => { statusText.textContent = STEPS[currentLang][engineStepIdx].text; };
       applyStep(0);
     })();
 
-    /* ===== 3. Real-Time Ping & Jitter Radar (Live Oscilloscope) ===== */
+    /* ===== 3. REAL SPEEDTEST & HARDWARE 1-RTT PING ENGINE (Cloudflare Edge + PerformanceResourceTiming) ===== */
     (() => {
+      const COLOS = {
+        FRA: "Frankfurt", DXB: "Dubai", IST: "Istanbul", AMS: "Amsterdam", LHR: "London",
+        CDG: "Paris", VIE: "Vienna", ZRH: "Zurich", MRS: "Marseille", WAW: "Warsaw",
+        SOF: "Sofia", PRG: "Prague", HEL: "Helsinki", ARN: "Stockholm", MIL: "Milan",
+        MAD: "Madrid", MCT: "Muscat", BAH: "Bahrain", DOH: "Doha", RUH: "Riyadh",
+        JED: "Jeddah", KWI: "Kuwait", EVN: "Yerevan", TBS: "Tbilisi", GYD: "Baku",
+        SIN: "Singapore", BOM: "Mumbai", IAD: "Virginia", EWR: "New York", LAX: "Los Angeles"
+      };
+
+      const ipEl = document.getElementById("st-ip");
+      const coloEl = document.getElementById("st-colo");
+      const protoEl = document.getElementById("st-proto");
       const canvas = document.getElementById("ping-canvas");
       const ctx = canvas.getContext("2d");
-      const runBtn = document.getElementById("radar-run-btn");
-      const btnText = document.getElementById("radar-btn-text");
+      const btnFull = document.getElementById("st-run-full");
+      const btnPing = document.getElementById("st-run-ping");
+      const fullTxt = document.getElementById("st-full-txt");
+      const pingTxt = document.getElementById("st-ping-txt");
       const overlay = document.getElementById("radar-overlay");
-      const avgEl = document.getElementById("rm-avg-val");
+      const pingEl = document.getElementById("rm-ping-val");
       const jitEl = document.getElementById("rm-jitter-val");
       const minEl = document.getElementById("rm-min-val");
       const gradeEl = document.getElementById("rm-grade-val");
+      const downEl = document.getElementById("rm-down-val");
+      const upEl = document.getElementById("rm-up-val");
 
       let samples = [];
       let running = false;
+      let hasLocalTrace = false;
+
+      async function loadEdgeInfo() {
+        try {
+          const u = new URL("/cdn-cgi/trace?_i=" + Date.now(), window.location.origin).href;
+          const res = await fetch(u, { cache: "no-store" });
+          if (!res.ok) throw new Error("no-trace");
+          const txt = await res.text();
+          if (!txt.includes("colo=")) throw new Error("invalid-trace");
+          hasLocalTrace = true;
+          const m = {};
+          txt.trim().split("\n").forEach((line) => {
+            const idx = line.indexOf("=");
+            if (idx > 0) m[line.slice(0, idx)] = line.slice(idx + 1);
+          });
+          ipEl.textContent = m.ip || "—";
+          const city = COLOS[m.colo] ? `${COLOS[m.colo]} (${m.colo})` : (m.colo || "Edge");
+          coloEl.textContent = m.loc ? `${city} • ${m.loc}` : city;
+          protoEl.textContent = `${(m.http || "HTTPS").toUpperCase()} • ${m.tls || "TLS"}`;
+          return m;
+        } catch {
+          hasLocalTrace = false;
+          ipEl.textContent = "Cloudflare";
+          coloEl.textContent = "Global Edge";
+          protoEl.textContent = "HTTPS";
+          return null;
+        }
+      }
 
       function drawWave() {
         const rect = canvas.getBoundingClientRect();
@@ -2402,15 +2004,17 @@
           return;
         }
 
-        const maxVal = Math.max(140, ...samples) * 1.18;
-        const stepX = w / 9;
+        const valid = samples.filter((v) => v > 0);
+        const maxVal = Math.max(100, ...(valid.length ? valid : [100])) * 1.2;
+        const stepX = w / 15;
 
-        // Area fill
+        // Fill under curve
         ctx.beginPath();
+        let started = false;
         samples.forEach((v, i) => {
           const x = i * stepX;
-          const y = h - 18 - (v / maxVal) * (h - 42);
-          if (i === 0) ctx.moveTo(x, y);
+          const y = v > 0 ? (h - 18 - (v / maxVal) * (h - 44)) : (h - 18);
+          if (!started) { ctx.moveTo(x, y); started = true; }
           else ctx.lineTo(x, y);
         });
         ctx.lineTo((samples.length - 1) * stepX, h);
@@ -2422,99 +2026,267 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Neon waveform line
+        // Waveform stroke
         ctx.beginPath();
         samples.forEach((v, i) => {
           const x = i * stepX;
-          const y = h - 18 - (v / maxVal) * (h - 42);
+          const y = v > 0 ? (h - 18 - (v / maxVal) * (h - 44)) : (h - 18);
           if (i === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         });
         ctx.strokeStyle = accent;
-        ctx.lineWidth = 2.6;
+        ctx.lineWidth = 2.4;
         ctx.lineJoin = "round";
         ctx.stroke();
 
-        // Data points
+        // Points
         samples.forEach((v, i) => {
           const x = i * stepX;
-          const y = h - 18 - (v / maxVal) * (h - 42);
+          const y = v > 0 ? (h - 18 - (v / maxVal) * (h - 44)) : (h - 18);
           ctx.beginPath();
-          ctx.arc(x, y, 3.6, 0, Math.PI * 2);
-          ctx.fillStyle = "#FFFFFF";
+          ctx.arc(x, y, 3.2, 0, Math.PI * 2);
+          ctx.fillStyle = v > 0 ? "#FFFFFF" : "#EF4444";
           ctx.fill();
-          ctx.strokeStyle = accent;
-          ctx.lineWidth = 2;
+          ctx.strokeStyle = v > 0 ? accent : "#EF4444";
+          ctx.lineWidth = 1.8;
           ctx.stroke();
         });
       }
 
-      async function probeOnce() {
+      /* Hardware-accurate 1-RTT Probe using PerformanceResourceTiming */
+      async function probeOnce(seq) {
+        const nonce = Date.now() + "_" + seq + "_" + Math.random().toString(36).slice(2, 7);
+        const url = hasLocalTrace
+          ? new URL("/cdn-cgi/trace?_p=" + nonce, window.location.origin).href
+          : "https://speed.cloudflare.com/__down?bytes=0&_p=" + nonce;
+
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 3500);
         const t0 = performance.now();
+
         try {
-          await fetch(window.location.pathname + "?_p=" + Date.now() + Math.random(), { method: "HEAD", cache: "no-store" });
-        } catch {}
-        return Math.max(8, Math.round(performance.now() - t0));
+          const res = await fetch(url, { cache: "no-store", signal: ctrl.signal });
+          await res.text();
+          const wallMs = performance.now() - t0;
+          clearTimeout(timer);
+
+          let rttMs = wallMs;
+          try {
+            const entries = performance.getEntriesByName(url);
+            const e = entries[entries.length - 1];
+            if (e && e.responseStart > 0 && e.requestStart > 0 && e.responseStart >= e.requestStart) {
+              rttMs = e.responseStart - e.requestStart;
+            }
+          } catch {}
+          return Math.max(1, Math.round(rttMs));
+        } catch {
+          clearTimeout(timer);
+          return -1; // Lost / timed-out packet
+        }
       }
 
-      runBtn.addEventListener("click", async () => {
+      /* Standard Statistical Ping & Jitter (Median + IQR Outlier-Filtered Jitter) */
+      function calcStats(arr) {
+        const valid = arr.filter((v) => v > 0);
+        const lossPct = Math.round(((arr.length - valid.length) / Math.max(1, arr.length)) * 100);
+        if (!valid.length) return { median: 0, min: 0, jitter: 0, lossPct: 100 };
+
+        const sorted = [...valid].sort((a, b) => a - b);
+        const mid = Math.floor(sorted.length / 2);
+        const median = sorted.length % 2 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+        const min = sorted[0];
+
+        // IQR filter to prevent single OS/browser GC pause from distorting real network jitter
+        const q1 = sorted[Math.floor(sorted.length * 0.25)];
+        const q3 = sorted[Math.floor(sorted.length * 0.75)];
+        const iqr = Math.max(8, q3 - q1);
+        const upperFence = q3 + iqr * 1.8;
+        const clean = valid.filter((v) => v <= upperFence);
+        const seq = clean.length >= 2 ? clean : valid;
+
+        let jitter = 0;
+        if (seq.length >= 2) {
+          let sumDiff = 0;
+          for (let i = 1; i < seq.length; i++) sumDiff += Math.abs(seq[i] - seq[i - 1]);
+          jitter = Math.round(sumDiff / (seq.length - 1));
+        }
+        return { median, min, jitter, lossPct };
+      }
+
+      /* Real Download Throughput via Official Cloudflare Speed Endpoint */
+      async function runDownloadTest() {
+        const runChunk = async (bytes) => {
+          const url = `https://speed.cloudflare.com/__down?bytes=${bytes}&_d=${Date.now()}`;
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 9000);
+          try {
+            const res = await fetch(url, { cache: "no-store", signal: ctrl.signal });
+            if (!res.ok) throw new Error("dl-err");
+            let loaded = 0;
+            let tStart = 0;
+
+            if (res.body && res.body.getReader) {
+              const reader = res.body.getReader();
+              while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                if (!tStart) tStart = performance.now();
+                loaded += value.byteLength;
+                const sec = (performance.now() - tStart) / 1000;
+                if (sec > 0.15) {
+                  const liveMbps = (loaded * 8) / (sec * 1e6);
+                  downEl.textContent = liveMbps.toFixed(1) + " Mbps";
+                }
+              }
+            } else {
+              tStart = performance.now();
+              const buf = await res.arrayBuffer();
+              loaded = buf.byteLength;
+            }
+            clearTimeout(timer);
+            const totalSec = Math.max(0.05, (performance.now() - (tStart || performance.now())) / 1000);
+            return { mbps: (loaded * 8) / (totalSec * 1e6), sec: totalSec };
+          } catch {
+            clearTimeout(timer);
+            return null;
+          }
+        };
+
+        overlay.textContent = "TESTING DOWNLOAD SPEED...";
+        const first = await runChunk(2500000); // 2.5 MB
+        if (!first) return null;
+        let finalMbps = first.mbps;
+        // If user has fast connection (<1.2s for 2.5MB), test a 5MB burst for higher accuracy
+        if (first.sec < 1.2) {
+          const second = await runChunk(5000000);
+          if (second) finalMbps = second.mbps;
+        }
+        return finalMbps;
+      }
+
+      /* Real Upload Throughput via Official Cloudflare Speed Endpoint */
+      function runUploadTest(downMbps) {
+        return new Promise((resolve) => {
+          overlay.textContent = "TESTING UPLOAD SPEED...";
+          const size = (downMbps && downMbps > 15) ? 1500000 : 600000; // 1.5MB on fast net, 600KB on slower net
+          const payload = new Uint8Array(size);
+          const xhr = new XMLHttpRequest();
+          let tStart = 0;
+          let done = false;
+
+          const finish = (val) => {
+            if (done) return;
+            done = true;
+            resolve(val);
+          };
+
+          xhr.timeout = 9000;
+          xhr.open("POST", "https://speed.cloudflare.com/__up?_u=" + Date.now(), true);
+          xhr.setRequestHeader("Content-Type", "text/plain");
+
+          xhr.upload.onprogress = (e) => {
+            if (!tStart) { tStart = performance.now(); return; }
+            const sec = (performance.now() - tStart) / 1000;
+            if (sec > 0.15 && e.loaded > 0) {
+              const live = (e.loaded * 8) / (sec * 1e6);
+              upEl.textContent = live.toFixed(1) + " Mbps";
+            }
+          };
+
+          xhr.upload.onload = () => {
+            const sec = Math.max(0.05, (performance.now() - (tStart || performance.now())) / 1000);
+            finish((size * 8) / (sec * 1e6));
+          };
+
+          xhr.onload = () => {
+            const sec = Math.max(0.05, (performance.now() - (tStart || performance.now())) / 1000);
+            finish((size * 8) / (sec * 1e6));
+          };
+
+          xhr.onerror = () => finish(null);
+          xhr.ontimeout = () => finish(null);
+
+          tStart = performance.now();
+          try { xhr.send(payload); }
+          catch { finish(null); }
+        });
+      }
+
+      async function runBenchmark(includeSpeed) {
         if (running) return;
         running = true;
-        haptic(25);
+        haptic(24);
+        btnFull.disabled = true;
+        btnPing.disabled = true;
+        fullTxt.textContent = I18N[currentLang].st_running;
         samples = [];
-        runBtn.disabled = true;
-        btnText.textContent = I18N[currentLang].radar_testing;
         gradeEl.className = "radar-metric-v";
         gradeEl.textContent = "...";
+        if (includeSpeed) {
+          downEl.textContent = "...";
+          upEl.textContent = "...";
+        }
         drawWave();
 
-        // Warmup request (DNS/TLS handshake excluded from gaming RTT)
-        await probeOnce();
+        try { if (performance.clearResourceTimings) performance.clearResourceTimings(); } catch {}
+        await loadEdgeInfo();
 
-        for (let i = 0; i < 10; i++) {
-          const ms = await probeOnce();
+        // 3 Warmup probes to establish hot HTTP/2 or HTTP/3 connection
+        overlay.textContent = "WARMING UP CONNECTION...";
+        for (let w = 0; w < 3; w++) await probeOnce("w" + w);
+
+        // 16 Real 1-RTT Probes
+        for (let i = 0; i < 16; i++) {
+          const ms = await probeOnce(i);
           samples.push(ms);
-          overlay.textContent = `PROBE ${i + 1}/10 • ${ms} ms`;
+          overlay.textContent = ms > 0 ? `PING ${i + 1}/16 • ${ms} ms` : `PING ${i + 1}/16 • TIMEOUT`;
           drawWave();
 
-          const avg = Math.round(samples.reduce((a, b) => a + b, 0) / samples.length);
-          const min = Math.min(...samples);
-          let jit = 0;
-          if (samples.length > 1) {
-            let diffs = 0;
-            for (let j = 1; j < samples.length; j++) diffs += Math.abs(samples[j] - samples[j - 1]);
-            jit = Math.round(diffs / (samples.length - 1));
-          }
-
-          avgEl.textContent = avg + " ms";
-          jitEl.textContent = jit + " ms";
-          minEl.textContent = min + " ms";
-          await new Promise((r) => setTimeout(r, 140));
+          const st = calcStats(samples);
+          pingEl.textContent = st.median > 0 ? st.median + " ms" : "ERR";
+          jitEl.textContent = st.median > 0 ? st.jitter + " ms" : "--";
+          minEl.textContent = st.min > 0 ? st.min + " ms" : "--";
+          await new Promise((r) => setTimeout(r, 85));
         }
 
-        const finalAvg = Math.round(samples.reduce((a, b) => a + b, 0) / samples.length);
-        const finalJit = parseInt(jitEl.textContent, 10) || 0;
-
-        if (finalAvg <= 85 && finalJit <= 18) {
+        const st = calcStats(samples);
+        const lossTxt = st.lossPct > 0 ? ` (${st.lossPct}% Loss)` : " • 0% Loss";
+        if (st.median > 0 && st.median <= 100 && st.jitter <= 20 && st.lossPct === 0) {
           gradeEl.className = "radar-metric-v good";
-          gradeEl.textContent = currentLang === "fa" ? "عالی (رقابتی)" : "EXCELLENT";
-        } else if (finalAvg <= 155 && finalJit <= 35) {
+          gradeEl.textContent = (currentLang === "fa" ? "عالی (رقابتی)" : "EXCELLENT") + lossTxt;
+        } else if (st.median > 0 && st.median <= 155 && st.jitter <= 35 && st.lossPct <= 6) {
+          gradeEl.className = "radar-metric-v good";
+          gradeEl.textContent = (currentLang === "fa" ? "خوب و پایدار" : "GOOD") + lossTxt;
+        } else if (st.median > 0 && st.median <= 230) {
           gradeEl.className = "radar-metric-v warn";
-          gradeEl.textContent = currentLang === "fa" ? "نیاز به بهینه‌سازی" : "NEEDS TUNING";
+          gradeEl.textContent = (currentLang === "fa" ? "متوسط" : "MODERATE") + lossTxt;
         } else {
           gradeEl.className = "radar-metric-v bad";
-          gradeEl.textContent = currentLang === "fa" ? "پینگ و نوسان بالا" : "HIGH LATENCY";
+          gradeEl.textContent = (currentLang === "fa" ? "ناپایدار" : "UNSTABLE") + lossTxt;
         }
 
-        overlay.textContent = `COMPLETE • AVG ${finalAvg}ms / JITTER ${finalJit}ms`;
-        haptic([15, 40, 15]);
-        runBtn.disabled = false;
-        btnText.textContent = I18N[currentLang].radar_start;
-        running = false;
-      });
+        if (includeSpeed) {
+          const dl = await runDownloadTest();
+          downEl.textContent = dl !== null ? dl.toFixed(1) + " Mbps" : (currentLang === "fa" ? "عدم دسترسی" : "Blocked");
 
+          const ul = await runUploadTest(dl);
+          upEl.textContent = ul !== null ? ul.toFixed(1) + " Mbps" : (currentLang === "fa" ? "عدم دسترسی" : "Blocked");
+        }
+
+        overlay.textContent = `DONE • ${st.median}ms PING / ${st.jitter}ms JITTER`;
+        haptic([15, 40, 15]);
+        btnFull.disabled = false;
+        btnPing.disabled = false;
+        fullTxt.textContent = I18N[currentLang].st_full;
+        pingTxt.textContent = I18N[currentLang].st_ping_only;
+        running = false;
+      }
+
+      btnFull.addEventListener("click", () => runBenchmark(true));
+      btnPing.addEventListener("click", () => runBenchmark(false));
       window.addEventListener("resize", drawWave, { passive: true });
       drawWave();
+      loadEdgeInfo();
     })();
 
     /* ===== 4. Tactical Routing Cyber Map ===== */
@@ -2522,26 +2294,22 @@
     (() => {
       const REGIONS = {
         uae: {
-          path: "M515 185 Q525 225 538 242",
-          nodeId: "node-uae",
+          path: "M515 185 Q525 225 538 242", nodeId: "node-uae",
           fa: ["PUBG • CODM • Free Fire", "Hybrid + UDP Frag", "کمترین فاصله و پینگ"],
           en: ["PUBG • CODM • Free Fire", "Hybrid + UDP Frag", "Shortest Middle East Hop"]
         },
         tr: {
-          path: "M515 185 Q435 135 352 152",
-          nodeId: "node-tr",
+          path: "M515 185 Q435 135 352 152", nodeId: "node-tr",
           fa: ["Valorant • CS2 • PUBG", "Hybrid + TCP Fast Open", "توازن پینگ و پایداری"],
           en: ["Valorant • CS2 • PUBG", "Hybrid + TCP Fast Open", "Balanced Ping & Stability"]
         },
         de: {
-          path: "M515 185 Q370 92 225 112",
-          nodeId: "node-de",
+          path: "M515 185 Q370 92 225 112", nodeId: "node-de",
           fa: ["eFootball • Apex • Warzone", "Hybrid + Custom MTU", "مسیر مستقیم سرورهای اروپا"],
           en: ["eFootball • Apex • Warzone", "Hybrid + Custom MTU", "Direct Central EU Backbone"]
         },
         nl: {
-          path: "M515 185 Q340 60 158 92",
-          nodeId: "node-nl",
+          path: "M515 185 Q340 60 158 92", nodeId: "node-nl",
           fa: ["EA FC • Clash • Mobile Legends", "Hybrid + Parallel DNS", "پایداری حداکثری و بدون قطعی"],
           en: ["EA FC • Clash • Mobile Legends", "Hybrid + Parallel DNS", "Maximum Zero-Drop Stability"]
         }
@@ -2556,7 +2324,6 @@
         activeRegion = key;
         const r = REGIONS[key];
         laser.setAttribute("d", r.path);
-
         document.querySelectorAll(".region-btn").forEach((b) => b.classList.toggle("active", b.dataset.region === key));
         Object.keys(REGIONS).forEach((k) => {
           const g = document.getElementById(REGIONS[k].nodeId);
@@ -2566,11 +2333,8 @@
           const last = dots[dots.length - 1];
           if (last) last.setAttribute("fill", k === key ? "var(--neon)" : "#94A3B8");
         });
-
         const vals = r[currentLang];
-        v1.textContent = vals[0];
-        v2.textContent = vals[1];
-        v3.textContent = vals[2];
+        v1.textContent = vals[0]; v2.textContent = vals[1]; v3.textContent = vals[2];
       }
 
       document.querySelectorAll(".region-btn").forEach((b) => {
@@ -2581,7 +2345,7 @@
       selectRegion("uae");
     })();
 
-    /* ===== 5. Pro Settings Builder (Cyber HUD Configurator) ===== */
+    /* ===== 5. Pro Settings Builder ===== */
     let selIsp = "irancell";
     let selGame = "pubg";
     (() => {
@@ -2597,8 +2361,6 @@
         const mtu = selIsp === "mci" ? "1380" : (selIsp === "irancell" ? "1420" : (selIsp === "wifi" ? "1480" : "1400"));
         const udpFrag = isUDPHeavy || selIsp === "mci";
         const tlsFrag = selIsp === "mci" || selIsp === "rightel";
-        const quicBlock = true;
-        const ipv4Only = true;
 
         if (currentLang === "en") {
           return {
@@ -2606,8 +2368,8 @@
               { k: "Connection Core", v: "Hybrid (Auto)", state: "on" },
               { k: "Tunnel MTU", v: mtu, state: "on" },
               { k: "UDP Fragmentation", v: udpFrag ? "ENABLED" : "OPTIONAL", state: udpFrag ? "on" : "off" },
-              { k: "Block QUIC (UDP/443)", v: quicBlock ? "ENABLED" : "OFF", state: "on" },
-              { k: "IPv4 Only & Parallel DNS", v: ipv4Only ? "ENABLED" : "OFF", state: "on" },
+              { k: "Block QUIC (UDP/443)", v: "ENABLED", state: "on" },
+              { k: "IPv4 Only & Parallel DNS", v: "ENABLED", state: "on" },
               { k: isPC ? "LAN Proxy (SOCKS5)" : "TLS Fragmentation", v: isPC ? "PORT 10808 (ON)" : (tlsFrag ? "ENABLED" : "OFF"), state: (isPC || tlsFrag) ? "on" : "off" }
             ],
             tip: isPC
@@ -2623,8 +2385,8 @@
             { k: "هسته اتصال", v: "ترکیبی (خودکار)", state: "on" },
             { k: "مقدار MTU تونل", v: mtu, state: "on" },
             { k: "تکه‌تکه‌سازی UDP", v: udpFrag ? "روشن (توصیه‌شده)" : "اختیاری", state: udpFrag ? "on" : "off" },
-            { k: "مسدود کردن QUIC", v: quicBlock ? "روشن" : "خاموش", state: "on" },
-            { k: "فقط IPv4 + پرس‌وجوی موازی", v: ipv4Only ? "روشن" : "خاموش", state: "on" },
+            { k: "مسدود کردن QUIC", v: "روشن", state: "on" },
+            { k: "فقط IPv4 + پرس‌وجوی موازی", v: "روشن", state: "on" },
             { k: isPC ? "اشتراک شبکه محلی (SOCKS5)" : "تکه‌تکه‌سازی TLS", v: isPC ? "روشن (پورت 10808)" : (tlsFrag ? "روشن" : "خاموش"), state: (isPC || tlsFrag) ? "on" : "off" }
           ],
           tip: isPC
@@ -2648,8 +2410,7 @@
 
       document.querySelectorAll("#isp-pills .cfg-pill").forEach((b) => {
         b.addEventListener("click", () => {
-          haptic(12);
-          selIsp = b.dataset.isp;
+          haptic(12); selIsp = b.dataset.isp;
           document.querySelectorAll("#isp-pills .cfg-pill").forEach((x) => x.classList.toggle("active", x === b));
           renderPreset();
         });
@@ -2657,8 +2418,7 @@
 
       document.querySelectorAll("#game-pills .cfg-pill").forEach((b) => {
         b.addEventListener("click", () => {
-          haptic(12);
-          selGame = b.dataset.game;
+          haptic(12); selGame = b.dataset.game;
           document.querySelectorAll("#game-pills .cfg-pill").forEach((x) => x.classList.toggle("active", x === b));
           renderPreset();
         });
