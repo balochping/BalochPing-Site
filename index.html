@@ -577,7 +577,7 @@
     .feature-card h3 { font-size: 0.98rem; font-weight: 900; }
     .feature-card p { font-size: 0.83rem; color: var(--muted); }
 
-    /* VIP Plans */
+    /* VIP Plans (Price-Free) */
     .plans-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -620,23 +620,18 @@
       white-space: nowrap;
     }
 
-    .plan-badge.discount {
+    .plan-badge.alt {
       background: rgba(0, 229, 255, 0.12);
       color: var(--cyan);
       border: 1px solid rgba(0, 229, 255, 0.42);
     }
 
     .plan-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .plan-title { font-size: 1.2rem; font-weight: 900; }
-    .plan-price { font-size: 1.05rem; font-weight: 900; color: var(--cyan); white-space: nowrap; }
+    .plan-title { font-size: 1.25rem; font-weight: 900; }
     .plan-sub { font-size: 0.83rem; color: #AEBFD9; }
 
     .plan-perks { display: flex; flex-direction: column; gap: 7px; font-size: 0.8rem; color: #D2E2FA; }
@@ -1003,7 +998,7 @@
       tick();
     })();
 
-    /* Dynamic API Integration (Latest Release + vip.json) */
+    /* Dynamic API Integration (Latest Release + vip.json without prices) */
     const FALLBACK_SUPPORT = "https://t.me/DNS_GAMINGX";
     const FALLBACK_VIP = {
       hero_title: "اشتراک اختصاصی گیمینگ",
@@ -1011,9 +1006,9 @@
       support_url: FALLBACK_SUPPORT,
       footer_note: "تحویل آنی از طریق پشتیبانی • تضمین کیفیت و پایداری سرورها",
       plans: [
-        { title: "۵ گیگابایت", subtitle: "مناسب تست و استفاده روزمره", price: "۵۰ هزار تومان" },
-        { title: "۱۰ گیگابایت", subtitle: "مناسب گیمرهای حرفه‌ای", price: "۱۰۰ هزار تومان", badge: "پرطرفدار", is_popular: true },
-        { title: "۲۰ گیگابایت", subtitle: "حجم بالا با قیمت اقتصادی", price: "۱۹۰ هزار تومان", badge: "۱۰ هزار تومان تخفیف", is_discount_badge: true }
+        { title: "۵ گیگابایت", subtitle: "مناسب تست و استفاده روزمره" },
+        { title: "۱۰ گیگابایت", subtitle: "مناسب گیمرهای حرفه‌ای", badge: "پرطرفدار", is_popular: true },
+        { title: "۲۰ گیگابایت", subtitle: "حجم بالا و ویژه گیمرهای پرمصرف", badge: "حجم بالا" }
       ]
     };
 
@@ -1050,7 +1045,7 @@
     function buildBuyUrl(baseUrl, plan) {
       const target = isSafeUrl(baseUrl) ? baseUrl.trim() : FALLBACK_SUPPORT;
       if (!target.toLowerCase().includes("t.me/") || target.toLowerCase().includes("text=")) return target;
-      const msg = `سلام، قصد خرید بسته ${plan.title} (${plan.price}) بلوچ پینگ رو دارم.`;
+      const msg = `سلام، قصد خرید بسته ${plan.title} بلوچ پینگ رو دارم.`;
       return target + (target.includes("?") ? "&" : "?") + "text=" + encodeURIComponent(msg);
     }
 
@@ -1068,18 +1063,18 @@
       const grid = document.getElementById("plans-grid");
       grid.innerHTML = cfg.plans.map((p, idx) => {
         const isPop = !!p.is_popular;
-        const isDisc = p.is_discount_badge !== undefined ? !!p.is_discount_badge : (!!p.badge && !isPop);
+        const safeBadge = (p.badge && !/(تومان|تومن|ریال|هزار|تخفیف|\$)/.test(p.badge)) ? p.badge : "";
+        const isAlt = !!safeBadge && !isPop;
         const buyHref = buildBuyUrl(p.buy_url || support, p);
         const tierName = isPop ? "PRO TIER" : `TIER 0${idx + 1}`;
         return `
           <div class="g-card plan-card ${isPop ? "popular" : ""}">
             <div class="plan-top">
               <span class="plan-tier">${tierName}</span>
-              ${p.badge ? `<span class="plan-badge ${isDisc ? "discount" : ""}">${esc(p.badge)}</span>` : ""}
+              ${safeBadge ? `<span class="plan-badge ${isAlt ? "alt" : ""}">${esc(safeBadge)}</span>` : ""}
             </div>
             <div class="plan-head">
               <div class="plan-title">${esc(p.title)}</div>
-              <div class="plan-price">${esc(p.price)}</div>
             </div>
             ${p.subtitle ? `<div class="plan-sub">${esc(p.subtitle)}</div>` : ""}
             <div class="plan-perks">
