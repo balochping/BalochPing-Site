@@ -83,8 +83,8 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(5, 8, 17, 0.80);
+      z-index: 60;
+      background: rgba(5, 8, 17, 0.84);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
@@ -147,21 +147,6 @@
       gap: 10px;
     }
 
-    .ver-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--cyan);
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.24);
-      padding: 4px 11px;
-      border-radius: 999px;
-      direction: ltr;
-      white-space: nowrap;
-    }
-
     .nav-cta {
       display: none;
       align-items: center;
@@ -177,6 +162,153 @@
     }
 
     .nav-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+    /* Three-Dot Quick Menu Panel */
+    .menu-wrap {
+      position: relative;
+    }
+
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.86);
+      border: 1px solid rgba(56, 189, 248, 0.26);
+      color: #E2E8F0;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-btn:hover,
+    .menu-btn[aria-expanded="true"] {
+      border-color: var(--cyan);
+      background: rgba(22, 119, 255, 0.18);
+      color: var(--neon);
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
+    }
+
+    .menu-btn:active {
+      transform: scale(0.94);
+    }
+
+    .menu-panel {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 242px;
+      background: rgba(9, 14, 27, 0.97);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(56, 189, 248, 0.26);
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px) scale(0.97);
+      transform-origin: top left;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      z-index: 80;
+    }
+
+    .menu-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .menu-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 8px 10px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-head-title {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .menu-ver {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--cyan);
+      background: rgba(56, 189, 248, 0.10);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 2px 8px;
+      border-radius: 999px;
+      direction: ltr;
+      white-space: nowrap;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 11px;
+      border-radius: 11px;
+      color: #E2E8F0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .menu-link svg {
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .menu-link:hover,
+    .menu-link:active {
+      background: rgba(22, 119, 255, 0.16);
+      color: #fff;
+    }
+
+    .menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 7px 6px;
+    }
+
+    .menu-support {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(22, 119, 255, 0.22), rgba(0, 229, 255, 0.14));
+      border: 1px solid rgba(56, 189, 248, 0.34);
+      color: #F8FAFC;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 800;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .menu-support svg {
+      color: var(--neon);
+      flex-shrink: 0;
+    }
+
+    .menu-support:hover {
+      background: linear-gradient(135deg, rgba(22, 119, 255, 0.34), rgba(0, 229, 255, 0.20));
+      border-color: var(--neon);
+    }
 
     /* Hero + Animated Connecting Engine */
     .hero {
@@ -490,6 +622,7 @@
       padding: 22px 20px;
       text-align: right;
       border-color: rgba(22, 119, 255, 0.28);
+      scroll-margin-top: 84px;
     }
 
     .release-panel::before {
@@ -622,7 +755,10 @@
     }
 
     /* Section Header */
-    section { padding: 46px 0; }
+    section {
+      padding: 46px 0;
+      scroll-margin-top: 72px;
+    }
 
     .sec-head {
       text-align: center;
@@ -1107,8 +1243,81 @@
       </nav>
 
       <div class="nav-right">
-        <span id="top-version" class="ver-badge">Official</span>
         <a id="nav-download-cta" href="#download" class="nav-cta">دانلود نسخه اندروید</a>
+
+        <div class="menu-wrap">
+          <button id="menu-btn" class="menu-btn" type="button" aria-label="باز کردن منو" aria-expanded="false" aria-controls="nav-menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <circle cx="12" cy="5" r="2"/>
+              <circle cx="12" cy="12" r="2"/>
+              <circle cx="12" cy="19" r="2"/>
+            </svg>
+          </button>
+
+          <div id="nav-menu" class="menu-panel" role="menu">
+            <div class="menu-head">
+              <span class="menu-head-title">دسترسی سریع</span>
+              <span id="menu-version" class="menu-ver">Official</span>
+            </div>
+
+            <div class="menu-list">
+              <a class="menu-link" href="#download" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span>دانلود آخرین نسخه</span>
+              </a>
+
+              <a class="menu-link" href="#compare" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"/>
+                  <line x1="12" y1="20" x2="12" y2="4"/>
+                  <line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+                <span>مقایسه شبکه</span>
+              </a>
+
+              <a class="menu-link" href="#games" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="6" width="20" height="12" rx="4"/>
+                  <line x1="6" y1="12" x2="10" y2="12"/>
+                  <line x1="8" y1="10" x2="8" y2="14"/>
+                  <circle cx="15" cy="13" r="1"/>
+                  <circle cx="17.5" cy="11" r="1"/>
+                </svg>
+                <span>بازی‌های پشتیبانی‌شده</span>
+              </a>
+
+              <a class="menu-link" href="#features" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                <span>امکانات تخصصی</span>
+              </a>
+
+              <a class="menu-link" href="#faq" role="menuitem">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span>سوالات متداول</span>
+              </a>
+            </div>
+
+            <div class="menu-divider"></div>
+
+            <a id="menu-support" class="menu-support" href="https://t.me/BalochpingSuport" target="_blank" rel="noopener" role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 2L11 13"/>
+                <path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+              </svg>
+              <span>پشتیبانی تلگرام</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -1447,7 +1656,7 @@
         <div class="faq-list">
           <details class="faq-item">
             <summary>
-              <span>کدام فایل نصبی را دانلود کنم؛ arm64 یا armeabi-v7a؟</span>
+              <span>کدام فایل نصبی را دانلود کنم؛ <span class="ltr">arm64</span> یا <span class="ltr">armeabi-v7a</span>؟</span>
               <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
             <div class="faq-body">
@@ -1513,6 +1722,36 @@
   </footer>
 
   <script>
+    /* 0. Three-Dot Quick Menu Panel Toggle */
+    (() => {
+      const btn = document.getElementById("menu-btn");
+      const panel = document.getElementById("nav-menu");
+
+      function setOpen(state) {
+        panel.classList.toggle("open", state);
+        btn.setAttribute("aria-expanded", state ? "true" : "false");
+      }
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setOpen(!panel.classList.contains("open"));
+      });
+
+      panel.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => setOpen(false));
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!panel.contains(e.target) && !btn.contains(e.target)) {
+          setOpen(false);
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+    })();
+
     /* 1. Interactive Live Connecting Engine Animation */
     (() => {
       const stage = document.getElementById("engine-stage");
@@ -1553,7 +1792,7 @@
       applyStep(0);
     })();
 
-    /* 2. Dual-Row Smooth Scrolling Game Cards (100% Guaranteed Visuals — Zero Broken Icons) */
+    /* 2. Dual-Row Smooth Scrolling Game Cards */
     (() => {
       const EMBLEMS = {
         valorant: `<svg viewBox="0 0 64 64" fill="none"><rect width="64" height="64" fill="#180A10"/><path d="M12 18v14.5L27.5 51H39L12 18z" fill="#FF4655"/><path d="M52 18v14.5L42.5 44H31L52 18z" fill="#FF4655"/></svg>`,
@@ -1568,7 +1807,7 @@
 
         fc: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="fcBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#064E3B"/><stop offset="1" stop-color="#071217"/></linearGradient></defs><rect width="64" height="64" fill="url(#fcBg)"/><polygon points="10,16 54,16 32,53" fill="#0B1F19" stroke="#22C55E" stroke-width="2.5" stroke-linejoin="round"/><path d="M22 24h12v3.8h-7.5v3h6.2v3.6h-6.2V40H22V24zm20.5 0c2.7 0 4.6 1.2 5.4 3.2l-3.6 1.6c-.4-.9-1.1-1.3-2-1.3-1.6 0-2.6 1.2-2.6 3.5s1 3.5 2.6 3.5c1 0 1.7-.5 2.1-1.4l3.5 1.6c-.9 2.1-2.8 3.3-5.5 3.3-4.3 0-7.2-2.9-7.2-7s2.9-7 7.3-7z" fill="#FFFFFF"/></svg>`,
 
-        cs2: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="csBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#D97706"/><stop offset="1" stop-color="#1E293B"/></linearGradient></defs><rect width="64" height="64" fill="url(#csBg)"/><path d="M13 21h38v22H13z" fill="#0F172A" fill-opacity="0.72" rx="6"/><text x="32" y="39" text-anchor="middle" fill="#FDE047" font-family="system-ui,sans-serif" font-weight="900" font-size="22">CS2</text></svg>`
+        cs2: `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="csBg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop stop-color="#D97706"/><stop offset="1" stop-color="#1E293B"/></linearGradient></defs><rect width="64" height="64" fill="url(#csBg)"/><rect x="13" y="21" width="38" height="22" rx="6" fill="#0F172A" fill-opacity="0.72"/><text x="32" y="39" text-anchor="middle" fill="#FDE047" font-family="system-ui,sans-serif" font-weight="900" font-size="22">CS2</text></svg>`
       };
 
       const ROW_1 = [
@@ -1662,7 +1901,8 @@
       const best = pickBestAsset(latest.assets);
       const verText = latest.tag || latest.name;
 
-      document.getElementById("top-version").textContent = verText;
+      const menuVer = document.getElementById("menu-version");
+      if (menuVer) menuVer.textContent = verText;
       document.getElementById("card-ver").textContent = verText;
       document.getElementById("card-size").textContent = best ? fmtSize(best.size) : "—";
       document.getElementById("card-date").textContent = fmtDate(latest.published_at);
@@ -1706,6 +1946,7 @@
           ? data.vip.support_url
           : FALLBACK_SUPPORT;
         document.getElementById("hero-support-link").href = support;
+        document.getElementById("menu-support").href = support;
         document.getElementById("footer-support").href = support;
         renderLatestRelease(data.releases);
       } catch {
