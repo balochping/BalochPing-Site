@@ -547,7 +547,7 @@
     /* Features */
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 14px;
     }
 
@@ -570,6 +570,49 @@
 
     .feature-card h3 { font-size: 0.98rem; font-weight: 900; }
     .feature-card p { font-size: 0.83rem; color: var(--muted); }
+
+    /* Pro Engine Technical Specs Panel */
+    .specs-panel {
+      margin-top: 18px;
+      padding: 20px 18px;
+      text-align: center;
+    }
+
+    .specs-title {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #D7EBFF;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .specs-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      direction: ltr;
+    }
+
+    .spec-chip {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #CDE6FF;
+      background: rgba(4, 9, 22, 0.82);
+      border: 1px solid rgba(0, 229, 255, 0.24);
+      padding: 6px 12px;
+      border-radius: 10px;
+      white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .spec-chip:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
 
     /* Footer */
     footer {
@@ -707,9 +750,9 @@
 
     <section id="features">
       <div class="section-head">
-        <span class="section-kicker">GAMING PERFORMANCE</span>
-        <h2>چرا <span class="ltr-inline">Baloch Ping</span>؟</h2>
-        <p>ساخته‌شده اختصاصی برای رقابت بدون تاخیر در فایت‌های حساس</p>
+        <span class="section-kicker">PRO GAMING ENGINE</span>
+        <h2>ویژگی‌های کلیدی <span class="ltr-inline">Baloch Ping</span></h2>
+        <p>امکانات تخصصی شبکه برای کمترین پینگ، حذف پکت‌لاس و کنترل کامل اتصال</p>
       </div>
 
       <div class="features-grid">
@@ -720,9 +763,9 @@
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
               </svg>
             </div>
-            <h3>پینگ واقعی و پایدار</h3>
+            <h3>هسته ترکیبی و بهینه‌سازی پکت</h3>
           </div>
-          <p>تست مستقیم از هسته برنامه بدون فشار اضافه روی اینترنت حین بازی و بدون آمار نمایشی.</p>
+          <p>انتخاب خودکار بهترین هسته بر اساس پروتکل همراه با تکه‌تکه‌سازی UDP و TLS، قابلیت Multiplex، Multipath TCP و تنظیم MTU برای رجیستر دقیق‌تر تیر.</p>
         </div>
 
         <div class="g-card feature-card">
@@ -737,9 +780,50 @@
                 <line x1="19" y1="12" x2="22" y2="12"/>
               </svg>
             </div>
-            <h3>انتخاب هوشمند سرور</h3>
+            <h3>تست پینگ واقعی و انتخاب خودکار</h3>
           </div>
-          <p>پیدا کردن و اتصال خودکار به کم‌پینگ‌ترین سرور تنها با یک کلیک از طریق Auto Select.</p>
+          <p>بررسی همزمان سرورها با انتخاب بهترین پینگ، حذف خودکار سرورهای خراب و جابه‌جایی هوشمند به کم‌پینگ‌ترین مسیر بر اساس آستانه تاخیر دلخواه شما.</p>
+        </div>
+
+        <div class="g-card feature-card">
+          <div class="feature-head">
+            <div class="feature-icon">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"/>
+                <polyline points="1 20 1 14 7 14"/>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+              </svg>
+            </div>
+            <h3>اتصال پایدار حین تعویض شبکه</h3>
+          </div>
+          <p>بازسازی سریع و خودکار اتصال هنگام جابه‌جایی بین وای‌فای و اینترنت همراه، اتصال خودکار پس از روشن شدن گوشی و نمایش لحظه‌ای سرعت در اعلان.</p>
+        </div>
+
+        <div class="g-card feature-card">
+          <div class="feature-head">
+            <div class="feature-icon">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+              </svg>
+            </div>
+            <h3>مسیریابی ایران، DNS و حذف تبلیغات</h3>
+          </div>
+          <p>تفکیک خودکار سایت‌ها و سرویس‌های داخلی ایران، مسدودسازی تبلیغات مزاحم و موتور DNS اختصاصی با استراتژی IPv4، پرس‌وجوی موازی و بازنویسی Hosts.</p>
+        </div>
+
+        <div class="g-card feature-card">
+          <div class="feature-head">
+            <div class="feature-icon">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <h3>اشتراک‌گذاری در شبکه محلی</h3>
+          </div>
+          <p>امکان اشتراک‌گذاری اتصال بهینه‌شده گوشی روی کامپیوتر، لپ‌تاپ یا گوشی دوم از طریق پورت‌های اختصاصی SOCKS5 و HTTP با احراز هویت امن.</p>
         </div>
 
         <div class="g-card feature-card">
@@ -751,22 +835,32 @@
                 <polyline points="2 12 12 17 22 12"/>
               </svg>
             </div>
-            <h3>تم‌های رنگی پویا</h3>
+            <h3>شخصی‌سازی کامل و آپدیت خودکار</h3>
           </div>
-          <p>رابط کاربری گیمینگ با امکان تغییر رنگ کامل محیط برنامه مطابق سلیقه شما.</p>
+          <p>محیط تمام‌فارسی با تغییر مدل دکمه اتصال، چیدمان فشرده سرورها، آیکون تیره و روشن، به‌روزرسانی خودکار برنامه و اشتراک‌ها در پس‌زمینه.</p>
         </div>
+      </div>
 
-        <div class="g-card feature-card">
-          <div class="feature-head">
-            <div class="feature-icon">
-              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <polyline points="9 12 11 14 15 10"/>
-              </svg>
-            </div>
-            <h3>اتصال ایمن و پشتیبانی مستقیم</h3>
-          </div>
-          <p>سرورهای پایدار با آپدیت خودکار و پشتیبانی مستقیم تیم بلوچ پینگ در تلگرام.</p>
+      <div class="g-card specs-panel">
+        <div class="specs-title">
+          <span class="dot-live"></span>
+          <span>امکانات تخصصی زیرساخت و شبکه</span>
+        </div>
+        <div class="specs-chips">
+          <span class="spec-chip">Hybrid Core</span>
+          <span class="spec-chip">UDP Fragment</span>
+          <span class="spec-chip">TLS Fragment</span>
+          <span class="spec-chip">Multipath TCP</span>
+          <span class="spec-chip">TCP Fast Open</span>
+          <span class="spec-chip">Multiplex (MUX)</span>
+          <span class="spec-chip">Custom MTU</span>
+          <span class="spec-chip">Block QUIC</span>
+          <span class="spec-chip">DoH &amp; IPv4 Only</span>
+          <span class="spec-chip">Parallel DNS</span>
+          <span class="spec-chip">Iran Geo-Routing</span>
+          <span class="spec-chip">Ad-Block Rules</span>
+          <span class="spec-chip">SOCKS5 / HTTP LAN</span>
+          <span class="spec-chip">Auto Reconnect</span>
         </div>
       </div>
     </section>
